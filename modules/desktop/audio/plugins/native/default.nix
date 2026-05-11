@@ -2,26 +2,23 @@
   mrtnvgr-lib = inputs.mrtnvgr.lib { inherit pkgs; };
 
   plugins = with pkgs; [
+    neural-amp-modeler-lv2
     dragonfly-reverb
+    airwin2rack
     # soundthread # TODO: waiting for package
     surge-xt-vst3
     vital # vitalium-vst3
     # decent-sampler # TODO: broken
     cardinal
-    # chow-kick
-    # geonkick
     # odin2
     # shortcircuit-xt # TODO: useless for now :( too "beta"
-    # anina
     # lsp-plugins-vst3
-    airwin2rack
     # TAL-plugins-vst2
-    # neural-amp-modeler-lv2
     # fire
     # wolf-shaper
     # luftikus-vst2
     # LUFSMeter-vst2
-    # auburn-sounds-inner-pitch
+    auburn-sounds-inner-pitch
     # wildergarden-maim
     # reevr
     # filtr
@@ -30,6 +27,7 @@
     # qdelay
     # cstop
     # hamburger
+    # drumlabooh
   ];
 
   cfg = config.modules.desktop.audio.plugins.native;
