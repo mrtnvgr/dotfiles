@@ -26,19 +26,8 @@ in {
       { mode = "n"; key = "d"; action = "\"_d"; }
       { mode = "n"; key = "D"; action = "\"_D"; }
 
-      # Word counters
-      {
-        mode = "n"; key = "<leader>wc";
-        action.__raw = ''function() print("Total words: " .. vim.fn.wordcount().words) end'';
-      }
-      {
-        mode = "v"; key = "<leader>wc";
-        action.__raw = ''function() print("Words in visual selection: " .. vim.fn.wordcount().visual_words) end'';
-      }
-
-      # Increment/Decrement numbers
-      { mode = "n"; key = "<leader>+"; action = "<C-a>"; }
-      { mode = "n"; key = "<leader>-"; action = "<C-x>"; }
+      # Duplicate line and comment original
+      { mode = "n"; key = "yc"; action = "yy<CMD>normal gcc<CR>p"; }
     ];
   };
 }
