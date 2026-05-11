@@ -5,7 +5,6 @@
   colors = with palette; [
     red
     green
-    yellow
     blue
     purple
     pink

@@ -18,6 +18,8 @@ in {
     };
 
     # Dark menus
+    # TODO: use a script that will generate this on theme switch
+    #       add it to global startup scripts too
     home.file.".config/REAPER/libSwell-user.colortheme".source = ./libSwell-user.colortheme;
   };
 }
