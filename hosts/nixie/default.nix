@@ -4,7 +4,6 @@
     ../thlix
 
     ./secrets/reaper.nix
-    ./secrets/u-he.nix
   ];
 
   modules.desktop = {
