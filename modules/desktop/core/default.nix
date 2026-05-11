@@ -17,5 +17,7 @@
 
     ./rices
     ./guiServers
+
+    ./boot
   ];
 }

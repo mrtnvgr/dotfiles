@@ -11,6 +11,8 @@
   ];
 
   modules.desktop = {
+    boot.silent = true;
+
     dev.enable = true;
 
     # TODO: delete?
