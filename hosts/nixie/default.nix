@@ -3,8 +3,6 @@
     # Personal base (base with secrets)
     ../thlix
 
-    ./m8sort.nix
-
     ./secrets/reaper.nix
     ./secrets/u-he.nix
   ];
