@@ -7,12 +7,7 @@ in {
       # https://github.com/hyprwm/Hyprland/issues/2278
       windowrule = no_focus on, match:class REAPER, match:title ^$
 
-      # Hide update popups
-      windowrule = workspace 5 silent, match:class ^REAPER$, match:title ^About.+
-
-      # Improve actions window styling
-      windowrule = tag +popup, match:class ^REAPER$, match:title ^Actions$
-      windowrule = tag +popup, match:class ^REAPER$, match:title ^Add FX to.+$
+      windowrule = float on, match:class ^REAPER$, match:title ^Add FX to.+$
     '';
   };
 }
