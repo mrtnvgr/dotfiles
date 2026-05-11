@@ -6,7 +6,6 @@
     ./m8sort.nix
 
     ./secrets/reaper.nix
-    ./secrets/celeste.nix
     ./secrets/u-he.nix
   ];
 
