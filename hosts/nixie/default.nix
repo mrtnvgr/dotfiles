@@ -15,10 +15,7 @@
 
     dev.enable = true;
 
-    # TODO: delete?
-    dev.flutter.enable = false;
-
-    games.xonotic.enable = true;
+    dev.platformio.enable = true;
 
     audio = {
       rt.enable = true;
