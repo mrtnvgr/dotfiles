@@ -21,7 +21,7 @@
 
       daws.reaper.enable = true;
 
-      daws.renoise.enable = true;
+      daws.sunvox.enable = true;
       # Remove this line to use a demo version.
       daws.renoise.releasePath = /home/${user}/.local/share/rns351.tar.gz;
     };
