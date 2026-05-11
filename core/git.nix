@@ -8,7 +8,6 @@
         user.email = "martynovegorOF@yandex.ru";
 
         pull.rebase = true;
-        init.defaultBranch = "master";
       };
 
       signing = {
