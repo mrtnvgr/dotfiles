@@ -13,5 +13,6 @@ in {
     ./hyprland
     ./waybar
     ./foot
+    ./rofi
   ];
 }
