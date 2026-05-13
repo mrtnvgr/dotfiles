@@ -2,13 +2,14 @@
   desktopCfg = config.modules.desktop;
   cfg = desktopCfg.audio.daws.sunvox;
 
-  # Zooming with touchpad works only on OpenGL version
-  # TODO: remove the override on update, nightradio responded <3
-  sunvox = pkgs.sunvox.overrideAttrs (_: {
-    postInstall = ''
-      cp $out/bin/sunvox_opengl $out/bin/sunvox
-    '';
-  });
+  # TODO: use sunvox, not sunvox_opengl (after an update)
+  # TODO: replace direct hyprctl calls with environment agnostic wrappers
+  # (for other "rices" here)
+  sunvox = pkgs.writeShellScriptBin "sunvox" ''
+    hyprctl keyword input:repeat_delay 150
+    ${pkgs.sunvox}/bin/sunvox_opengl "$@"
+    hyprctl keyword input:repeat_delay 600
+  '';
 in {
   options.modules.desktop.audio.daws.sunvox = {
     enable = lib.mkEnableOption "SunVox";
@@ -17,9 +18,8 @@ in {
   config = lib.mkIf cfg.enable {
     _internals.isAnyDawInstalled = true;
 
-    environment.systemPackages = [ sunvox ];
-
     home-manager.users.${user} = { lib, ... }: {
+      home.packages = [ sunvox ];
       home.activation.sunvox = lib.hm.dag.entryAfter ["writeBoundary"] ''
         cp ${./sunvox_config.ini} $HOME/.config/SunVox/sunvox_config.ini
       '';
