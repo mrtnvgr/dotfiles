@@ -14,5 +14,6 @@
     ./todo.nix
     ./colorizer.nix
     ./arrow.nix
+    ./langmapper.nix
   ];
 }
