@@ -23,8 +23,6 @@ in {
   imports = [
     ./signs.nix
 
-    ./servers/rust.nix
     ./servers/nix.nix
-    ./servers/python.nix
   ];
 }
