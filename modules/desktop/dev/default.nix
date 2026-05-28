@@ -21,5 +21,6 @@ in {
     ./rust.nix
     ./python.nix
     ./platformio.nix
+    ./c.nix
   ];
 }
