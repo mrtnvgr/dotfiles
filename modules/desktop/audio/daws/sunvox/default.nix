@@ -18,8 +18,9 @@ in {
   config = lib.mkIf cfg.enable {
     _internals.isAnyDawInstalled = true;
 
+    environment.systemPackages = [ sunvox ];
+
     home-manager.users.${user} = { lib, ... }: {
-      home.packages = [ sunvox ];
       home.activation.sunvox = lib.hm.dag.entryAfter ["writeBoundary"] ''
         cp ${./sunvox_config.ini} $HOME/.config/SunVox/sunvox_config.ini
       '';
