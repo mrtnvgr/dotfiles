@@ -9,11 +9,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1780412744,
-        "narHash": "sha256-EMPN9jWEl2jJNA5tj3QxSIC7jVA/ZOmQu/I4hs1lViI=",
+        "lastModified": 1781362143,
+        "narHash": "sha256-9OtJ8Q3TAVIsw/I8w6jJyB1c2d2bW6u7GRtvF7FbmmY=",
         "owner": "bandithedoge",
         "repo": "nur-packages",
-        "rev": "3839b9b4609fb4ee784fe3754eaeb9c902733152",
+        "rev": "827460c4e79c20962bb901a0baf6252e6c7d1483",
         "type": "github"
       },
       "original": {
@@ -420,11 +420,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780408569,
-        "narHash": "sha256-s7Tv6FUQThRAvW8En8XVC6HMb0uiikzVccCcCo9u/Bg=",
+        "lastModified": 1781365335,
+        "narHash": "sha256-zqDBhXMzfbdlO7F2bGHe7MOtB3xngd/+4ieMHDC+ZXo=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "f384af1bec6423a0d4ba1855917ab948f64e5808",
+        "rev": "5b6f5733726a1b2ccafb5dec6ac4ca7299fad66c",
         "type": "github"
       },
       "original": {
@@ -590,11 +590,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1780462023,
-        "narHash": "sha256-SaAKJJ0RQzc8mVJ45VwzPtTCyclNZpvmhb+csMpSgGQ=",
+        "lastModified": 1781411167,
+        "narHash": "sha256-GLf7zW8Oe+vMP2nNajKUShYkW0FsZ2nMkSsihX2cR6o=",
         "owner": "fufexan",
         "repo": "nix-gaming",
-        "rev": "b6b4b649b365269202da0d67b44b0e85f0c8fb5a",
+        "rev": "0c680d0426cf04641f718d083bd352e20bc3e0dc",
         "type": "github"
       },
       "original": {
@@ -768,11 +768,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1780336545,
-        "narHash": "sha256-vhVhuXzFrIOfcssC/9hDHx7MHzDKjF3keHuREOQqQiQ=",
+        "lastModified": 1781268102,
+        "narHash": "sha256-Zn5KTggEmUB3lXn/ccERNcBdddE6IaOFber9dWViWDg=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "4df1b885d76a54e1aa1a318f8d16fd6005b6401f",
+        "rev": "49a4bd0573c376468dd7996ddb6f9fa31d8c4d97",
         "type": "github"
       },
       "original": {
@@ -800,11 +800,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1780030872,
-        "narHash": "sha256-u6WU/yd/o8iYQrHX3RAwO1hYa3LkoSL+WNQD0rJfJZQ=",
+        "lastModified": 1781328464,
+        "narHash": "sha256-j9uBlHI0eJ9zWU9IlF6SlBBPdeJu30hcvar31IRKHpw=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e9a7635a57597d9754eccebdfc7045e6c8600e6b",
+        "rev": "5a722a7155bfc9fbe657f28d26b71860d95324bc",
         "type": "github"
       },
       "original": {
@@ -816,11 +816,11 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1777899091,
-        "narHash": "sha256-xv11HrZPs9+okDm5kXJZayI4bBCwCMpT0hFrHzaxQ8s=",
+        "lastModified": 1781416332,
+        "narHash": "sha256-nsuMUQ1uswGDnwwn47LSoXyxNgygC5X53l0y5SqEPAI=",
         "owner": "mrtnvgr",
         "repo": "nixpkgs-fork",
-        "rev": "712fc5153876964d9c838b1931346e4b3f907b4d",
+        "rev": "513ab6bbb359e68ef2cf6392b8066fbb3987d2ff",
         "type": "github"
       },
       "original": {
@@ -869,11 +869,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1780421606,
-        "narHash": "sha256-ZRAMRXQE1UKBtpnPwwOqV8teaPDD/fdABvUXMjcyhow=",
+        "lastModified": 1781388258,
+        "narHash": "sha256-Kx1zxra9sZ215H3OiWUfkulu8N2v3iu19wqlzpD/Ac0=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "b7521616f15ad73c6bec458d64ed7f06f4095edb",
+        "rev": "e3c908fdf6dff268b04ffb6758bcfc7c018489b9",
         "type": "github"
       },
       "original": {
@@ -934,11 +934,11 @@
     "reascripts": {
       "flake": false,
       "locked": {
-        "lastModified": 1779472908,
-        "narHash": "sha256-sxpOOXwHb5tOdq7MbwmgYX0AbALutegV63Ci32H1rAw=",
+        "lastModified": 1781268064,
+        "narHash": "sha256-sOHcFBrBzUZPmXAE569/EM5XNqddssqZoOsmVk7AUok=",
         "owner": "ReaTeam",
         "repo": "ReaScripts",
-        "rev": "438270fb69ce3c8e4b2c68bf5743d3d43a4cec7d",
+        "rev": "a5962b07af18dc4e906c5bbbce78836fa9ff49f8",
         "type": "github"
       },
       "original": {
