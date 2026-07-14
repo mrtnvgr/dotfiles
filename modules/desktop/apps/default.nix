@@ -3,5 +3,6 @@
     ./neovim
     ./firefox
     ./openutau
+    ./calibre
   ];
 }
