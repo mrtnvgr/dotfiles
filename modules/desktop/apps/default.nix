@@ -1,7 +1,7 @@
 { ... }: {
   imports = [
     ./neovim
-    ./firefox
+    ./browser
     ./openutau
     ./calibre
   ];

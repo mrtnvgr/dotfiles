@@ -28,8 +28,6 @@
       inputs.mrtnvgr.follows = "mrtnvgr";
     };
 
-    schizofox.url = "github:schizofox/schizofox";
-
     nix-gaming.url = "github:fufexan/nix-gaming";
 
     # === REAPER scripts and JSFX ===

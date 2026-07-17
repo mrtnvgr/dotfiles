@@ -9,24 +9,28 @@ in {
 
   config = lib.mkIf (theme.rice == "hyprpop") {
     home-manager.users.${user} = { config, ... }: {
+      home.sessionVariables.BROWSER = "firefox";
       wayland.windowManager.hyprland = {
         enable = true;
 
+        # home.stateVersion <= 26.05
+        configType = "lua";
+
         settings = with palette; {
-          general = {
+          config.general = {
             "col.active_border" = "rgb(${blue})";
             "col.inactive_border" = "rgb(${gray2})";
           };
 
-          misc."background_color" = "rgb(${background})";
+          config.misc."background_color" = "rgb(${background})";
 
-          envd = with builtins; attrValues (mapAttrs
-            (name: value: "${name}, ${toString value}")
+          env = with builtins; attrValues (mapAttrs
+            (name: value: { _args = [ name (toString value) ]; })
             config.home.sessionVariables
           );
         };
 
-        extraConfig = lib.fileContents ./hyprland.conf;
+        extraConfig = lib.fileContents ./hyprland.lua;
       };
 
       xdg.portal = {
