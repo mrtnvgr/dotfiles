@@ -1,18 +1,11 @@
-{ pkgs, lib, config, user, ... }: let
-  inherit (lib) mkIf;
+{ lib, config, user, ... }: let
   theme = config.modules.desktop.theme;
 in {
-  config = mkIf (theme.rice == "hyprpop") {
-    home-manager.users.${user} = {
-      wayland.windowManager.hyprland.extraConfig = /* lua */ ''
-        hl.on("hyprland.start", function()
-            hl.exec_cmd("${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1 &")
-        end)
-      '';
-    };
-
-    # TODO: migrate to hyprpolkit
-
+  config = lib.mkIf (theme.rice == "hyprpop") {
     security.polkit.enable = true;
+
+    home-manager.users.${user} = {
+      services.hyprpolkitagent.enable = true;
+    };
   };
 }
