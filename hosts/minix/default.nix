@@ -21,7 +21,6 @@
 
     apps = {
       neovim.enable = true;
-      browser.enable = true;
     };
 
     dev = {

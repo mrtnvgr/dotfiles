@@ -9,7 +9,6 @@ in {
 
   config = lib.mkIf (theme.rice == "hyprpop") {
     home-manager.users.${user} = { config, ... }: {
-      home.sessionVariables.BROWSER = "firefox";
       wayland.windowManager.hyprland = {
         enable = true;
 

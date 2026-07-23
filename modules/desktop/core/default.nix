@@ -1,5 +1,7 @@
 { ... }: {
   imports = [
+    ./boot
+
     ./graphics.nix
     ./sound.nix
     ./multimedia.nix
@@ -18,6 +20,6 @@
     ./rices
     ./guiServers
 
-    ./boot
+    ./browser
   ];
 }

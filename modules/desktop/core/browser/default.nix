@@ -1,10 +1,10 @@
 { lib, config, user, ... }: let
-  cfg = config.modules.desktop.apps.browser;
+  cfg = config.modules.desktop;
 in {
-  options.modules.desktop.apps.browser.enable = lib.mkEnableOption "browser";
-
   config = lib.mkIf cfg.enable {
     home-manager.users.${user} = { config, ... }: {
+      home.sessionVariables.BROWSER = "firefox";
+
       programs.firefox = {
         enable = true;
 
