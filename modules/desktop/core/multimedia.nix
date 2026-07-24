@@ -6,7 +6,7 @@
 
   slurp = "${pkgs.slurp}/bin/slurp";
 
-  screenshot-select = pkgs.writeScriptBin "screenshot-select" '' ${grimmy} -g "$(${slurp})" '';
+  screenshot-select = pkgs.writeScriptBin "screenshot-select" ''${grimmy} -g "$(${slurp})"'';
   screenshot-full = pkgs.writeScriptBin "screenshot-full" grimmy;
 
   cfg = config.modules.desktop;
