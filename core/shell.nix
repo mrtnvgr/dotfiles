@@ -23,6 +23,8 @@ in {
         # Better defaults
         rsync = "rsync -zvhP";
         rsync-mirror-fat = "rsync -r --update --delete --size-only";
+
+        v = "$EDITOR";
       };
     };
 
