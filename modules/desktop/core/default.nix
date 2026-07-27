@@ -13,12 +13,12 @@
     ./wallpaper.nix
     ./kvm.nix
     ./xdg.nix
-    ./colors.nix
     ./cursors.nix
     ./torsocks.nix
 
-    ./rices
+    ./colorscheme.nix
     ./guiServers
+    ./rices
 
     ./browser
   ];
