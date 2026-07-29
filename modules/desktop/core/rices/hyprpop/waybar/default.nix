@@ -107,7 +107,7 @@ let
     }
 
     #backlight {
-      color: #${palette.teal};
+      color: #${palette.yellow};
     }
 
     #battery {
