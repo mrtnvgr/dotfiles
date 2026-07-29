@@ -62,11 +62,10 @@ hl.config({
 })
 
 hl.curve("b1", { type = "bezier", points = { { 0.05, 0.85 }, { 0.03, 0.97 } } })
-hl.curve("b3", { type = "bezier", points = { { 1, 1 }, { 1, 1 } } })
 hl.curve("b4", { type = "bezier", points = { { 0.05, 0.80 }, { 0.10, 0.97 } } })
 hl.curve("b6", { type = "bezier", points = { { 0.20, 0 }, { 0.82, 0.10 } } })
-hl.animation({ leaf = "border", enabled = true, speed = 1.6, bezier = "b3", })
-hl.animation({ leaf = "borderangle", enabled = true, speed = 82, bezier = "b3", style = "loop", })
+hl.animation({ leaf = "border", enabled = false, })
+hl.animation({ leaf = "borderangle", enabled = false, })
 hl.animation({ leaf = "windowsIn", enabled = true, speed = 3.2, bezier = "b1", style = "slide", })
 hl.animation({ leaf = "windowsOut", enabled = false, })
 hl.animation({ leaf = "windowsMove", enabled = true, speed = 3.0, bezier = "b1", style = "slide", })
@@ -87,10 +86,12 @@ hl.config({
 hl.config({
     misc = {
         disable_hyprland_logo = true,
-        disable_autoreload = true,
+        disable_splash_rendering = true,
 
         enable_swallow = true,
         swallow_regex = "^(foot)$",
+
+        disable_autoreload = true,
     },
 })
 

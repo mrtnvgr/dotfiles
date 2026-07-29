@@ -1,8 +1,8 @@
 { pkgs, lib, config, user, ... }: let
-  inherit (lib) mkIf;
   theme = config.modules.desktop.theme;
+  haveWallpaper = !(isNull theme.wallpaper);
 in {
-  config = mkIf (theme.rice == "hyprpop") {
+  config = lib.mkIf (theme.rice == "hyprpop" && haveWallpaper) {
     home-manager.users.${user} = {
       wayland.windowManager.hyprland.extraConfig = /* lua */ ''
         hl.on("hyprland.start", function()

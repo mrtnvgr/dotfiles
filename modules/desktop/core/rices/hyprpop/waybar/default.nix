@@ -30,6 +30,10 @@ let
       margin: 8px 10px 0;
     }
 
+    #workspaces {
+      margin-left: 8px;
+    }
+
     #workspaces button {
       border: 2px solid transparent;
       padding: 2px 3px;
@@ -77,13 +81,6 @@ let
 
     tooltip label {
       color: #${palette.text};
-    }
-
-    #custom-flake {
-      font-size: 18px;
-      padding-left: 10px;
-      padding-right: 6px;
-      color: #${palette.blue};
     }
 
     #battery,
@@ -139,14 +136,9 @@ let
   settings = [{
     layer = "top";
 
-    modules-left = [ "custom/flake" "hyprland/workspaces" ];
+    modules-left = [ "hyprland/workspaces" ];
     modules-center = [ ];
     modules-right = [ "tray" "wireplumber" "backlight" "battery" "clock" ];
-
-    "custom/flake" = {
-      format = " ";
-      tooltip = false;
-    };
 
     "hyprland/workspaces" = {
       persistent-workspaces."*" = 4;

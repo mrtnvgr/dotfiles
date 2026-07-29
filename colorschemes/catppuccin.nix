@@ -2,27 +2,27 @@
   slug = "catppuccin";
 
   palette = {
-    background = "#24273a";
-    void = "#181926";
+    background = "#1e1e2e";
+    void = "#11111b";
 
-    gray = "#363a4f";
-    gray2 = "#494d64";
-    gray3 = "#5b6078";
-    gray4 = "#6e738d";
-    gray5 = "#8087a2";
-    gray6 = "#939ab7";
-    gray7 = "#a5adcb";
-    gray8 = "#b8c0e0";
+    gray = "#313244";
+    gray2 = "#45475a";
+    gray3 = "#585b70";
+    gray4 = "#6c7086";
+    gray5 = "#7f849c";
+    gray6 = "#9399b2";
+    gray7 = "#a6adc8";
+    gray8 = "#bac2de";
 
-    text = "#cad3f5";
+    text = "#cdd6f4";
 
-    red = "#ed8796";
-    green = "#a6da95";
-    yellow = "#eed49f";
-    blue = "#8aadf4";
-    purple = "#c6a0f6";
-    pink = "#f5bde6";
-    teal = "#8bd5ca";
-    orange = "#f5a97f";
+    red = "#f38ba8";
+    green = "#a6e3a1";
+    yellow = "#f9e2af";
+    blue = "#89b4fa";
+    purple = "#cba6f7";
+    pink = "#f5c2e7";
+    teal = "#94e2d5";
+    orange = "#fab387";
   };
 }
