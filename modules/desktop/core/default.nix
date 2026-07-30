@@ -15,6 +15,7 @@
     ./xdg.nix
     ./cursors.nix
     ./torsocks.nix
+    ./delta.nix
 
     ./colorscheme.nix
     ./guiServers
