@@ -47,7 +47,8 @@ in {
     programs.nixvim.extraConfigLuaPost = /* lua */ ''
       vim.loop.new_signal():start(vim.loop.constants.SIGUSR1, function()
         vim.schedule(function()
-          dofile("/home/${user}/.config/nvim/lua/oxidec.lua")
+          package.loaded["oxidec"] = nil
+          require("oxidec")
           vim.cmd.colorscheme("catppuccin")
         end)
       end)

@@ -31,7 +31,7 @@ This repository contains declarative configurations of my machines.
 - Create your host (look in `flake.nix` and `hosts` for examples)
   - Copy `/mnt/etc/nixos/hardware-configuration.nix` to `hardware.nix`
 - Install: `nixos-install --root /mnt --flake .#<YOUR-HOST-NAME>`
-- Move this repo to installed system: `mv .systems /mnt/home/<your-username>/`
+- Move this repo to installed system: `mv .systems /mnt/etc/nixos`
 - Reboot: `reboot`
 
 ### Portable environment
