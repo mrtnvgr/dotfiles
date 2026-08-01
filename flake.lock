@@ -564,11 +564,11 @@
     },
     "oxidec": {
       "locked": {
-        "lastModified": 1785491414,
-        "narHash": "sha256-fLrwQzu+0LO+DsaOaq2eosfFhN+nIs2KazAnFJcdEM4=",
+        "lastModified": 1785614631,
+        "narHash": "sha256-bs1XCGCNR+/N7H2mh9lATU+SlA87ZikuCNMINvhaSyw=",
         "owner": "mrtnvgr",
         "repo": "oxidec",
-        "rev": "a59ce8ef2e839dc465dd97157bc0cd41104f992e",
+        "rev": "4206c73aa726b77b9530df547bba79460bd2aae1",
         "type": "github"
       },
       "original": {

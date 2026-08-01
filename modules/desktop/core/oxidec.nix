@@ -8,6 +8,7 @@ in {
 
     oxidec.default.colorscheme = "c3";
 
+    # catppuccin mocha
     oxidec.colorschemes.c3 = rec {
       background = "#1e1e2e";
       shadow = "#181825";
@@ -36,7 +37,8 @@ in {
       accent = blue;
     };
 
-    oxidec.colorschemes.gruvbox = rec {
+    # gruvbox
+    oxidec.colorschemes.gruv = rec {
       background = "#282828";
       shadow = "#1d2021";
       void = "#1d2021";
@@ -61,7 +63,65 @@ in {
       teal = "#89b482";
       orange = "#e78a4e";
 
-      accent = gray8;
+      accent = gray5;
+    };
+
+    # rose-pine
+    oxidec.colorschemes.rose = rec {
+	    background = "#191724";
+      shadow = background;
+      void = background;
+
+      gray = "#21202e";
+      gray2 = "#403d52";
+      gray3 = "#524f67";
+      gray4 = "#6e6a86";
+      gray5 = gray4;
+      gray6 = "#908caa";
+      gray7 = gray6;
+      gray8 = gray6;
+
+      text = "#e0def4";
+
+      red = "#eb6f92";
+      green = "#31748f";
+      yellow = "#f6c177";
+      blue = purple;
+      purple = "#c4a7e7";
+      pink = purple;
+      teal = "#9ccfd8";
+      orange = yellow;
+
+      accent = purple;
+    };
+
+    # everforest
+    oxidec.colorschemes.forest = rec {
+      background = "#272e33";
+      shadow = "#1e2326";
+      void = shadow;
+
+      gray = "#374145";
+      gray2 = "#414b50";
+      gray3 = "#495156";
+      gray4 = gray3;
+      gray5 = "#7a8478";
+      gray6 = "#859289";
+      gray7 = "#9da9a0";
+      gray8 = gray7;
+
+      text = "#d3c6aa";
+
+      red = "#e67e80";
+      green = "#a7c080";
+      yellow = "#dbbc7f";
+      blue = "#7fbbb3";
+      purple = pink;
+      pink = "#d699b6";
+      teal = "#83c092";
+      orange = "#e69875";
+
+      accent = green;
     };
 
     oxidec.templates."colors.sh".text = ''

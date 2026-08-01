@@ -4,10 +4,11 @@
   cfg = config.modules.desktop.apps.neovim;
 in {
   home-manager.users.${user} = lib.mkIf cfg.enable {
-    # TODO: skip if catppuccin
     oxidec.files.".config/nvim/lua/oxidec.lua".text = /* tera */ ''
       require("catppuccin").setup({
           color_overrides = {
+              -- skip if catppuccin for more color shades
+              {% if not name | is: "c3" %}
               all = {
                   base = "{{ background }}",
                   blue = "{{ blue }}",
@@ -36,6 +37,7 @@ in {
                   text = "{{ text }}",
                   yellow = "{{ yellow }}",
               },
+              {% endif %}
           },
       })
     '';
