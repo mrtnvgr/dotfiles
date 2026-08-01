@@ -17,7 +17,7 @@
     ./torsocks.nix
     ./delta.nix
 
-    ./colorscheme.nix
+    ./oxidec.nix
     ./guiServers
     ./rices
 

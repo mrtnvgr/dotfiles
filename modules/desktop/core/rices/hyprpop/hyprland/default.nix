@@ -1,6 +1,5 @@
 { pkgs, lib, config, user, ... }: let
   theme = config.modules.desktop.theme;
-  inherit (theme.colorscheme) palette;
 in {
   imports = [
     ./polkit.nix
@@ -15,14 +14,7 @@ in {
         # home.stateVersion <= 26.05
         configType = "lua";
 
-        settings = with palette; {
-          config.general = {
-            "col.active_border" = "rgb(${blue})";
-            "col.inactive_border" = "rgb(${gray2})";
-          };
-
-          config.misc."background_color" = "rgb(${background})";
-
+        settings = {
           env = with builtins; attrValues (mapAttrs
             (name: value: { _args = [ name (toString value) ]; })
             config.home.sessionVariables
@@ -38,6 +30,23 @@ in {
       };
 
       home.pointerCursor.hyprcursor.enable = true;
+
+      oxidec.files.".config/hypr/hyprland-colors.lua".text = /* tera */ ''
+        hl.config({
+            ["general"] = {
+                ["col.active_border"] = "rgb({{ accent | strip }})",
+                ["col.inactive_border"] = "rgb({{ gray2 | strip }})"
+            },
+            ["misc"] = {
+                ["background_color"] = "rgb({{ background | strip }})"
+            }
+        })
+      '';
+
+      oxidec.reloaders."hyprland.sh".text = /* sh */ ''
+        #!/bin/sh
+        hyprctl reload >/dev/null
+      '';
     };
   };
 }

@@ -49,33 +49,12 @@ hl.config({
     decoration = {
         rounding = 0,
 
-        blur = {
-            enabled = true,
-            new_optimizations = true,
-            ignore_opacity = true,
-        },
-
-        shadow = {
-            enabled = false,
-        },
+        blur = { enabled = false, },
+        shadow = { enabled = false, },
     },
 })
 
-hl.curve("b1", { type = "bezier", points = { { 0.05, 0.85 }, { 0.03, 0.97 } } })
-hl.curve("b4", { type = "bezier", points = { { 0.05, 0.80 }, { 0.10, 0.97 } } })
-hl.curve("b6", { type = "bezier", points = { { 0.20, 0 }, { 0.82, 0.10 } } })
-hl.animation({ leaf = "border", enabled = false, })
-hl.animation({ leaf = "borderangle", enabled = false, })
-hl.animation({ leaf = "windowsIn", enabled = true, speed = 3.2, bezier = "b1", style = "slide", })
-hl.animation({ leaf = "windowsOut", enabled = false, })
-hl.animation({ leaf = "windowsMove", enabled = true, speed = 3.0, bezier = "b1", style = "slide", })
-hl.animation({ leaf = "fade", enabled = true, speed = 1.8, bezier = "b4", })
-hl.animation({ leaf = "layersIn", enabled = true, speed = 1.8, bezier = "b4", style = "slide", })
-hl.animation({ leaf = "layersOut", enabled = true, speed = 1.5, bezier = "b6", })
-hl.animation({ leaf = "fadeLayersIn", enabled = true, speed = 1.6, bezier = "b4", })
-hl.animation({ leaf = "fadeLayersOut", enabled = true, speed = 1.8, bezier = "b6", })
-hl.animation({ leaf = "workspaces", enabled = true, speed = 4.0, bezier = "b4", style = "slide", })
-hl.config({ animations = { enabled = true, }, })
+hl.config({ animations = { enabled = false, }, })
 
 hl.config({
     dwindle = {
@@ -90,10 +69,10 @@ hl.config({
 
         enable_swallow = true,
         swallow_regex = "^(foot)$",
-
-        disable_autoreload = true,
     },
 })
+
+pcall(require, "hyprland-colors")
 
 hl.config({
     ecosystem = {

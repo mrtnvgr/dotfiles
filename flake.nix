@@ -15,8 +15,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Useful module for color management
-    nix-colors.url = "github:Misterio77/nix-colors";
+    # Colors! Yay!
+    oxidec.url = "github:mrtnvgr/oxidec";
 
     # Nix-friendly neovim
     nixvim.url = "github:nix-community/nixvim";
@@ -66,8 +66,6 @@
 
   outputs = { nixpkgs, ... } @ inputs:
     let
-      colorschemes = import ./colorschemes;
-
       mkSystem = user: hostname:
         nixpkgs.lib.nixosSystem {
           modules = [
@@ -79,7 +77,7 @@
             ./hosts/${hostname}
           ];
 
-          specialArgs = { inherit inputs colorschemes user hostname; };
+          specialArgs = { inherit inputs user hostname; };
         };
     in
     {

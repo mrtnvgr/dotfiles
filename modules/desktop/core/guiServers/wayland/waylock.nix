@@ -1,14 +1,13 @@
 { lib, config, pkgs, ... }: let
-  inherit (config.modules.desktop.theme.colorscheme) palette;
-
-  lock = pkgs.writeScriptBin "lock" (with palette; ''
+  lock = pkgs.writeScriptBin "lock" ''
+    source ~/.cache/oxidec/templates/colors.sh
     ${pkgs.waylock}/bin/waylock          \
-      -init-color      "0x${void}"       \
-      -input-color     "0x${background}" \
-      -input-alt-color "0x${background}" \
-      -fail-color      "0x${background}" \
+      -init-color      "0x''${OXI_VOID}"  \
+      -input-color     "0x''${OXI_BG}"    \
+      -input-alt-color "0x''${OXI_BG}"    \
+      -fail-color      "0x''${OXI_BG}"    \
       "$@"
-  '');
+  '';
 in {
   config = lib.mkIf (config._internals.guiServer == "wayland") {
     environment.systemPackages = [ lock ];

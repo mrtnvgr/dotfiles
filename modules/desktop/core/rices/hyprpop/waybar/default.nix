@@ -1,12 +1,9 @@
-{ inputs, lib, config, user, ... }:
-let
-  inherit (config.modules.desktop.theme.colorscheme) palette;
-  inherit (lib) mkIf;
-
-  rgb_background = inputs.nix-colors.lib.conversions.hexToRGBString ", " palette.background;
+{ pkgs, lib, config, user, ... }: let
   theme = config.modules.desktop.theme;
 
-  style = /* css */ ''
+  # TODO: enable systemd integration, remove manual launch in hyprland
+
+  style = ''
     * {
       border: none;
       border-radius: 0;
@@ -21,12 +18,12 @@ let
     }
 
     window>box, tooltip {
-      background-color: rgba(${rgb_background}, ${toString theme.opacity});
+      background-color: {{ background | set_alpha: ${toString theme.opacity} | rgba }}
     }
 
     window>box {
-      color: #${palette.text};
-      border: 2px solid #${palette.blue};
+      color: {{ text }};
+      border: 2px solid {{ accent }};
       margin: 8px 10px 0;
     }
 
@@ -38,49 +35,46 @@ let
       border: 2px solid transparent;
       padding: 2px 3px;
       margin: 4px 2px;
-
-      /* match to hyprland animations */
-      transition: all 600ms cubic-bezier(0, 0.75, 0.15, 1.0);
     }
 
     #workspaces button:nth-child(1) {
-      color: #${palette.red};
+      color: {{ red }};
     }
     #workspaces button.active:nth-child(1) {
-      border-color: #${palette.red};
+      border-color: {{ red }};
     }
 
     #workspaces button:nth-child(2) {
-      color: #${palette.teal};
+      color: {{ teal }};
     }
     #workspaces button.active:nth-child(2) {
-      border-color: #${palette.teal};
+      border-color: {{ teal }};
     }
 
     #workspaces button:nth-child(3) {
-      color: #${palette.blue};
+      color: {{ blue }};
     }
     #workspaces button.active:nth-child(3) {
-      border-color: #${palette.blue};
+      border-color: {{ blue }};
     }
 
     #workspaces button:nth-child(4) {
-      color: #${palette.purple}
+      color: {{ purple }};
     }
     #workspaces button.active:nth-child(4) {
-      border-color: #${palette.purple}
+      border-color: {{ purple }};
     }
 
     #workspaces button.empty {
-      color: #${palette.text};
+      color: {{ text }};
     }
 
     tooltip {
-      border: 2px solid #${palette.blue}
+      border: 2px solid {{ blue }};
     }
 
     tooltip label {
-      color: #${palette.text};
+      color: {{ text }};
     }
 
     #battery,
@@ -96,30 +90,29 @@ let
       padding-right: 8px;
 
       font-weight: bold;
-      transition: all ease-in 200ms;
     }
 
     #wireplumber {
-      color: #${palette.red};
+      color: {{ red }};
     }
     #wireplumber.muted {
-      color: #${palette.text};
+      color: {{ text }};
     }
 
     #backlight {
-      color: #${palette.yellow};
+      color: {{ yellow }};
     }
 
     #battery {
-      color: #${palette.blue};
+      color: {{ blue }};
     }
 
     #clock {
-      color: #${palette.purple};
+      color: {{ purple }};
     }
 
     @keyframes blink_red {
-      to { background-color: #${palette.red}; }
+      to { background-color: {{ red }}; }
     }
 
     .discharging.warning,
@@ -179,12 +172,15 @@ let
     };
   }];
 in {
-  config = mkIf (theme.rice == "hyprpop") {
+  config = lib.mkIf (theme.rice == "hyprpop") {
     home-manager.users.${user} = {
       programs.waybar = {
         enable = true;
-        inherit style settings;
+        inherit settings;
       };
+
+      oxidec.files.".config/waybar/style.css".text = style;
+      oxidec.reloaders."waybar.sh".text = "${pkgs.procps}/bin/pkill -u $USER -USR2 waybar || true";
     };
   };
 }

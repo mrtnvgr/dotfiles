@@ -1,31 +1,30 @@
 { lib, config, user, pkgs, ... }: let
   theme = config.modules.desktop.theme;
-  inherit (theme.colorscheme) palette;
 in {
   home-manager.users.${user} = lib.mkIf (theme.rice == "hyprpop") {
     home.packages = [ pkgs.rofi ];
 
-    home.file.".config/rofi/colors.rasi".text = /* css */ ''
+    oxidec.files.".config/rofi/colors.rasi".text = /* css */ ''
       * {
-        pink: #${palette.pink};
-        mauve: #${palette.purple};
-        red: #${palette.red};
-        peach: #${palette.orange};
-        yellow: #${palette.yellow};
-        green: #${palette.green};
-        teal: #${palette.teal};
-        blue: #${palette.blue};
-        text: #${palette.text};
-        subtext1: #${palette.gray8};
-        subtext0: #${palette.gray7};
-        overlay2: #${palette.gray6};
-        overlay1: #${palette.gray5};
-        overlay0: #${palette.gray4};
-        surface2: #${palette.gray3};
-        surface1: #${palette.gray2};
-        surface0: #${palette.gray};
-        base: #${palette.background};
-        crust: #${palette.void};
+        pink: {{ pink }};
+        mauve: {{ purple }};
+        red: {{ red }};
+        peach: {{ orange }};
+        yellow: {{ yellow }};
+        green: {{ green }};
+        teal: {{ teal }};
+        blue: {{ blue }};
+        text: {{ text }};
+        subtext1: {{ gray8 }};
+        subtext0: {{ gray7 }};
+        overlay2: {{ gray6 }};
+        overlay1: {{ gray5 }};
+        overlay0: {{ gray4 }};
+        surface2: {{ gray3 }};
+        surface1: {{ gray2 }};
+        surface0: {{ gray }};
+        base: {{ background }};
+        crust: {{ shadow }};
       }
     '';
 

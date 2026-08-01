@@ -19,22 +19,6 @@
         "type": "github"
       }
     },
-    "base16-schemes": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1696158499,
-        "narHash": "sha256-5yIHgDTPjoX/3oDEfLSQ0eJZdFL1SaCfb9d6M0RmOTM=",
-        "owner": "tinted-theming",
-        "repo": "base16-schemes",
-        "rev": "a9112eaae86d9dd8ee6bb9445b664fba2f94037a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "tinted-theming",
-        "repo": "base16-schemes",
-        "type": "github"
-      }
-    },
     "birdbird": {
       "flake": false,
       "locked": {
@@ -137,7 +121,7 @@
     },
     "flake-parts_3": {
       "inputs": {
-        "nixpkgs-lib": "nixpkgs-lib_4"
+        "nixpkgs-lib": "nixpkgs-lib_3"
       },
       "locked": {
         "lastModified": 1782949081,
@@ -176,7 +160,7 @@
     },
     "flake-parts_5": {
       "inputs": {
-        "nixpkgs-lib": "nixpkgs-lib_5"
+        "nixpkgs-lib": "nixpkgs-lib_4"
       },
       "locked": {
         "lastModified": 1782949081,
@@ -194,7 +178,7 @@
     },
     "flake-parts_6": {
       "inputs": {
-        "nixpkgs-lib": "nixpkgs-lib_6"
+        "nixpkgs-lib": "nixpkgs-lib_5"
       },
       "locked": {
         "lastModified": 1760948891,
@@ -367,25 +351,6 @@
         "type": "github"
       }
     },
-    "nix-colors": {
-      "inputs": {
-        "base16-schemes": "base16-schemes",
-        "nixpkgs-lib": "nixpkgs-lib_3"
-      },
-      "locked": {
-        "lastModified": 1707825078,
-        "narHash": "sha256-hTfge2J2W+42SZ7VHXkf4kjU+qzFqPeC9k66jAUBMHk=",
-        "owner": "Misterio77",
-        "repo": "nix-colors",
-        "rev": "b01f024090d2c4fc3152cd0cf12027a7b8453ba1",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Misterio77",
-        "repo": "nix-colors",
-        "type": "github"
-      }
-    },
     "nix-gaming": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -470,11 +435,11 @@
     },
     "nixpkgs-lib_3": {
       "locked": {
-        "lastModified": 1697935651,
-        "narHash": "sha256-qOfWjQ2JQSQL15KLh6D7xQhx0qgZlYZTYlcEiRuAMMw=",
+        "lastModified": 1782614948,
+        "narHash": "sha256-ePjCwr1sNm9NYUqywL7QfK3JnlS015msC+eBu2zKlp8=",
         "owner": "nix-community",
         "repo": "nixpkgs.lib",
-        "rev": "e1e11fdbb01113d85c7f41cada9d2847660e3902",
+        "rev": "db3f255737b94216eb71cce308e2912cf6bc2d7c",
         "type": "github"
       },
       "original": {
@@ -499,21 +464,6 @@
       }
     },
     "nixpkgs-lib_5": {
-      "locked": {
-        "lastModified": 1782614948,
-        "narHash": "sha256-ePjCwr1sNm9NYUqywL7QfK3JnlS015msC+eBu2zKlp8=",
-        "owner": "nix-community",
-        "repo": "nixpkgs.lib",
-        "rev": "db3f255737b94216eb71cce308e2912cf6bc2d7c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "nixpkgs.lib",
-        "type": "github"
-      }
-    },
-    "nixpkgs-lib_6": {
       "locked": {
         "lastModified": 1754788789,
         "narHash": "sha256-x2rJ+Ovzq0sCMpgfgGaaqgBSwY+LST+WbZ6TytnT9Rk=",
@@ -612,6 +562,21 @@
         "type": "github"
       }
     },
+    "oxidec": {
+      "locked": {
+        "lastModified": 1785491414,
+        "narHash": "sha256-fLrwQzu+0LO+DsaOaq2eosfFhN+nIs2KazAnFJcdEM4=",
+        "owner": "mrtnvgr",
+        "repo": "oxidec",
+        "rev": "a59ce8ef2e839dc465dd97157bc0cd41104f992e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mrtnvgr",
+        "repo": "oxidec",
+        "type": "github"
+      }
+    },
     "reanix": {
       "inputs": {
         "flake-parts": "flake-parts_5",
@@ -665,11 +630,11 @@
         "mrtnvgr": "mrtnvgr",
         "mrtnvgr-actions": "mrtnvgr-actions",
         "mrtnvgr-rea": "mrtnvgr-rea",
-        "nix-colors": "nix-colors",
         "nix-gaming": "nix-gaming",
         "nixpkgs": "nixpkgs_3",
         "nixpkgs-wine": "nixpkgs-wine",
         "nixvim": "nixvim",
+        "oxidec": "oxidec",
         "reanix": "reanix",
         "reascripts": "reascripts",
         "saike-jsfx": "saike-jsfx"

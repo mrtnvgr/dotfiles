@@ -1,45 +1,39 @@
 { lib, config, user, ... }: let
   theme = config.modules.desktop.theme;
-  inherit (theme.colorscheme) palette;
 in {
   home-manager.users.${user} = lib.mkIf (theme.rice == "hyprpop") {
-    programs.foot = {
-      enable = true;
-      settings = {
-        main = {
-          font = "${theme.font.name}:size=13";
-          pad = "10x10";
-          term = "xterm-256color";
-        };
+    programs.foot.enable = true;
 
-        mouse.hide-when-typing = "yes";
+    oxidec.files.".config/foot/foot.ini".text = ''
+      [main]
+      font=${theme.font.name}:size=13
+      pad=10x10
+      term=xterm-256color
 
-        colors-dark.alpha = theme.opacity;
+      [mouse]
+      hide-when-typing=yes
 
-        colors-dark = {
-          background = palette.background;
-          foreground = palette.text;
-          cursor = "${palette.background} ${palette.text}";
-
-          inherit (palette) regular0;
-          inherit (palette) regular1;
-          inherit (palette) regular2;
-          inherit (palette) regular3;
-          inherit (palette) regular4;
-          inherit (palette) regular5;
-          inherit (palette) regular6;
-          inherit (palette) regular7;
-
-          inherit (palette) bright0;
-          inherit (palette) bright1;
-          inherit (palette) bright2;
-          inherit (palette) bright3;
-          inherit (palette) bright4;
-          inherit (palette) bright5;
-          inherit (palette) bright6;
-          inherit (palette) bright7;
-        };
-      };
-    };
+      [colors-dark]
+      alpha=${toString theme.opacity}
+      background={{ background | strip }}
+      foreground={{ text | strip }}
+      cursor={{ background | strip }} {{ text | strip }}
+      regular0={{ background | strip }}
+      regular1={{ red | strip }}
+      regular2={{ green | strip }}
+      regular3={{ yellow | strip }}
+      regular4={{ blue | strip }}
+      regular5={{ purple | strip }}
+      regular6={{ teal | strip }}
+      regular7={{ text | strip }}
+      bright0={{ gray2 | strip }}
+      bright1={{ red | strip }}
+      bright2={{ green | strip }}
+      bright3={{ yellow | strip }}
+      bright4={{ blue | strip }}
+      bright5={{ purple | strip }}
+      bright6={{ teal | strip }}
+      bright7={{ text | strip }}
+    '';
   };
 }

@@ -1,19 +1,21 @@
 { config, user, lib, ... }: let
   cfg = config.modules.desktop.apps.neovim;
-
-  inherit (config.modules.desktop.theme.colorscheme) palette;
-  mkColor = color: { fg = "#${color}"; };
 in {
   home-manager.users.${user}.programs.nixvim = lib.mkIf cfg.enable {
+    # TODO: replace with a smaller plugin
     plugins.todo-comments.enable = true;
 
-    highlightOverride = with palette; {
-      "DiagnosticInfo" = mkColor blue;
-      "DiagnosticHint" = mkColor purple;
-      "DiagnosticWarn" = mkColor yellow;
-      "DiagnosticError" = mkColor red;
+    colorschemes.catppuccin.settings.custom_highlights = /* lua */ ''
+      function(colors)
+        return {
+          DiagnosticInfo = { fg = colors.blue },
+          DiagnosticHint = { fg = colors.purple },
+          DiagnosticWarn = { fg = colors.yellow },
+          DiagnosticError = { fg = colors.red },
 
-      "TODO".link = "DiagnosticInfo";
-    };
+          TODO = { link = "DiagnosticInfo" },
+        }
+      end
+    '';
   };
 }

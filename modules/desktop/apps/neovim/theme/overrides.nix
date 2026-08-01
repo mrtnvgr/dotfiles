@@ -1,45 +1,60 @@
-# Catppuccin has support for almost every color highlight
-# Picked catppuccin? => Using catppuccin, duh! ;p
-# Not? => Using catppuccin and overriding its colors, mapping rare ones to fg
+# Catppuccin has a nice and mature neovim plugin, let's use it as a base
 
 { config, user, lib, ... }: let
   cfg = config.modules.desktop.apps.neovim;
-
-  colorscheme = config.modules.desktop.theme.colorscheme;
-  notCatppuccin = colorscheme.slug != "catppuccin";
-
-  overrideMap = with colorscheme.palette; {
-    rosewater = text;
-    flamingo  = text;
-    pink      = pink;
-    mauve     = purple;
-    red       = red;
-    maroon    = red;
-    peach     = orange;
-    yellow    = yellow;
-    green     = green;
-    teal      = blue;
-    sky       = blue;
-    sapphire  = blue;
-    blue      = blue;
-    lavender  = blue;
-    text      = text;
-    subtext1  = gray8;
-    subtext0  = gray7;
-    overlay2  = gray6;
-    overlay1  = gray5;
-    overlay0  = gray4;
-    surface2  = gray3;
-    surface1  = gray2;
-    surface0  = gray;
-    base      = background;
-    mantle    = void;
-    crust     = void;
-  };
-
-  overrides = builtins.mapAttrs (_: x: "#${x}") overrideMap;
 in {
-  home-manager.users.${user}.programs.nixvim = lib.mkIf (cfg.enable && notCatppuccin) {
-    colorschemes.catppuccin.settings.color_overrides.all = overrides;
+  home-manager.users.${user} = lib.mkIf cfg.enable {
+    # TODO: skip if catppuccin
+    oxidec.files.".config/nvim/lua/oxidec.lua".text = /* tera */ ''
+      require("catppuccin").setup({
+          color_overrides = {
+              all = {
+                  base = "{{ background }}",
+                  blue = "{{ blue }}",
+                  crust = "{{ void }}",
+                  flamingo = "{{ text }}",
+                  green = "{{ green }}",
+                  lavender = "{{ blue }}",
+                  mantle = "{{ shadow }}",
+                  maroon = "{{ red }}",
+                  mauve = "{{ purple }}",
+                  overlay0 = "{{ gray4 }}",
+                  overlay1 = "{{ gray5 }}",
+                  overlay2 = "{{ gray6 }}",
+                  peach = "{{ orange }}",
+                  pink = "{{ pink }}",
+                  red = "{{ red }}",
+                  rosewater = "{{ text }}",
+                  sapphire = "{{ blue }}",
+                  sky = "{{ blue }}",
+                  subtext0 = "{{ gray7 }}",
+                  subtext1 = "{{ gray8 }}",
+                  surface0 = "{{ gray }}",
+                  surface1 = "{{ gray2 }}",
+                  surface2 = "{{ gray3 }}",
+                  teal = "{{ teal }}",
+                  text = "{{ text }}",
+                  yellow = "{{ yellow }}",
+              },
+          },
+      })
+    '';
+
+    programs.nixvim.extraConfigLuaPre = ''
+      pcall(require, "oxidec")
+    '';
+
+    programs.nixvim.extraConfigLuaPost = /* lua */ ''
+      vim.loop.new_signal():start(vim.loop.constants.SIGUSR1, function()
+        vim.schedule(function()
+          dofile("/home/${user}/.config/nvim/lua/oxidec.lua")
+          vim.cmd.colorscheme("catppuccin")
+        end)
+      end)
+
+      vim.schedule(function() vim.cmd.colorscheme("catppuccin") end)
+    '';
+
+    oxidec.reloaders."neovim.sh".text = "pkill -USR1 nvim || true";
   };
 }
