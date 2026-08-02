@@ -14,7 +14,7 @@ in {
       shadow = "#181825";
       void = "#11111b";
 
-      gray = "#313244";
+      gray  = "#313244";
       gray2 = "#45475a";
       gray3 = "#585b70";
       gray4 = "#6c7086";
@@ -25,13 +25,13 @@ in {
 
       text = "#cdd6f4";
 
-      red = "#f38ba8";
-      green = "#a6e3a1";
+      red    = "#f38ba8";
+      green  = "#a6e3a1";
       yellow = "#f9e2af";
-      blue = "#89b4fa";
+      blue   = "#89b4fa";
       purple = "#cba6f7";
-      pink = "#f5c2e7";
-      teal = "#94e2d5";
+      pink   = "#f5c2e7";
+      teal   = "#94e2d5";
       orange = "#fab387";
 
       accent = blue;
@@ -43,7 +43,7 @@ in {
       shadow = "#1d2021";
       void = "#1d2021";
 
-      gray = "#32302f";
+      gray  = "#32302f";
       gray2 = "#3c3836";
       gray3 = "#504945";
       gray4 = "#665c54";
@@ -54,42 +54,42 @@ in {
 
       text = "#ebdbb2";
 
-      red = "#ea6962";
-      green = "#a9b665";
+      red    = "#ea6962";
+      green  = "#a9b665";
       yellow = "#d8a657";
-      blue = "#7daea3";
+      blue   = "#7daea3";
       purple = "#d387ca";
-      pink = "#d3869b";
-      teal = "#89b482";
+      pink   = "#d3869b";
+      teal   = "#89b482";
       orange = "#e78a4e";
 
-      accent = gray5;
+      accent = yellow;
     };
 
     # rose-pine
     oxidec.colorschemes.rose = rec {
-	    background = "#191724";
-      shadow = background;
-      void = background;
+      background = "#191724";
+      shadow = "#14131a";
+      void = "#0f0e14";
 
-      gray = "#21202e";
-      gray2 = "#403d52";
+      gray  = "#21202e";
+      gray2 = "#3b384e";
       gray3 = "#524f67";
       gray4 = "#6e6a86";
-      gray5 = gray4;
+      gray5 = "#7b7793";
       gray6 = "#908caa";
-      gray7 = gray6;
-      gray8 = gray6;
+      gray7 = "#a6a2be";
+      gray8 = "#bfbcd4";
 
       text = "#e0def4";
 
-      red = "#eb6f92";
-      green = "#31748f";
+      red    = "#eb6f92";
+      green  = "#31748f";
       yellow = "#f6c177";
-      blue = purple;
+      blue   = purple;
       purple = "#c4a7e7";
-      pink = purple;
-      teal = "#9ccfd8";
+      pink   = purple;
+      teal   = "#9ccfd8";
       orange = yellow;
 
       accent = purple;
@@ -98,28 +98,57 @@ in {
     # everforest
     oxidec.colorschemes.forest = rec {
       background = "#272e33";
-      shadow = "#1e2326";
-      void = shadow;
+      shadow = "#1b2124";
+      void = "#13181b";
 
-      gray = "#374145";
-      gray2 = "#414b50";
-      gray3 = "#495156";
-      gray4 = gray3;
+      gray  = "#374145";
+      gray2 = "#445056";
+      gray3 = "#515d64";
+      gray4 = "#5e6b73";
       gray5 = "#7a8478";
       gray6 = "#859289";
       gray7 = "#9da9a0";
-      gray8 = gray7;
+      gray8 = "#b6c0b8";
 
       text = "#d3c6aa";
 
-      red = "#e67e80";
-      green = "#a7c080";
+      red    = "#e67e80";
+      green  = "#a7c080";
       yellow = "#dbbc7f";
-      blue = "#7fbbb3";
+      blue   = "#7fbbb3";
       purple = pink;
-      pink = "#d699b6";
-      teal = "#83c092";
+      pink   = "#d699b6";
+      teal   = "#83c092";
       orange = "#e69875";
+
+      accent = green;
+    };
+
+    # everblush
+    oxidec.colorschemes.forest2 = rec {
+      background = "#141b1e";
+      shadow = "#0e1417";
+      void = "#0a1013";
+
+      gray  = "#1b2225";
+      gray2 = "#232a2d";
+      gray3 = "#3b4245";
+      gray4 = "#535a5d";
+      gray5 = "#6b7275";
+      gray6 = "#838a8d";
+      gray7 = "#9ba2a5";
+      gray8 = "#b3b9b8";
+
+      text = "#dadada";
+
+      red    = "#e57474";
+      green  = "#8ccf7e";
+      yellow = "#e5c76b";
+      blue   = "#67b0e8";
+      purple = "#c47fd5";
+      pink   = purple;
+      teal   = "#6cbfbf";
+      orange = yellow;
 
       accent = green;
     };
