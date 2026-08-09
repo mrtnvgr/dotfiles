@@ -38,7 +38,7 @@ in {
                 ["col.inactive_border"] = "rgb({{ gray2 | strip }})"
             },
             ["misc"] = {
-                ["background_color"] = "rgb({{ background | strip }})"
+                ["background_color"] = "rgb({{ void | strip }})"
             }
         })
       '';

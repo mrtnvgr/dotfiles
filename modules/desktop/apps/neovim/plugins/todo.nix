@@ -2,9 +2,6 @@
   cfg = config.modules.desktop.apps.neovim;
 in {
   home-manager.users.${user}.programs.nixvim = lib.mkIf cfg.enable {
-    # TODO: replace with a smaller plugin
-    plugins.todo-comments.enable = true;
-
     colorschemes.catppuccin.settings.custom_highlights = /* lua */ ''
       function(colors)
         return {
@@ -13,7 +10,10 @@ in {
           DiagnosticWarn = { fg = colors.yellow },
           DiagnosticError = { fg = colors.red },
 
-          TODO = { link = "DiagnosticInfo" },
+          ["@comment.todo"] = { link = "DiagnosticInfo" },
+          ["@comment.note"] = { link = "DiagnosticInfo" },
+          ["@comment.error"] = { link = "DiagnosticError" },
+          ["@comment.warning"] = { link = "DiagnosticWarn" },
         }
       end
     '';

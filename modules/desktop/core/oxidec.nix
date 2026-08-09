@@ -97,8 +97,8 @@ in {
 
     # everforest
     oxidec.colorschemes.forest = rec {
-      background = "#272e33";
-      shadow = "#1b2124";
+      background = "#1b2124";
+      shadow = "#13181b";
       void = "#13181b";
 
       gray  = "#374145";
@@ -124,33 +124,32 @@ in {
       accent = green;
     };
 
-    # everblush
-    oxidec.colorschemes.forest2 = rec {
-      background = "#141b1e";
-      shadow = "#0e1417";
-      void = "#0a1013";
+    oxidec.colorschemes.nord = rec {
+      background = "#1e242e";
+      shadow = "#141a24";
+      void = "#141a24";
 
-      gray  = "#1b2225";
-      gray2 = "#232a2d";
-      gray3 = "#3b4245";
-      gray4 = "#535a5d";
-      gray5 = "#6b7275";
-      gray6 = "#838a8d";
-      gray7 = "#9ba2a5";
-      gray8 = "#b3b9b8";
+      gray  = "#3b4252";
+      gray2 = "#4c566a";
+      gray3 = "#5e677c";
+      gray4 = "#727a90";
+      gray5 = "#888fa4";
+      gray6 = "#9ea6b8";
+      gray7 = "#b5bdcc";
+      gray8 = "#c8cedb";
 
-      text = "#dadada";
+      text = "#d8dee9";
 
-      red    = "#e57474";
-      green  = "#8ccf7e";
-      yellow = "#e5c76b";
-      blue   = "#67b0e8";
-      purple = "#c47fd5";
-      pink   = purple;
-      teal   = "#6cbfbf";
-      orange = yellow;
+      red    = "#bf616a";
+      green  = "#a3be8c";
+      yellow = "#ebcb8b";
+      blue   = "#81a1c1";
+      purple = "#b48ead";
+      pink   = "#b48ead";
+      teal   = "#88c0d0";
+      orange = "#ebcb8b";
 
-      accent = green;
+      accent = blue;
     };
 
     oxidec.templates."colors.sh".text = ''
