@@ -18,7 +18,7 @@
     # wolf-shaper
     # luftikus-vst2
     # LUFSMeter-vst2
-    auburn-sounds-inner-pitch
+    # auburn-sounds-inner-pitch
     # wildergarden-maim
     # reevr
     # filtr

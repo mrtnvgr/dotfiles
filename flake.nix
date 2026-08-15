@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:mrtnvgr/nixpkgs-fork/channel/future";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-wine.url = "github:nixos/nixpkgs/b73c2221a46c13557b1b3be9c2070cc42cf01eb3";
 
     # My repo of custom packages and functions
@@ -57,9 +57,6 @@
     generators.url = "github:nix-community/nixos-generators";
     generators.inputs.nixpkgs.follows = "nixpkgs";
 
-    bandithedoge-pkgs.url = "github:bandithedoge/nur-packages";
-
-    # TODO: package in nixpkgs, make a PR to nixvim
     mrtnvgr-actions.url = "github:mrtnvgr/actions.nvim";
     mrtnvgr-actions.flake = false;
   };
