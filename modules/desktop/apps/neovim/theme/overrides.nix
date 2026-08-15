@@ -1,6 +1,6 @@
 # Catppuccin has a nice and mature neovim plugin, let's use it as a base
 
-{ config, user, lib, ... }: let
+{ config, pkgs, user, lib, ... }: let
   cfg = config.modules.desktop.apps.neovim;
 in {
   home-manager.users.${user} = lib.mkIf cfg.enable {
@@ -58,6 +58,8 @@ in {
       vim.schedule(function() vim.cmd.colorscheme("catppuccin") end)
     '';
 
-    oxidec.reloaders."neovim.sh".text = "pkill -USR1 nvim || true";
+    oxidec.reloaders."neovim.sh".text = /* sh */ ''
+      ${pkgs.procps}/bin/pkill -USR1 nvim || true
+    '';
   };
 }

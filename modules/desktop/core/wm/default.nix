@@ -48,8 +48,7 @@ in {
       '';
 
       oxidec.reloaders."hyprland.sh".text = /* sh */ ''
-        #!/bin/sh
-        hyprctl reload >/dev/null
+        ${pkgs.hyprland}/bin/hyprctl reload >/dev/null
       '';
     };
   };
