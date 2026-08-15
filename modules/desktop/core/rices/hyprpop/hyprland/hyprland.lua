@@ -144,12 +144,6 @@ hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("amixer -q sset Master 1%+"))
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("amixer -q sset Master 1%-"))
 hl.bind("XF86AudioMute", hl.dsp.exec_cmd("amixer -q sset Master toggle"))
 
--- Disable animations for wallpaper window
-hl.layer_rule({
-    match = { namespace = "wallpaper" },
-    no_anim = true,
-})
-
 -- Style popups
 hl.window_rule({
     match = { tag = "popup", },

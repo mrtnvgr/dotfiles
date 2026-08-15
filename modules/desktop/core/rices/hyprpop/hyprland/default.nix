@@ -3,7 +3,6 @@
 in {
   imports = [
     ./polkit.nix
-    ./wallpaper.nix
   ];
 
   config = lib.mkIf (theme.rice == "hyprpop") {

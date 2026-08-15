@@ -10,7 +10,6 @@
     ./qt.nix
     ./packages.nix
     ./network.nix
-    ./wallpaper.nix
     ./kvm.nix
     ./xdg.nix
     ./cursors.nix
