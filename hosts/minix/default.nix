@@ -2,13 +2,9 @@
   modules.desktop = {
     enable = true;
 
-    theme = {
-      rice = "hyprpop";
-
-      font = {
-        name = "CaskaydiaMono Nerd Font Propo";
-        package = pkgs.nerd-fonts.caskaydia-mono;
-      };
+    theme.font = {
+      name = "CaskaydiaMono Nerd Font Propo";
+      package = pkgs.nerd-fonts.caskaydia-mono;
     };
 
     apps = {

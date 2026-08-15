@@ -1,7 +1,7 @@
 { lib, config, user, pkgs, ... }: let
-  theme = config.modules.desktop.theme;
+  cfg = config.modules.desktop;
 in {
-  home-manager.users.${user} = lib.mkIf (theme.rice == "hyprpop") {
+  home-manager.users.${user} = lib.mkIf cfg.enable {
     home.packages = [ pkgs.rofi ];
 
     oxidec.files.".config/rofi/colors.rasi".text = /* css */ ''

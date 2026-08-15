@@ -18,6 +18,9 @@ in {
 
       # my custom scripts
       flac2ogg
+
+      wl-clipboard
+      wl-screenrec
     ];
   };
 }

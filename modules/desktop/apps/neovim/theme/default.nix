@@ -2,7 +2,6 @@
   cfg = config.modules.desktop.apps.neovim;
 in {
   imports = [
-    ./transparency.nix
     ./overrides.nix
   ];
 

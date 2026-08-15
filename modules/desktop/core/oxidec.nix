@@ -6,6 +6,11 @@ in {
     imports = [ oxidec ];
     oxidec.enable = true;
 
+    oxidec.features = {
+      wallpapers = false;
+      themes = false;
+    };
+
     oxidec.default.colorscheme = "c3";
 
     # catppuccin mocha

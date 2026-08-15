@@ -1,7 +1,8 @@
 { pkgs, lib, config, user, ... }: let
-  theme = config.modules.desktop.theme;
+  cfg = config.modules.desktop;
+  inherit (cfg) theme;
 
-  # TODO: enable systemd integration, remove manual launch in hyprland
+  # TODO: enable systemd integration, remove manual launch from hyprland
 
   style = ''
     * {
@@ -18,7 +19,7 @@
     }
 
     window>box, tooltip {
-      background-color: {{ background | set_alpha: ${toString theme.opacity} | rgba }}
+      background-color: {{ background }}
     }
 
     window>box {
@@ -172,7 +173,7 @@
     };
   }];
 in {
-  config = lib.mkIf (theme.rice == "hyprpop") {
+  config = lib.mkIf cfg.enable {
     home-manager.users.${user} = {
       programs.waybar = {
         enable = true;

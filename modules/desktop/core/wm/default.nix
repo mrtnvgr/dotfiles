@@ -1,11 +1,16 @@
 { pkgs, lib, config, user, ... }: let
-  theme = config.modules.desktop.theme;
+  cfg = config.modules.desktop;
 in {
   imports = [
     ./polkit.nix
   ];
 
-  config = lib.mkIf (theme.rice == "hyprpop") {
+  config = lib.mkIf cfg.enable {
+    environment.loginShellInit = /* bash */ ''
+      # Launch WM/DE on TTY1, return to TTY when exiting
+      [ "$(tty)" = "/dev/tty1" ] && start-hyprland >/dev/null
+    '';
+
     home-manager.users.${user} = { config, ... }: {
       wayland.windowManager.hyprland = {
         enable = true;

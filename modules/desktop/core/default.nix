@@ -17,9 +17,13 @@
     ./delta.nix
 
     ./oxidec.nix
-    ./guiServers
-    ./rices
 
+    ./wayland.nix
+    ./lock.nix
+    ./wm
+    ./term.nix
+    ./bar.nix
+    ./launcher
     ./browser
   ];
 }

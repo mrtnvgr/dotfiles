@@ -1,4 +1,6 @@
 { lib, config, pkgs, ... }: let
+  cfg = config.modules.desktop;
+
   lock = pkgs.writeScriptBin "lock" ''
     source ~/.cache/oxidec/templates/colors.sh
     ${pkgs.waylock}/bin/waylock          \
@@ -9,7 +11,7 @@
       "$@"
   '';
 in {
-  config = lib.mkIf (config._internals.guiServer == "wayland") {
+  config = lib.mkIf cfg.enable {
     environment.systemPackages = [ lock ];
     security.pam.services.waylock = {};
 

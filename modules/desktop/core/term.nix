@@ -1,7 +1,8 @@
 { lib, config, user, ... }: let
-  theme = config.modules.desktop.theme;
+  cfg = config.modules.desktop;
+  inherit (cfg) theme;
 in {
-  home-manager.users.${user} = lib.mkIf (theme.rice == "hyprpop") {
+  home-manager.users.${user} = lib.mkIf cfg.enable {
     programs.foot.enable = true;
 
     oxidec.files.".config/foot/foot.ini".text = ''
@@ -14,7 +15,6 @@ in {
       hide-when-typing=yes
 
       [colors-dark]
-      alpha=${toString theme.opacity}
       background={{ background | strip }}
       foreground={{ text | strip }}
       cursor={{ background | strip }} {{ text | strip }}
