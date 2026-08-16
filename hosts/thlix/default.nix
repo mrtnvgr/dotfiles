@@ -6,5 +6,5 @@
     ./secrets/ssh.nix
   ];
 
-  time.timeZone = "Asia/Novosibirsk";
+  time.timeZone = "Europe/Moscow";
 }
