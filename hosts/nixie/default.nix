@@ -3,7 +3,8 @@
     # Personal base (base with secrets)
     ../thlix
 
-    ./secrets/reaper.nix
+    ./secrets/reaper.nix # TODO: should be removed with wine plugins support
+    ./uni.nix
   ];
 
   modules.desktop = {
