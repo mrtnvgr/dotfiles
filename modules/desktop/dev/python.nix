@@ -24,13 +24,7 @@ in
       home.packages = [ (pkgs.python3.withPackages cfg.packages) ];
 
       programs.nixvim.plugins = {
-        lsp.servers.basedpyright = {
-          enable = true;
-
-          # Disables annoying `Any` type reports
-          # (Disable this and type `foo = ` in a Python file.)
-          config.analysis.reportAny = "none";
-        };
+        lsp.servers.basedpyright.enable = true;
       };
     };
   };
