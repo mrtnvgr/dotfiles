@@ -8,5 +8,6 @@
     ./dev
     ./games
     ./audio
+    ./powersafe.nix
   ];
 }
