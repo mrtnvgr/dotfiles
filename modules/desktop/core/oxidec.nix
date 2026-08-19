@@ -42,11 +42,11 @@ in {
       accent = blue;
     };
 
-    # gruvbox
+    # gruvbox material hard
     oxidec.colorschemes.gruv = rec {
       background = "#282828";
       shadow = "#1d2021";
-      void = "#1d2021";
+      void = "#141617";
 
       gray  = "#32302f";
       gray2 = "#3c3836";
@@ -57,7 +57,7 @@ in {
       gray7 = "#a89984";
       gray8 = "#bdae93";
 
-      text = "#ebdbb2";
+      text = "#d4be98";
 
       red    = "#ea6962";
       green  = "#a9b665";
@@ -68,17 +68,16 @@ in {
       teal   = "#89b482";
       orange = "#e78a4e";
 
-      accent = yellow;
+      accent = gray5;
     };
 
-    # rose-pine
     oxidec.colorschemes.rose = rec {
       background = "#191724";
       shadow = "#14131a";
       void = "#0f0e14";
 
       gray  = "#21202e";
-      gray2 = "#3b384e";
+      gray2 = "#403d52";
       gray3 = "#524f67";
       gray4 = "#6e6a86";
       gray5 = "#7b7793";
@@ -91,11 +90,11 @@ in {
       red    = "#eb6f92";
       green  = "#31748f";
       yellow = "#f6c177";
-      blue   = purple;
+      blue   = "#9ccfd8";
       purple = "#c4a7e7";
-      pink   = purple;
-      teal   = "#9ccfd8";
-      orange = yellow;
+      pink   = "#ebbcba";
+      teal   = "#56949f";
+      orange = "#d7827e";
 
       accent = purple;
     };
