@@ -28,6 +28,10 @@ in {
 
       # Duplicate line and comment original
       { mode = "n"; key = "yc"; action = "yy<CMD>normal gcc<CR>p"; }
+
+      # Auto-center screen on page down/page up
+      { mode = "n"; key = "<Ctrl-d>"; action = "<C-d>zz"; }
+      { mode = "n"; key = "<Ctrl-u>"; action = "<C-u>zz"; }
     ];
   };
 }
