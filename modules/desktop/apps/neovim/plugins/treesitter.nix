@@ -13,5 +13,8 @@ in {
 
     plugins.ts-autotag.enable = true;
     plugins.ts-context-commentstring.enable = true;
+
+    opts.foldmethod = "expr";
+    opts.foldexpr = "v:lua.vim.treesitter.foldexpr()";
   };
 }

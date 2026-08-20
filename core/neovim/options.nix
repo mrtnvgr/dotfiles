@@ -43,6 +43,8 @@ in {
 
       autoread = true;
       confirm = true;
+
+      foldlevel = 99; # do not auto close folds
     } // (genIndent 4 true);
 
     extraConfigLua = ''
