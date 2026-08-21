@@ -44,9 +44,9 @@ in {
 
     # gruvbox material hard
     oxidec.colorschemes.gruv = rec {
-      background = "#282828";
-      shadow = "#1d2021";
-      void = "#141617";
+      background = "#1d2021";
+      shadow = "#141617";
+      void = "#0b0c0d";
 
       gray  = "#32302f";
       gray2 = "#3c3836";
