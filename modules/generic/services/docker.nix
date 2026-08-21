@@ -9,7 +9,12 @@ in {
 
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
-      virtualisation.docker.enable = true;
+      virtualisation.docker = {
+        enable = true;
+        autoPrune.enable = true;
+        enableOnBoot = false;
+      };
+
       environment.systemPackages = [ pkgs.docker pkgs.docker-compose ];
       users.users.${user}.extraGroups = [ "docker" ];
     })
