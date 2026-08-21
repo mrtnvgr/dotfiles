@@ -9,6 +9,8 @@ in {
     environment.systemPackages = with pkgs; [
       xdg-utils
 
+      ripgrep
+
       xxd
       colordiff
 
