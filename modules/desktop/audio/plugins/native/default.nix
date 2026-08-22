@@ -35,7 +35,6 @@
 in
 {
   imports = [
-    ./u-he.nix
     ./plugdata.nix
   ];
 
