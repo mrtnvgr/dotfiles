@@ -15,5 +15,6 @@
     ./colorizer.nix
     ./arrow.nix
     ./langmapper.nix
+    ./tabularize.nix
   ];
 }
