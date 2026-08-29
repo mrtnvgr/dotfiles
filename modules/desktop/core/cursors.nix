@@ -5,6 +5,8 @@
   size = 28;
 in {
   home-manager.users.${user}.home.pointerCursor = lib.mkIf cfg.enable {
+    enable = true;
+
     package = pkgs.maplestory-cursor;
     inherit name size;
 
