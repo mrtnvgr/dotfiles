@@ -3,6 +3,8 @@
     # Personal base (base with secrets)
     ../thlix
 
+    ./secrets/bitwig.nix
+
     ./uni.nix
   ];
 
@@ -11,7 +13,7 @@
 
     dev.enable = true;
 
-    dev.platformio.enable = true;
+    daws.bitwig.enable = true;
 
     audio = {
       rt.enable = true;

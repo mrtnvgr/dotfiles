@@ -5,6 +5,7 @@
     ./core
     ./services
     ./apps
+    ./daws
     ./dev
     ./games
     ./audio

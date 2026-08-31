@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }: let
-  cfg = config.modules.desktop.audio.daws.bitwig;
+  cfg = config.modules.desktop.daws.bitwig;
 in {
-  options.modules.desktop.audio.daws.bitwig = {
+  options.modules.desktop.daws.bitwig = {
     enable = lib.mkEnableOption "Bitwig Studio";
 
     package = lib.mkOption {
