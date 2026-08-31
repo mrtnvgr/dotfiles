@@ -11,6 +11,11 @@ in {
       [ "$(tty)" = "/dev/tty1" ] && start-hyprland >/dev/null
     '';
 
+    xdg.portal = {
+      extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+      configPackages = [ pkgs.hyprland ];
+    };
+
     home-manager.users.${user} = { config, ... }: {
       wayland.windowManager.hyprland = {
         enable = true;
@@ -26,11 +31,6 @@ in {
         };
 
         extraConfig = lib.fileContents ./hyprland.lua;
-      };
-
-      xdg.portal = {
-        extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
-        configPackages = [ pkgs.hyprland ];
       };
 
       home.pointerCursor.hyprcursor.enable = true;

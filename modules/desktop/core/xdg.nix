@@ -1,5 +1,11 @@
 { pkgs, config, lib, user, ... }: {
   config = lib.mkIf config.modules.desktop.enable {
+    xdg.portal = {
+      enable = true;
+      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+      config.common.default = "*";
+    };
+
     home-manager.users.${user} = {
       xdg.enable = true;
 
@@ -13,7 +19,7 @@
 
       xdg.portal = {
         enable = true;
-        extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+        inherit (config.xdg.portal) extraPortals configPackages;
       };
     };
   };
