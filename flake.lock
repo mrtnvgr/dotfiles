@@ -1,18 +1,23 @@
 {
   "nodes": {
-    "birdbird": {
-      "flake": false,
+    "amnezia-vpn": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
       "locked": {
-        "lastModified": 1764150428,
-        "narHash": "sha256-Cux1A9i3ats1KO+x7B1ZxSPbH3QoYb2rqyk24t6qMaw=",
-        "owner": "Bird-Bird",
-        "repo": "ReaScript_Testing",
-        "rev": "ae0c0d71abbfcbd8b49c696dae33639d9949494f",
+        "lastModified": 1787895060,
+        "narHash": "sha256-o7JOjcl4oOQCYcvd21iBRkqRS/z13/vmtw0+/UJ4AfI=",
+        "owner": "terrentii",
+        "repo": "amnezia_vpn_nix",
+        "rev": "0492e6f345a66f444d005a2e573d49a8454f2569",
         "type": "github"
       },
       "original": {
-        "owner": "Bird-Bird",
-        "repo": "ReaScript_Testing",
+        "owner": "terrentii",
+        "repo": "amnezia_vpn_nix",
+        "rev": "0492e6f345a66f444d005a2e573d49a8454f2569",
         "type": "github"
       }
     },
@@ -29,22 +34,6 @@
       "original": {
         "owner": "catppuccin",
         "repo": "renoise",
-        "type": "github"
-      }
-    },
-    "chkhld-jsfx": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1752236308,
-        "narHash": "sha256-9If5CkvBATVUMgNCZQWULq+HNguZnMqMKSf+Q0bd+hM=",
-        "owner": "chkhld",
-        "repo": "jsfx",
-        "rev": "f6d175d8253375a51832fd52aa86482c191caadc",
-        "type": "github"
-      },
-      "original": {
-        "owner": "chkhld",
-        "repo": "jsfx",
         "type": "github"
       }
     },
@@ -121,42 +110,6 @@
         "type": "github"
       }
     },
-    "flake-parts_4": {
-      "inputs": {
-        "nixpkgs-lib": "nixpkgs-lib_3"
-      },
-      "locked": {
-        "lastModified": 1785627969,
-        "narHash": "sha256-4dtXQk/NMePegK/nWp5NSeuZKLATItOq61lpEvmXqGw=",
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "rev": "427bf4bd9435fdf21321c8cc628c24efc14c0f7a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "type": "github"
-      }
-    },
-    "flake-parts_5": {
-      "inputs": {
-        "nixpkgs-lib": "nixpkgs-lib_4"
-      },
-      "locked": {
-        "lastModified": 1760948891,
-        "narHash": "sha256-TmWcdiUUaWk8J4lpjzu4gCGxWY6/Ok7mOK4fIFfBuU4=",
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "rev": "864599284fc7c0ba6357ed89ed5e2cd5040f0c04",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "type": "github"
-      }
-    },
     "generators": {
       "inputs": {
         "nixlib": "nixlib",
@@ -223,44 +176,6 @@
         "type": "github"
       }
     },
-    "jsfx-clones": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1776719875,
-        "narHash": "sha256-ir3HLb6hAMf/CaTTQ36wlo+JEKA4Hyef8/xC6HXS8kc=",
-        "owner": "JClones",
-        "repo": "JSFXClones",
-        "rev": "88a1503d668c378ced4c166e772378272f3b72ea",
-        "type": "github"
-      },
-      "original": {
-        "owner": "JClones",
-        "repo": "JSFXClones",
-        "type": "github"
-      }
-    },
-    "margesimpson": {
-      "inputs": {
-        "flake-parts": "flake-parts_5",
-        "nixpkgs": [
-          "reanix",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1761455199,
-        "narHash": "sha256-TgK8dtUxZVQOustuADarhV/ZMKpFifGq1ClBMPcYQIU=",
-        "owner": "mrtnvgr",
-        "repo": "margesimpson",
-        "rev": "f7ffb2c0ea925c28e7341479ba8e3c8615a55559",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mrtnvgr",
-        "repo": "margesimpson",
-        "type": "github"
-      }
-    },
     "mrtnvgr": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -295,22 +210,6 @@
       "original": {
         "owner": "mrtnvgr",
         "repo": "actions.nvim",
-        "type": "github"
-      }
-    },
-    "mrtnvgr-rea": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1775960375,
-        "narHash": "sha256-HQ+vaaePKR8blAKEPe4QB2583Jk6BjNyePMSO+Q/hIY=",
-        "owner": "mrtnvgr",
-        "repo": "reastuff",
-        "rev": "9037ae328e2f14217aebf8fea520e48c4d832620",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mrtnvgr",
-        "repo": "reastuff",
         "type": "github"
       }
     },
@@ -388,36 +287,6 @@
         "owner": "nix-community",
         "repo": "nixpkgs.lib",
         "rev": "0e79af5e3d4dcfcd676ab5ba3f95d2e3352e078c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "nixpkgs.lib",
-        "type": "github"
-      }
-    },
-    "nixpkgs-lib_3": {
-      "locked": {
-        "lastModified": 1785031560,
-        "narHash": "sha256-OmshNvn2vupOFpYinLUu+1Dnpu4n7Q5N3ggGVNHpkUI=",
-        "owner": "nix-community",
-        "repo": "nixpkgs.lib",
-        "rev": "0e79af5e3d4dcfcd676ab5ba3f95d2e3352e078c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "nixpkgs.lib",
-        "type": "github"
-      }
-    },
-    "nixpkgs-lib_4": {
-      "locked": {
-        "lastModified": 1754788789,
-        "narHash": "sha256-x2rJ+Ovzq0sCMpgfgGaaqgBSwY+LST+WbZ6TytnT9Rk=",
-        "owner": "nix-community",
-        "repo": "nixpkgs.lib",
-        "rev": "a73b9c743612e4244d865a2fdee11865283c04e6",
         "type": "github"
       },
       "original": {
@@ -509,82 +378,19 @@
         "type": "github"
       }
     },
-    "reanix": {
-      "inputs": {
-        "flake-parts": "flake-parts_4",
-        "margesimpson": "margesimpson",
-        "mrtnvgr": [
-          "mrtnvgr"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1780402942,
-        "narHash": "sha256-SOdJK9OdX25QShXf7OsWuArDwSHkx1iOnpKCoC/6Mrc=",
-        "owner": "mrtnvgr",
-        "repo": "reanix",
-        "rev": "041a171691ab98cc4a6c3a6306177c5d1c06912a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mrtnvgr",
-        "repo": "reanix",
-        "type": "github"
-      }
-    },
-    "reascripts": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1786722771,
-        "narHash": "sha256-8ovJfLmbHjUPvbAE8B2omQZeaOzXUmZxHt913qLvLlc=",
-        "owner": "ReaTeam",
-        "repo": "ReaScripts",
-        "rev": "81d73f8fa557b4264214d52b08a3cb76fa0183a2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ReaTeam",
-        "repo": "ReaScripts",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
-        "birdbird": "birdbird",
+        "amnezia-vpn": "amnezia-vpn",
         "catppuccin-renoise": "catppuccin-renoise",
-        "chkhld-jsfx": "chkhld-jsfx",
         "generators": "generators",
         "home-manager": "home-manager",
-        "jsfx-clones": "jsfx-clones",
         "mrtnvgr": "mrtnvgr",
         "mrtnvgr-actions": "mrtnvgr-actions",
-        "mrtnvgr-rea": "mrtnvgr-rea",
         "nix-gaming": "nix-gaming",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-wine": "nixpkgs-wine",
         "nixvim": "nixvim",
-        "oxidec": "oxidec",
-        "reanix": "reanix",
-        "reascripts": "reascripts",
-        "saike-jsfx": "saike-jsfx"
-      }
-    },
-    "saike-jsfx": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1786290736,
-        "narHash": "sha256-UqyZooLRs2OV/UAFw+UMltv7NnIr9AYv0urpjE+S1lk=",
-        "owner": "JoepVanlier",
-        "repo": "JSFX",
-        "rev": "7d9b1456fbe4543406a4e927c89453a212cab3eb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "JoepVanlier",
-        "repo": "JSFX",
-        "type": "github"
+        "oxidec": "oxidec"
       }
     },
     "systems": {

@@ -144,6 +144,6 @@ in {
     networking.extraHosts = lib.concatStringsSep "\n" (lib.mapAttrsToList (_: x: x.hosts) cfg.bottles);
 
     # TODO: link files via hm
-    # TODO: .wine-nix/reaper/{regs, data, plugins}
+    # TODO: .wine-nix/plugins/{regs, data, plugins}
   };
 }

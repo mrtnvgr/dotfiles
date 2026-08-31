@@ -21,34 +21,7 @@
     # Nix-friendly neovim
     nixvim.url = "github:nix-community/nixvim";
 
-    # Somewhat-deterministic REAPER configs
-    reanix = {
-      url = "github:mrtnvgr/reanix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.mrtnvgr.follows = "mrtnvgr";
-    };
-
     nix-gaming.url = "github:fufexan/nix-gaming";
-
-    # === REAPER scripts and JSFX ===
-    reascripts.url = "github:ReaTeam/ReaScripts";
-    reascripts.flake = false;
-
-    mrtnvgr-rea.url = "github:mrtnvgr/reastuff";
-    mrtnvgr-rea.flake = false;
-
-    chkhld-jsfx.url = "github:chkhld/jsfx";
-    chkhld-jsfx.flake = false;
-
-    jsfx-clones.url = "github:JClones/JSFXClones";
-    jsfx-clones.flake = false;
-
-    saike-jsfx.url = "github:JoepVanlier/JSFX";
-    saike-jsfx.flake = false;
-
-    birdbird.url = "github:Bird-Bird/ReaScript_Testing";
-    birdbird.flake = false;
-    # =========================
 
     catppuccin-renoise.url = "github:catppuccin/renoise";
     catppuccin-renoise.flake = false;

@@ -3,7 +3,6 @@
     # Personal base (base with secrets)
     ../thlix
 
-    ./secrets/reaper.nix # TODO: should be removed with wine plugins support
     ./uni.nix
   ];
 
@@ -20,7 +19,7 @@
       plugins.native.enable = true;
       plugins.wine.enable = true;
 
-      daws.reaper.enable = true;
+      daws.bitwig.enable = true;
 
       daws.sunvox.enable = true;
       # Remove this line to use a demo version.

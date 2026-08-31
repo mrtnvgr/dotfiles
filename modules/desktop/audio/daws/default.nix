@@ -1,6 +1,5 @@
 { lib, ... }: {
   imports = [
-    ./reaper
     ./renoise
     ./sunvox
   ];

@@ -85,8 +85,7 @@ hl.bind("SUPER + SHIFT + RETURN", hl.dsp.exec_cmd("foot"))
 hl.bind("SUPER + SHIFT + F",      hl.dsp.exec_cmd(os.getenv("BROWSER")))
 hl.bind("SUPER + SHIFT + E",      hl.dsp.exec_cmd("foot nvim")) -- E stands for editor
 
-hl.bind("SUPER + SHIFT + R",        hl.dsp.exec_cmd("reaper"))
-hl.bind("SUPER + SHIFT + CTRL + R", hl.dsp.exec_cmd("renoise"))
+hl.bind("SUPER + SHIFT + R",        hl.dsp.exec_cmd("bitwig-studio"))
 
 hl.bind("SUPER + Tab", hl.dsp.exec_cmd("pkill -SIGUSR1 waybar"))
 
