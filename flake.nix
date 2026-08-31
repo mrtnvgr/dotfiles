@@ -23,9 +23,6 @@
 
     nix-gaming.url = "github:fufexan/nix-gaming";
 
-    catppuccin-renoise.url = "github:catppuccin/renoise";
-    catppuccin-renoise.flake = false;
-
     # Automatic ISOs CI
     generators.url = "github:nix-community/nixos-generators";
     generators.inputs.nixpkgs.follows = "nixpkgs";

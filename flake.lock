@@ -21,22 +21,6 @@
         "type": "github"
       }
     },
-    "catppuccin-renoise": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1778165936,
-        "narHash": "sha256-Lr8Fa69+Uw5yYaTpx3xp8UYH8TFk4yTA8encghcWE90=",
-        "owner": "catppuccin",
-        "repo": "renoise",
-        "rev": "47d7b7ba9f282ae0b310b2b6186bed95466fecac",
-        "type": "github"
-      },
-      "original": {
-        "owner": "catppuccin",
-        "repo": "renoise",
-        "type": "github"
-      }
-    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -381,7 +365,6 @@
     "root": {
       "inputs": {
         "amnezia-vpn": "amnezia-vpn",
-        "catppuccin-renoise": "catppuccin-renoise",
         "generators": "generators",
         "home-manager": "home-manager",
         "mrtnvgr": "mrtnvgr",
