@@ -1,4 +1,4 @@
-{ pkgs, user, ... }: {
+{ inputs, pkgs, user, ... }: {
   imports = [
     # Personal base (base with secrets)
     ../thlix
@@ -6,6 +6,9 @@
     ./secrets/bitwig.nix
 
     ./uni.nix
+
+    inputs.amnezia-vpn.nixosModules.default
+    { programs.amnezia-vpn.enable = true; }
   ];
 
   modules.desktop = {
