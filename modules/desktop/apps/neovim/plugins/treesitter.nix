@@ -7,14 +7,13 @@ in {
 
       highlight.enable = true;
       indent.enable = true;
+      folding.enable = true;
     };
 
-    plugins.hmts.enable = true;
+    # TODO: broken? :(
+    # plugins.hmts.enable = true;
 
     plugins.ts-autotag.enable = true;
     plugins.ts-context-commentstring.enable = true;
-
-    opts.foldmethod = "expr";
-    opts.foldexpr = "v:lua.vim.treesitter.foldexpr()";
   };
 }
