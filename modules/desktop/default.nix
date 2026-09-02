@@ -10,5 +10,6 @@
     ./games
     ./audio
     ./powersafe.nix
+    ./trash.nix
   ];
 }
