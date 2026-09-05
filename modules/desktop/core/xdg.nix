@@ -22,5 +22,7 @@
         inherit (config.xdg.portal) extraPortals configPackages;
       };
     };
+
+    programs.bash.shellAliases.o = "xdg-open";
   };
 }
