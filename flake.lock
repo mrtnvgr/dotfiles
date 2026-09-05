@@ -181,22 +181,6 @@
         "type": "github"
       }
     },
-    "mrtnvgr-actions": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1775987072,
-        "narHash": "sha256-o6pu/24YYtlCRAw0pRrlccVeSPcOnMn70i8n7BKMHgc=",
-        "owner": "mrtnvgr",
-        "repo": "actions.nvim",
-        "rev": "5b9dc4e43146aaafa129c3c9603ea98c24faed6e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mrtnvgr",
-        "repo": "actions.nvim",
-        "type": "github"
-      }
-    },
     "nix-gaming": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -368,7 +352,6 @@
         "generators": "generators",
         "home-manager": "home-manager",
         "mrtnvgr": "mrtnvgr",
-        "mrtnvgr-actions": "mrtnvgr-actions",
         "nix-gaming": "nix-gaming",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-wine": "nixpkgs-wine",
