@@ -25,6 +25,8 @@ in {
       dconf.settings = {
        "org/gnome/desktop/interface".color-scheme = "prefer-dark";
       };
+
+      xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
     };
 
     # https://github.com/nix-community/home-manager/issues/3113

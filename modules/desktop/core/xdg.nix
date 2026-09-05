@@ -1,8 +1,7 @@
-{ pkgs, config, lib, user, ... }: {
+{ config, lib, user, ... }: {
   config = lib.mkIf config.modules.desktop.enable {
     xdg.portal = {
       enable = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
       config.common.default = "*";
     };
 
