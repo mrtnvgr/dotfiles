@@ -11,6 +11,11 @@
     { programs.amnezia-vpn.enable = true; }
   ];
 
+  modules.laptop = {
+    enable = true;
+    # TODO: hibernation
+  };
+
   modules.desktop = {
     boot.silent = true;
 

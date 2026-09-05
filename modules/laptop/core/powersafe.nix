@@ -1,8 +1,6 @@
 { config, lib, ... }: let
-  cfg = config.modules.desktop.powersafe;
+  cfg = config.modules.laptop;
 in {
-  options.modules.desktop.powersafe.enable = lib.mkEnableOption "powersafe mode";
-
   config = lib.mkIf cfg.enable {
     powerManagement.cpuFreqGovernor = "powersafe";
 

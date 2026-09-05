@@ -2,6 +2,7 @@
   imports = [
     ./generic
     ./desktop
+    ./laptop
     ./server
   ];
 
