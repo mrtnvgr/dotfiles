@@ -16,12 +16,12 @@
 
     # replaces nvim with v
     # HACK: find a better way to do this with `nixvim.defaultEditor` etc.
-    programs.bash = {
-      sessionVariables = {
-        EDITOR = "/home/${user}/.nix-profile/bin/nvim";
-        VISUAL = "$EDITOR";
-      };
+    home.sessionVariables = rec {
+      EDITOR = "/home/${user}/.nix-profile/bin/nvim";
+      VISUAL = "${EDITOR}";
+    };
 
+    programs.bash = {
       shellAliases.v = "$EDITOR";
 
       bashrcExtra = ''

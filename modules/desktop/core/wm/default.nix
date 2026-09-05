@@ -26,7 +26,7 @@ in {
         settings = {
           env = with builtins; attrValues (mapAttrs
             (name: value: { _args = [ name (toString value) ]; })
-            config.home.sessionVariables
+            (config.home.sessionVariables // config.programs.bash.sessionVariables)
           );
         };
 
