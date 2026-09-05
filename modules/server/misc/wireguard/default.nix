@@ -58,7 +58,7 @@ in {
       # [Interface]
       # PrivateKey = <client private key>
       # Address = 10.1.2.${toString (i+1)}/24
-      # DNS = {PUBLIC_IP}
+      # DNS = {SERVER_PUBLIC_IP}
       #
       # [Peer]
       # PublicKey = {SERVER_PUBLIC_KEY}
