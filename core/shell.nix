@@ -18,13 +18,11 @@ in {
       initExtra = ''PS1="${ps1}"'';
 
       shellAliases = {
-        perm = "stat -c \"%a %n\"";
+        perm = "echo Use 'stat' instead. #";
 
         # Better defaults
         rsync = "rsync -zvhP";
         rsync-mirror-fat = "rsync -r --update --delete --size-only";
-
-        v = "$EDITOR";
       };
     };
 

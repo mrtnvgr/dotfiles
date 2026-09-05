@@ -5,10 +5,6 @@
     programs.nixvim = {
       enable = true;
 
-      viAlias = true;
-      vimAlias = true;
-      defaultEditor = true;
-
       performance.byteCompileLua = {
         enable = true;
         initLua = true;
@@ -16,6 +12,21 @@
         nvimRuntime = true;
         plugins = true;
       };
+    };
+
+    # replaces nvim with v
+    # HACK: find a better way to do this with `nixvim.defaultEditor` etc.
+    programs.bash = {
+      sessionVariables = {
+        EDITOR = "/home/${user}/.nix-profile/bin/nvim";
+        VISUAL = "$EDITOR";
+      };
+
+      shellAliases.v = "$EDITOR";
+
+      bashrcExtra = ''
+        nvim() { :; }
+      '';
     };
   };
 
