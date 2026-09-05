@@ -1,13 +1,16 @@
-{ config, lib, pkgs, user, ... }: let
+{ config, lib, user, ... }: let
   cfg = config.modules.desktop.trash;
 in {
   options.modules.desktop.trash.enable = lib.mkEnableOption "safe rm replacement";
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.rip2 ];
-
     home-manager.users.${user} = {
-      programs.bash.shellAliases.rm = "echo Please use 'rip' instead of rm. #";
+      programs.bash.shellAliases.rm = "rmw";
+
+      home.file.".config/rmwrc".text = ''
+        WASTE=$HOME/.local/share/Trash
+        expire_age = 14
+      '';
     };
   };
 }
