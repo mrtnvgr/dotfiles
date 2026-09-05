@@ -27,6 +27,14 @@ in {
       };
 
       xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+
+      xdg.configFile = let
+        g = config.home-manager.users.${user}.gtk.theme.package;
+      in {
+        "gtk-4.0/assets".source = "${g}/share/themes/${g}/gtk-4.0/assets";
+        "gtk-4.0/gtk.css".source = "${g}/share/themes/${g}/gtk-4.0/gtk.css";
+        "gtk-4.0/gtk-dark.css".source = "${g}/share/themes/${g}/gtk-4.0/gtk-dark.css";
+      };
     };
 
     # https://github.com/nix-community/home-manager/issues/3113
