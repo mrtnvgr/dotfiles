@@ -1,16 +1,29 @@
-{ lib, config, user, ... }: let
+{ lib, config, user, pkgs, ... }: let
   cfg = config.modules.desktop;
 in {
   config = lib.mkIf cfg.enable {
     home-manager.users.${user} = {
       gtk = {
         enable = true;
-        colorScheme = "dark";
 
-        theme.name = "Adwaita";
-        iconTheme.name = "Adwaita";
+        theme = {
+          name = "Adwaita-dark";
+          package = pkgs.gnome-themes-extra;
+        };
 
-        gtk4.theme = null;
+        iconTheme = {
+          name = "Papirus-Dark";
+          package = pkgs.papirus-icon-theme;
+        };
+
+        gtk4.theme = config.home-manager.users.${user}.gtk.theme;
+
+        gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
+        gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
+      };
+
+      dconf.settings = {
+       "org/gnome/desktop/interface".color-scheme = "prefer-dark";
       };
     };
 
