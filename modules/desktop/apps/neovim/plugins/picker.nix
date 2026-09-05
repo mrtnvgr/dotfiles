@@ -1,8 +1,6 @@
 { config, lib, user, ... }: let
   cfg = config.modules.desktop.apps.neovim;
 in {
-  imports = [ ./actions.nix ];
-
   home-manager.users.${user}.programs.nixvim = lib.mkIf cfg.enable {
     plugins.mini-pick = {
       enable = true;

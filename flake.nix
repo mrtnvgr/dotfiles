@@ -27,9 +27,6 @@
     generators.url = "github:nix-community/nixos-generators";
     generators.inputs.nixpkgs.follows = "nixpkgs";
 
-    mrtnvgr-actions.url = "github:mrtnvgr/actions.nvim";
-    mrtnvgr-actions.flake = false;
-
     amnezia-vpn = {
       url = "github:terrentii/amnezia_vpn_nix/0492e6f345a66f444d005a2e573d49a8454f2569";
       inputs.nixpkgs.follows = "nixpkgs";
