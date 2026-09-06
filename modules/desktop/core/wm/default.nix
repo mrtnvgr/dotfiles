@@ -31,6 +31,8 @@ in {
         };
 
         extraConfig = lib.fileContents ./hyprland.lua;
+
+        plugins = [ pkgs.hyprlandPlugins.hypr-darkwindow ];
       };
 
       home.pointerCursor.hyprcursor.enable = true;
