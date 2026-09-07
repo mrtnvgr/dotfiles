@@ -10,6 +10,7 @@
     };
 
     plugins.blink-emoji.enable = true;
+    plugins.blink-cmp-latex.enable = true;
 
     plugins.blink-cmp.settings.sources.providers = {
       emoji = {
@@ -17,6 +18,12 @@
         name = "Emoji";
         score_offset = 15;
         opts.insert = true;
+      };
+
+      latex-symbols = {
+        module = "blink-cmp-latex";
+        name = "Latex";
+        opts.insert_command = false;
       };
     };
 
@@ -26,6 +33,7 @@
       "snippets"
       "buffer"
       "emoji"
+      "latex-symbols"
     ];
 
     plugins.friendly-snippets.enable = true;
