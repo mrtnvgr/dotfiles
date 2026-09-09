@@ -102,6 +102,8 @@
 
   envs = lib.mapAttrsToList (name: bottle: mkEnv name bottle) cfg.bottles;
 
+  # TODO: write a helper for wine env?:
+  # wine-plugins sync, wine-plugins enter no_tricks
   wine-audio-plugins-activate = pkgs.writeScriptBin "wine-audio-plugins-activate" ''
     ${lib.concatMapStringsSep "\n" (x: "${x}/bin/*") envs}
     yabridgectl sync -p -n

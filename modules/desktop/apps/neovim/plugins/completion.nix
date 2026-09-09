@@ -30,7 +30,7 @@
     plugins.blink-cmp.settings.sources.default = [
       "lsp"
       "path"
-      "snippets"
+      "snippets" # TODO: use luasnip
       "buffer"
       "emoji"
       "latex-symbols"

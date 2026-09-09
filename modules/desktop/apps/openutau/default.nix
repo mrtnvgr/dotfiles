@@ -32,6 +32,8 @@
     stripRoot = false;
   };
 
+  # TODO: sour
+
   singers = ".local/share/OpenUtau/Singers";
   genVoice = name: x: src: lib.mkIf (cfg.enable && x) {
     home-manager.users.${user}.home.file."${singers}/${name}".source = src;
