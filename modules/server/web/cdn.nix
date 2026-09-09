@@ -1,19 +1,17 @@
-{ lib, config, ... }:
-let
-  inherit (lib) mkIf mkOption mkEnableOption types;
+{ lib, config, ... }: let
   domain = config.modules.server.web.domain;
   cfg = config.modules.server.web.cdn;
 in {
   options.modules.server.web.cdn = {
-    enable = mkEnableOption "cdn service";
+    enable = lib.mkEnableOption "cdn service";
 
-    cdnPath = mkOption {
-      type = types.str;
+    cdnPath = lib.mkOption {
+      type = lib.types.str;
       default = "/var/www/cdn";
     };
   };
 
-  config = mkIf config.modules.server.web.cdn.enable {
+  config = lib.mkIf config.modules.server.web.cdn.enable {
     services.nginx.virtualHosts."cdn.${domain}" = {
       root = cfg.cdnPath;
 
@@ -28,8 +26,7 @@ in {
 
 	services.fail2ban.jails.cdn-bruteforce.settings = {
 	  enabled = true;
-
-      logpath = "/var/log/nginx/access.log";
+    logpath = "/var/log/nginx/access.log";
 	  backend = "auto";
 	};
 
@@ -37,7 +34,5 @@ in {
 	  [Definition]
       failregex = No such file or directory.* client: <HOST>,
 	'';
-
-    # TODO: sync with yandex disk (periodically)!
   };
 }
