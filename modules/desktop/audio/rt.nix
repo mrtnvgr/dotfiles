@@ -22,14 +22,13 @@ in
 
   config = mkIf cfg.enable {
     # Provided by nix-gaming modules
-    services.pipewire.lowLatency.enable = true;
-    programs.steam.platformOptimizations.enable = true;
+    # services.pipewire.lowLatency.enable = true;
+    # programs.steam.platformOptimizations.enable = true;
 
-    powerManagement.cpuFreqGovernor = "performance";
-    # boot.kernel.sysctl."vm.swappiness" = 10;
+    # powerManagement.cpuFreqGovernor = "performance";
+    boot.kernel.sysctl."vm.swappiness" = 10;
 
-    boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
-    # boot.kernelParams = [ "threadirqs" ];
+    boot.kernelParams = [ "threadirqs" ];
 
     security.pam.loginLimits = [
       {
