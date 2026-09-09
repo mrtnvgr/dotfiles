@@ -2,7 +2,7 @@
   nix = {
     settings = {
       # Enable flakes
-      experimental-features = "nix-command flakes";
+      experimental-features = ["nix-command" "flakes"];
 
       # Hard link store content
       auto-optimise-store = true;

@@ -1,4 +1,4 @@
 { ... }: {
   services.logrotate.enable = true;
-  services.journald.extraConfig = "SystemMaxUse = 256M";
+  services.journald.settings.Journal.SystemMaxUse = "256M";
 }
