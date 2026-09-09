@@ -1,6 +1,5 @@
 { pkgs, lib, config, user, ... }: let
   cfg = config.modules.desktop;
-  inherit (cfg) theme;
 
   # TODO: enable systemd integration, remove manual launch from hyprland
 
@@ -14,7 +13,7 @@
       padding: 0;
       background-color: transparent;
 
-      font-family: "${theme.font.name}", sans-serif;
+      font-family: "${cfg.theme.font.name}", sans-serif;
       font-size: 13px;
     }
 
