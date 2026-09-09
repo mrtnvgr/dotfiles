@@ -60,6 +60,7 @@ in {
 
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
+      # TODO: use openutau-lunai
       environment.systemPackages = [ pkgs.openutau ];
     })
 
