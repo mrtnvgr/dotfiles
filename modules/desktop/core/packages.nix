@@ -22,7 +22,6 @@ in {
       flac2ogg
 
       wl-clipboard
-      wl-screenrec
     ];
   };
 }
