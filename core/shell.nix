@@ -18,11 +18,10 @@ in {
       initExtra = ''PS1="${ps1}"'';
 
       shellAliases = {
+        # TODO: remove all together after some time
         perm = "echo Use 'stat' instead. #";
 
-        # Better defaults
-        rsync = "rsync -zvhP";
-        rsync-mirror-fat = "rsync -r --update --delete --size-only";
+        rsync = "rsync --verbose --human-readable --progress";
 
         g = "git";
       };
