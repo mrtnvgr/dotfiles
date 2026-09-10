@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -e
+
+if [ "$(id -u)" -ne 0 ]; then
+    echo "Please run as root" >&2
+    exit 1
+fi
+
+cat << 'EOF' >> /etc/nix/nix.conf
+experimental-features = nix-command flakes
+extra-substituters = https://mrtnvgr.cachix.org https://nix-community.cachix.org https://nix-gaming.cachix.org https://bandithedoge.cachix.org https://cache.nixos.org
+extra-trusted-public-keys = mrtnvgr.cachix.org-1:zV5Vv57wyo/NNdiLZg0IMjQSLLL0pkEbfeltQ0F4kL8= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4= bandithedoge.cachix.org-1:ZtcHw1anyEa4t6H8m3o/ctYFrwYFPAwoENSvofamE6g= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+EOF
+
+echo "Done! :)"
+echo "Now flakes are available and desktops might install faster :0"

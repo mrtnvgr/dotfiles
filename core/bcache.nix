@@ -1,4 +1,6 @@
 { ... }: {
+  # NOTE: please don't forget to add these caches to `./scripts/setup-livecd`
+
   nix.settings = {
     substituters = [
       "https://mrtnvgr.cachix.org"
