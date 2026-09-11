@@ -62,13 +62,6 @@
   environment.systemPackages = with pkgs; [
     tor-browser
     qbittorrent
-
-    (quartus-prime-lite.override {
-      supportedDevices = [
-        "Cyclone IV"
-        "MAX 10 FPGA"
-      ];
-    })
   ];
 
   # NOTE: use oci-containers
