@@ -1,6 +1,5 @@
 { pkgs, user, ... }: {
   home-manager.users.${user}.programs.bash.initExtra = ''
-    ZSTD_CLEVEL=19
     ZSTD_NBTHREADS=`nproc --all`
   '';
 
