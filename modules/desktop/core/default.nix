@@ -24,6 +24,6 @@
     ./term.nix
     ./bar.nix
     ./launcher
-    ./browser
+    ./browser.nix
   ];
 }

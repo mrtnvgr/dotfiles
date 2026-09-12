@@ -1,7 +1,7 @@
 { ... }: {
   imports = [
     ./neovim
-    ./openutau
-    ./calibre
+    ./openutau.nix
+    ./calibre.nix
   ];
 }

@@ -1,6 +1,6 @@
 { ... }: {
   imports = [
     ./services
-    ./vms
+    ./vms.nix
   ];
 }

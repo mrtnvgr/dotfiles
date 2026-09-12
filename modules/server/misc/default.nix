@@ -1,6 +1,6 @@
 { ... }: {
   imports = [
-    ./torrserver
-    ./wireguard
+    ./torrserver.nix
+    ./wireguard.nix
   ];
 }

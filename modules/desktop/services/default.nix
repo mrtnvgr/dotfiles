@@ -1,6 +1,6 @@
 { ... }: {
   imports = [
-    ./midi
-    ./bluetooth
+    ./midi.nix
+    ./bluetooth.nix
   ];
 }
