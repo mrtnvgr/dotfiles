@@ -141,6 +141,8 @@ hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("amixer -q sset Master 1%+"))
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("amixer -q sset Master 1%-"))
 hl.bind("XF86AudioMute", hl.dsp.exec_cmd("amixer -q sset Master toggle"))
 
+-- TODO: hold ctrl+shift+... to move window without switching current workspace
+
 hl.bind("SUPER + I", hl.plugin.darkwindow.dsp_shade({ shader = "invert" }))
 
 -- Style popups
