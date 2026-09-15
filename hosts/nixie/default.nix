@@ -27,14 +27,16 @@
     # apps.calibre.enable = true;
     apps.openutau.enable = true;
 
+    audio.rt.enable = true;
+
     daws.bitwig.enable = true;
+    audio.plugins.native.enable = true;
     audio.samples = "Samples";
 
-    audio = {
-      rt.enable = true;
+    audio.plugins.wine = {
+      enable = true;
 
-      plugins.native.enable = true;
-      plugins.wine.enable = true;
+      bottles.general = {};
     };
   };
 

@@ -1,4 +1,4 @@
-{ config, pkgs, lib, user, ... }: let
+{ inputs, config, pkgs, lib, user, ... }: let
   cfg = config.modules.desktop.audio.plugins.wine;
 
   types = lib.types;
@@ -9,6 +9,8 @@
   };
 
   home = config.home-manager.users.${user}.home.homeDirectory;
+
+  pluginsDir = "Program Files/Common Files/VST3";
 
   bottleModule = {
     options = {
@@ -73,10 +75,10 @@
 
   # TODO: use actual symlinking after https://github.com/robbert-vdh/yabridge/issues/454 is resolved
   mkPluginScript = plugins: lib.concatLines ([
-    ''rm -rf "$WINEPREFIX/dosdevices/c:/plugins"''
-    ''mkdir -p "$WINEPREFIX/dosdevices/c:/plugins"''
+    ''rm -rf "$WINEPREFIX/drive_c/${pluginsDir}"''
+    ''mkdir -p "$WINEPREFIX/drive_c/${pluginsDir}"''
   ] ++ map (plugin: ''
-    cp -r "${plugin}" "$WINEPREFIX/dosdevices/c:/plugins"
+    cp -r "${plugin}" "$WINEPREFIX/drive_c/${pluginsDir}"
   '') plugins);
 
   mkRegScript = regFiles:
@@ -111,36 +113,43 @@
 
   activation = pkgs.writeShellApplication {
     name = "wine-audio-plugins-activate";
-    runtimeInputs = [ pkgs.yabridgectl ];
+    runtimeInputs = [ bandit.yabridge ];
     text = lib.concatLines (
       lib.mapAttrsToList (_: bottle: bottle.command) bottles
       ++ [ "yabridgectl sync -p -n" ]
     );
   };
+
+  bandit = inputs.bandithedoge-pkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in {
   options.modules.desktop.audio.plugins.wine = {
     enable = lib.mkEnableOption "Windows audio plugins through WINE";
 
     package = lib.mkOption {
       type = types.package;
-      default = pkgs.wineWow64Packages.yabridge;
+      default = pkgs.wineWow64Packages.stagingFull;
     };
 
     bottles = lib.mkOption {
       type = types.attrsOf (types.submodule bottleModule);
       default = { };
     };
+
+    adhocPluginsPath = lib.mkOption {
+      type = types.singleLineStr;
+      default = ".wplugs";
+    };
   };
 
   config = lib.mkIf cfg.enable {
     home-manager.users.${user} = {
-      home.packages = [ pkgs.yabridge pkgs.yabridgectl activation ];
+      home.packages = [ bandit.yabridge activation ];
 
-      home.file.".wplugs/.keep".text = "";
+      home.file."${cfg.adhocPluginsPath}/.keep".text = "";
 
       xdg.configFile."yabridgectl/config.toml".text = let
-        pluginDirs = lib.mapAttrsToList (_: bottle: "${bottle.prefix}/dosdevices/c:/plugins") bottles
-          ++ [ "${home}/.wplugs" ];
+        pluginDirs = lib.mapAttrsToList (_: bottle: "${bottle.prefix}/drive_c/${pluginsDir}") bottles
+          ++ [ "${home}/${cfg.adhocPluginsPath}" ];
         quoted = lib.concatMapStringsSep ", " (x: ''"${x}"'') pluginDirs;
       in "plugin_dirs = [${quoted}]";
     };
