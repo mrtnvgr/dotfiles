@@ -1,146 +1,152 @@
-{ inputs, config, pkgs, lib, user, ... }: let
+{ config, pkgs, lib, user, ... }: let
   cfg = config.modules.desktop.audio.plugins.wine;
 
-  bottleOptions = {
-    tricks = lib.mkOption {
-      type = with lib.types; listOf str;
-      default = [];
-    };
+  types = lib.types;
 
-    plugins = lib.mkOption {
-      type = with lib.types; listOf path;
-      default = [];
-    };
+  mkListOption = type: lib.mkOption {
+    inherit type;
+    default = [];
+  };
 
-    data = lib.mkOption {
-      type = lib.types.listOf (lib.types.submodule {
+  home = config.home-manager.users.${user}.home.homeDirectory;
+
+  bottleModule = {
+    options = {
+      tricks = mkListOption (types.listOf types.str);
+      plugins = mkListOption (types.listOf types.path);
+
+      data = mkListOption (types.listOf (types.submodule ({ config, ... }: {
         options = {
-          src = lib.mkOption { type = lib.types.path; };
-          dest = lib.mkOption { type = lib.types.str; };
-          symlink = lib.mkOption { type = lib.types.bool; default = true; };
-          linkContents = lib.mkOption { type = lib.types.bool; default = false; };
+          src = lib.mkOption { type = types.path; };
+
+          dest = lib.mkOption {
+            type = types.str;
+            default = baseNameOf (toString config.src);
+            defaultText = lib.literalExpression "baseNameOf src";
+          };
+
+          method = lib.mkOption {
+            type = types.enum [ "symlink" "copy" ];
+            default = "symlink";
+          };
+
+          clean = lib.mkOption {
+            type = types.bool;
+            default = true;
+          };
         };
-      });
+      })));
 
-      default = [];
-    };
+      regFiles = mkListOption (types.listOf types.path);
 
-    regFiles = lib.mkOption {
-      type = with lib.types; listOf path;
-      default = [];
-    };
+      hosts = mkListOption (types.listOf types.str);
 
-    hosts = lib.mkOption {
-      type = lib.types.lines;
-      default = "";
-    };
-
-    postScript = lib.mkOption {
-      type = lib.types.lines;
-      default = "";
+      postScript = lib.mkOption {
+        type = types.lines;
+        default = "";
+      };
     };
   };
 
-  mkEnv = name: bottle: pkgs.mkWineEnv {
-    name = "audio-plugins_${name}";
+  mkDataScript = data: lib.concatMapStringsSep "\n" (x: let
+    clean = lib.optionalString x.clean ''rm -rf "$DSTPATH"'';
 
-    wine = cfg.package;
-    inherit (bottle) tricks;
+    copy = {
+      symlink = ''ln -s "${x.src}" "$DSTPATH"'';
+      copy = ''cp -r "${x.src}" "$DSTPATH"'';
+      # copyContents = ''mkdir -p "$DSTPATH"; cp -rs "${x.src}"/. "$DSTPATH"/'';
+    }.${x.method};
 
-    # TODO: Migrate to runLocalCommand
-    setupScript = let
-      pluginScript = let
-        pluginDirectory = "mkdir -p \"$HOME/.wine-nix/audio-plugins_${name}/dosdevices/c:/plugins\"";
-        plugins = map (plugin: ''
-          # TODO: use actual symlinking after https://github.com/robbert-vdh/yabridge/issues/454 is resolved
-          cp -r "${plugin}" "$HOME/.wine-nix/audio-plugins_${name}/dosdevices/c:/plugins"
-        '') bottle.plugins;
-      in
-        lib.concatStringsSep "\n" ([ pluginDirectory ] ++ plugins);
+    # `find` does not follow symlinks, so this is only meaningful for real copies.
+    chmod = lib.optionalString (x.method != "symlink") ''
+      # https://superuser.com/a/91938
+      find "$DSTPATH" -type d -exec chmod 755 {} +
+      find "$DSTPATH" -type f -exec chmod 644 {} +
+    '';
+  in /* bash */ ''
+    DSTPATH="$WINEPREFIX/drive_c/${x.dest}"
+    mkdir -pv "$(dirname "$DSTPATH")"
+    ${clean}
+    ${copy}
+    ${chmod}
+  '') data;
 
-      dataScript = let
-        getCopyMethod = x: if (x.symlink && !x.linkContents) then
-          "ln -s"
-        else if x.linkContents then
-          "cp -rs"
-        else
-          "cp -r";
+  # TODO: use actual symlinking after https://github.com/robbert-vdh/yabridge/issues/454 is resolved
+  mkPluginScript = plugins: lib.concatLines ([
+    ''rm -rf "$WINEPREFIX/dosdevices/c:/plugins"''
+    ''mkdir -p "$WINEPREFIX/dosdevices/c:/plugins"''
+  ] ++ map (plugin: ''
+    cp -r "${plugin}" "$WINEPREFIX/dosdevices/c:/plugins"
+  '') plugins);
 
-        mkData = x: /* bash */ ''
-          DSTPATH="$HOME/.wine-nix/audio-plugins_${name}/drive_c/${x.dest}"
-          mkdir -pv "$(dirname "$DSTPATH")"
-          ${getCopyMethod x} -vf "${x.src}" "$DSTPATH"
+  mkRegScript = regFiles:
+    lib.concatMapStringsSep "\n" (x: ''wine regedit "${x}"'') regFiles;
 
-          # https://superuser.com/a/91938
-          find "$DSTPATH" -type d -exec chmod 755 {} +
-          find "$DSTPATH" -type f -exec chmod 644 {} +
-        '';
-      in
-        lib.concatMapStringsSep "\n" mkData bottle.data;
+  mkEnv = name: bottle: let
+    envName = "audio-plugins_${name}";
 
-      regScript = lib.concatMapStringsSep "\n" (x: "wine regedit ${x}") bottle.regFiles;
+    env = pkgs.mkWineEnv {
+      name = envName;
+      wine = cfg.package;
 
-      script = lib.concatStringsSep "\n" [
-        "echo Symlinking plugin bins..."
-        pluginScript
+      inherit (bottle) tricks;
 
-        "echo Copying data..."
-        dataScript
-
-        "echo Applying reg files..."
-        regScript
+      postScript = lib.concatLines [
+        (mkDataScript bottle.data)
+        (mkRegScript bottle.regFiles)
+        (mkPluginScript bottle.plugins)
+        bottle.postScript
       ];
-    in script;
-
-    inherit (bottle) postScript;
+    };
+  in {
+    inherit env;
+    prefix = "${home}/.wine-nix/${envName}";
+    command = "${env}/bin/${envName}";
   };
 
-  envs = lib.mapAttrsToList (name: bottle: mkEnv name bottle) cfg.bottles;
+  bottles = lib.mapAttrs mkEnv cfg.bottles;
 
   # TODO: write a helper for wine env?:
   # wine-plugins sync, wine-plugins enter no_tricks
-  wine-audio-plugins-activate = pkgs.writeScriptBin "wine-audio-plugins-activate" ''
-    ${lib.concatMapStringsSep "\n" (x: "${x}/bin/*") envs}
-    yabridgectl sync -p -n
-  '';
+
+  activation = pkgs.writeShellApplication {
+    name = "wine-audio-plugins-activate";
+    runtimeInputs = [ pkgs.yabridgectl ];
+    text = lib.concatLines (
+      lib.mapAttrsToList (_: bottle: bottle.command) bottles
+      ++ [ "yabridgectl sync -p -n" ]
+    );
+  };
 in {
   options.modules.desktop.audio.plugins.wine = {
     enable = lib.mkEnableOption "Windows audio plugins through WINE";
 
     package = lib.mkOption {
-      type = lib.types.package;
-      default = inputs.nixpkgs-wine.legacyPackages.${pkgs.stdenv.hostPlatform.system}.wineWowPackages.stagingFull;
+      type = types.package;
+      default = pkgs.wineWow64Packages.yabridge;
     };
 
     bottles = lib.mkOption {
-      type = with lib.types; attrsOf (submodule {
-        options = bottleOptions;
-      });
+      type = types.attrsOf (types.submodule bottleModule);
       default = { };
     };
   };
 
   config = lib.mkIf cfg.enable {
-    home-manager.users.${user} = { lib, ... }: {
-      home.packages = [ pkgs.yabridge pkgs.yabridgectl wine-audio-plugins-activate ];
+    home-manager.users.${user} = {
+      home.packages = [ pkgs.yabridge pkgs.yabridgectl activation ];
 
-      home.file.".config/yabridgectl/config.toml".text = let
-        bottlePlugins = map (x: "/home/${user}/.wine-nix/${x.name}/dosdevices/c:/plugins") envs;
-        plugins = bottlePlugins ++ [ "/home/${user}/.wplugs" ];
-      in ''
-        plugin_dirs = [${lib.concatStringsSep ", " (map (x: "\"${x}\"") plugins)}]
-      '';
+      home.file.".wplugs/.keep".text = "";
 
-      # Do not isolate VST2 plugins
-      home.file.".vst/yabridge/yabridge.toml".text = ''
-        ["*"]
-        group = "all"
-      '';
+      xdg.configFile."yabridgectl/config.toml".text = let
+        pluginDirs = lib.mapAttrsToList (_: bottle: "${bottle.prefix}/dosdevices/c:/plugins") bottles
+          ++ [ "${home}/.wplugs" ];
+        quoted = lib.concatMapStringsSep ", " (x: ''"${x}"'') pluginDirs;
+      in "plugin_dirs = [${quoted}]";
     };
 
-    networking.extraHosts = lib.concatStringsSep "\n" (lib.mapAttrsToList (_: x: x.hosts) cfg.bottles);
-
-    # TODO: link files via hm
-    # TODO: .wine-nix/plugins/{regs, data, plugins}
+    networking.extraHosts = lib.concatLines (
+      lib.concatMap (bottle: bottle.hosts) (lib.attrValues cfg.bottles)
+    );
   };
 }
