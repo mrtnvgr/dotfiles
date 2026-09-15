@@ -34,7 +34,7 @@
       rt.enable = true;
 
       plugins.native.enable = true;
-      # plugins.wine.enable = true; # TODO: remove?
+      plugins.wine.enable = true;
     };
   };
 

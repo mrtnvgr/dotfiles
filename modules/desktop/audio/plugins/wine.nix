@@ -1,47 +1,42 @@
-{ inputs, pkgs, config, lib, user, ... }: let
-  inherit (lib) mkEnableOption mkIf mkOption types;
-
+{ inputs, config, pkgs, lib, user, ... }: let
   cfg = config.modules.desktop.audio.plugins.wine;
 
-  yabridge = pkgs.yabridge.override { wine = cfg.package; };
-  yabridgectl = pkgs.yabridgectl.override { wine = cfg.package; };
-
   bottleOptions = {
-    tricks = mkOption {
-      type = with types; listOf str;
+    tricks = lib.mkOption {
+      type = with lib.types; listOf str;
       default = [];
     };
 
-    plugins = mkOption {
-      type = with types; listOf path;
+    plugins = lib.mkOption {
+      type = with lib.types; listOf path;
       default = [];
     };
 
-    data = mkOption {
-      type = types.listOf (types.submodule {
+    data = lib.mkOption {
+      type = lib.types.listOf (lib.types.submodule {
         options = {
-          src = mkOption { type = types.path; };
-          dest = mkOption { type = types.str; };
-          symlink = mkOption { type = types.bool; default = true; };
-          linkContents = mkOption { type = types.bool; default = false; };
+          src = lib.mkOption { type = lib.types.path; };
+          dest = lib.mkOption { type = lib.types.str; };
+          symlink = lib.mkOption { type = lib.types.bool; default = true; };
+          linkContents = lib.mkOption { type = lib.types.bool; default = false; };
         };
       });
 
       default = [];
     };
 
-    regFiles = mkOption {
-      type = with types; listOf path;
+    regFiles = lib.mkOption {
+      type = with lib.types; listOf path;
       default = [];
     };
 
-    hosts = mkOption {
-      type = types.lines;
+    hosts = lib.mkOption {
+      type = lib.types.lines;
       default = "";
     };
 
-    postScript = mkOption {
-      type = types.lines;
+    postScript = lib.mkOption {
+      type = lib.types.lines;
       default = "";
     };
   };
@@ -110,24 +105,24 @@
   '';
 in {
   options.modules.desktop.audio.plugins.wine = {
-    enable = mkEnableOption "Windows audio plugins through WINE";
+    enable = lib.mkEnableOption "Windows audio plugins through WINE";
 
-    package = mkOption {
-      type = types.package;
+    package = lib.mkOption {
+      type = lib.types.package;
       default = inputs.nixpkgs-wine.legacyPackages.${pkgs.stdenv.hostPlatform.system}.wineWowPackages.stagingFull;
     };
 
-    bottles = mkOption {
-      type = with types; attrsOf (submodule {
+    bottles = lib.mkOption {
+      type = with lib.types; attrsOf (submodule {
         options = bottleOptions;
       });
       default = { };
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home-manager.users.${user} = { lib, ... }: {
-      home.packages = [ yabridge yabridgectl wine-audio-plugins-activate ];
+      home.packages = [ pkgs.yabridge pkgs.yabridgectl wine-audio-plugins-activate ];
 
       home.file.".config/yabridgectl/config.toml".text = let
         bottlePlugins = map (x: "/home/${user}/.wine-nix/${x.name}/dosdevices/c:/plugins") envs;
