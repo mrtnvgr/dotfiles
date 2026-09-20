@@ -108,26 +108,21 @@
 
   bottles = lib.mapAttrs mkEnv cfg.bottles;
 
-  # TODO: write a helper for wine env?:
-  # wine-plugins sync, wine-plugins enter no_tricks
-
   activation = pkgs.writeShellApplication {
     name = "wine-audio-plugins-activate";
-    runtimeInputs = [ bandit.yabridge ];
+    runtimeInputs = [ pkgs.yabridgectl ];
     text = lib.concatLines (
       lib.mapAttrsToList (_: bottle: bottle.command) bottles
       ++ [ "yabridgectl sync -p -n" ]
     );
   };
-
-  bandit = inputs.bandithedoge-pkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in {
   options.modules.desktop.audio.plugins.wine = {
     enable = lib.mkEnableOption "Windows audio plugins through WINE";
 
     package = lib.mkOption {
       type = types.package;
-      default = pkgs.wineWow64Packages.stagingFull;
+      default = pkgs.wineWow64Packages.yabridge;
     };
 
     bottles = lib.mkOption {
@@ -143,7 +138,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     home-manager.users.${user} = {
-      home.packages = [ bandit.yabridge activation ];
+      home.packages = [ pkgs.yabridge pkgs.yabridgectl activation ];
 
       home.file."${cfg.adhocPluginsPath}/.keep".text = "";
 

@@ -3,6 +3,7 @@
     ./lsp
 
     ./treesitter.nix
+    ./markdown.nix
     ./picker.nix
     ./flash.nix
     ./lualine.nix

@@ -33,11 +33,7 @@
     audio.plugins.native.enable = true;
     audio.samples = "Samples";
 
-    audio.plugins.wine = {
-      enable = true;
-
-      bottles.general = {};
-    };
+    audio.plugins.wine.enable = true;
   };
 
   services.getty.greetingLine = builtins.readFile ./castle;
