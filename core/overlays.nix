@@ -1,5 +1,5 @@
 { inputs, ... }: {
-  nixpkgs.overlays = with inputs; [
-    mrtnvgr.outputs.overlays.default
+  nixpkgs.overlays = [
+    inputs.mrtnvgr.outputs.overlays.default
   ];
 }
