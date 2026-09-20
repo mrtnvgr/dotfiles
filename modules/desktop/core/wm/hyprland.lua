@@ -109,6 +109,13 @@ hl.bind("SUPER + SHIFT + right", hl.dsp.window.move({ direction = "r" }))
 hl.bind("SUPER + SHIFT + up",    hl.dsp.window.move({ direction = "u" }))
 hl.bind("SUPER + SHIFT + down",  hl.dsp.window.move({ direction = "d" }))
 
+-- All workspaces must be on the main monitor
+hl.workspace_rule({ workspace = "1", monitor = "eDP-1" })
+hl.workspace_rule({ workspace = "2", monitor = "eDP-1" })
+hl.workspace_rule({ workspace = "3", monitor = "eDP-1" })
+hl.workspace_rule({ workspace = "4", monitor = "eDP-1" })
+hl.workspace_rule({ workspace = "5", monitor = "eDP-1" })
+
 -- Switch workspaces with mainMod + [0-5]
 hl.bind("SUPER + 1", hl.dsp.focus({ workspace = 1 }))
 hl.bind("SUPER + 2", hl.dsp.focus({ workspace = 2 }))
