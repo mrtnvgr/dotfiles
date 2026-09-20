@@ -62,15 +62,6 @@
     qbittorrent
   ];
 
-  # NOTE: use oci-containers
-  modules.generic.vms.w1 = {
-    os = "windows";
-    # TODO: disks, size?
-    # TODO: users.user.password = "password";
-    # TODO: exposeFirewall
-    autostart = false;
-  };
-
   # TODO: modules.generic.moviesPath = "..."? (if set enable jellyfin)
   # services.jellyfin = {
   #   enable = true;
