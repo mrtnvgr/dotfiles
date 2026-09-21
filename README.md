@@ -57,6 +57,10 @@ This repository contains declarative configurations of my machines.
 
 ## Troubleshooting
 
-- `git-crypt: error: encrypted file has been tampered with!`:
+#### `git-crypt: error: encrypted file has been tampered with!`:
 
 [Solution](https://github.com/AGWA/git-crypt/issues/59#issuecomment-129958806)
+
+## Limitations
+
+- Assumes `single monitor` or `docked laptop` setup.

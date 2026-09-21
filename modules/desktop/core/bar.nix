@@ -134,7 +134,7 @@
     modules-right = [ "tray" "wireplumber" "backlight" "battery" "clock" ];
 
     "hyprland/workspaces" = {
-      persistent-workspaces."*" = 4;
+      persistent-workspaces."*" = [ 1 2 3 4 ];
     };
 
     tray = {
