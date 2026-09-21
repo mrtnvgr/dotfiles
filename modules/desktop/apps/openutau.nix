@@ -60,8 +60,7 @@ in {
 
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
-      # TODO: use openutau-lunai
-      environment.systemPackages = [ pkgs.openutau ];
+      environment.systemPackages = [ pkgs.openutau-lunai ];
     })
 
     (genVoice "Sweet"  cfg.voices.sweet  sweet)
