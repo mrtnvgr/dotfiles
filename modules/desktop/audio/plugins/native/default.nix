@@ -18,6 +18,7 @@
     # auburn-sounds-inner-pitch
     # drumlabooh
     # dsp56300
+    pitchnet
   ];
 
   # NOTE: rom location
