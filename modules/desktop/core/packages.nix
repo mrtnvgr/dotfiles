@@ -19,9 +19,11 @@ in {
       android-file-transfer
 
       # my custom scripts
-      flac2ogg
+      flac2opus
 
       wl-clipboard
+
+      brightnessctl
     ];
   };
 }

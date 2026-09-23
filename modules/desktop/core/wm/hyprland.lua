@@ -132,6 +132,10 @@ hl.bind("SHIFT + Print", hl.dsp.exec_cmd("screenshot-full"))
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("amixer -q sset Master 1%+"))
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("amixer -q sset Master 1%-"))
 hl.bind("XF86AudioMute", hl.dsp.exec_cmd("amixer -q sset Master toggle"))
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set +10%"), {})
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set -- -10%"), {})
+hl.bind("SHIFT + XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set 100%"))
+hl.bind("SHIFT + XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 0%"))
 
 -- TODO: hold ctrl+shift+... to move window without switching current workspace
 
