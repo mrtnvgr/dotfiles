@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }: let
   cfg = config.modules.desktop;
 
-  flac2ogg = pkgs.writeScriptBin "flac2ogg" /* bash */ ''
+  flac2opus = pkgs.writeScriptBin "flac2ogg" /* bash */ ''
     find . -name "*.flac" | parallel --bar "ffmpeg -i {} -c:a libopus -b:a 192k -map_metadata 0 {.}.opus && rm {}"
   '';
 in {
