@@ -10,7 +10,7 @@
   # Waybar errors on screen connect/disconnect
   # HACK: this just forcefully restarts it. :/
   reloadWaybar = ''
-    sleep 1; pkill waybar; sleep 0.5; ${waybar}
+    pkill waybar; ${waybar}
   '';
 
   mkProfile = name: outputs: {
