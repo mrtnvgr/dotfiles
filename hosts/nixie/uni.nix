@@ -1,4 +1,4 @@
-{ pkgs, ... }: let
+{ pkgs, user, ... }: let
   creds = import ./secrets/uni.nix;
 in {
   networking.networkmanager.ensureProfiles.profiles.UniversityStudent = {
@@ -38,5 +38,12 @@ in {
     # Altera USB-Blaster II
     SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6010", MODE="0666"
     SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6810", MODE="0666"
+  '';
+
+  home-manager.users.${user}.wayland.windowManager.hyprland.extraConfig = /* lua */ ''
+    hl.window_rule({
+        match = { class = "quartus" },
+        ["darkwindow:shade"] = "invert",
+    })
   '';
 }
