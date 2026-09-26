@@ -11,6 +11,17 @@
 
   cfg = config.modules.desktop;
 in {
+  programs.obs-studio = {
+    enable = true;
+
+    plugins = with pkgs.obs-studio-plugins; [
+      wlrobs
+      obs-backgroundremoval
+      obs-pipewire-audio-capture
+      obs-vaapi
+    ];
+  };
+
   environment.systemPackages = lib.mkIf cfg.enable (with pkgs; [
     # Viewers
     feh mpv
@@ -23,8 +34,5 @@ in {
 
     # Screenshots
     screenshot-select screenshot-full
-
-    # Video capturing
-    obs-studio-plus
   ]);
 }
