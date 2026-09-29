@@ -60,7 +60,14 @@
   environment.systemPackages = with pkgs; [
     tor-browser
     qbittorrent
+    libreoffice
+    splicedd
   ];
+
+  swapDevices = [{
+    device = "/var/lib/swapfile";
+    size = 16*1024;
+  }];
 
   # TODO: modules.generic.moviesPath = "..."? (if set enable jellyfin)
   # services.jellyfin = {
