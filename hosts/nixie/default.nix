@@ -69,4 +69,15 @@
   # };
 
   # TODO: migrate to btrfs, check out vimjoyer auto partition video
+
+  modules.generic.services.syncthing = {
+    enable = true;
+    devices."Phone" = "FQIYKVL-IKAEVWC-CXKPOBI-WD2LEJO-6WISFMJ-M6ONNIB-YOS6KN7-6VEQQAP";
+
+    folders."Music" = {
+      id = "mpgt5-watvo";
+      path = "/home/${user}/Music";
+      devices = [ "Phone" ];
+    };
+  };
 }

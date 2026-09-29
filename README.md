@@ -64,3 +64,4 @@ This repository contains declarative configurations of my machines.
 ## Limitations
 
 - Assumes `single monitor` or `docked laptop` setup.
+- One user, one root. (Workarounds are possible)
