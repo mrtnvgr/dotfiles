@@ -4,6 +4,7 @@
     ../thlix
 
     ./secrets/bitwig.nix
+    ./secrets/u-he.nix
 
     ./uni.nix
 
