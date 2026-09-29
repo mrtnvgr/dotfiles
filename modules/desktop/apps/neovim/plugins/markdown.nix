@@ -7,8 +7,8 @@ in {
     extraConfigLua = ''
       require("markdown").setup({
         mappings = {
-          inline_surround_toggle = "gs",
-          inline_surround_toggle_line = "gss",
+          inline_surround_toggle = "<leader>m",
+          inline_surround_toggle_line = "<leader>m",
         },
         inline_surround = {
           strong = { key = "b", txt = "**" },
