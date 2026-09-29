@@ -5,6 +5,10 @@
       config.common.default = "*";
     };
 
+    xdg.mime.defaultApplications = {
+      "application/pdf" = "firefox.desktop";
+    };
+
     home-manager.users.${user} = {
       xdg.enable = true;
 
