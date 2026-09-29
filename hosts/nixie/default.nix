@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }: {
+{ inputs, pkgs, lib, user, ... }: {
   imports = [
     # Personal base (base with secrets)
     ../thlix
@@ -31,7 +31,7 @@
 
     daws.bitwig.enable = true;
     audio.plugins.native.enable = true;
-    audio.samples = "Samples";
+    paths.samples = "Samples";
 
     audio.plugins.wine.enable = true;
   };

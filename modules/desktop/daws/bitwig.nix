@@ -1,6 +1,6 @@
 { pkgs, lib, config, user, ... }: let
   cfg = config.modules.desktop.daws.bitwig;
-  samples = config.modules.desktop.audio.samples;
+  samples = config.modules.desktop.paths.samples;
 
   drivenbymoss = pkgs.stdenvNoCC.mkDerivation (finalAttrs: {
     pname = "drivenbymoss";
