@@ -76,10 +76,9 @@ hl.config({
 hl.bind("SUPER + SHIFT + RETURN", hl.dsp.exec_cmd("foot"))
 hl.bind("SUPER + SHIFT + F",      hl.dsp.exec_cmd(os.getenv("BROWSER")))
 hl.bind("SUPER + SHIFT + E",      hl.dsp.exec_cmd("foot nvim")) -- E stands for editor
+hl.bind("SUPER + O", hl.dsp.exec_cmd("rofi -show run"))
 
 hl.bind("SUPER + Tab", hl.dsp.exec_cmd("pkill -SIGUSR1 waybar"))
-
-hl.bind("SUPER + O", hl.dsp.exec_cmd("rofi -show run"))
 
 hl.bind("SUPER + L", hl.dsp.exec_cmd("lock"))
 
@@ -175,3 +174,25 @@ hl.window_rule({
     match = { class = "AmneziaVPN", },
     center = true,
 })
+
+-- Magnifier zoom
+local ZOOM_STEP = 0.5
+
+---@param offset number
+---@return nil
+local function zoom(offset)
+    local current = hl.get_config("cursor.zoom_factor")
+    local new = math.max(1, current + offset)
+    hl.config({ cursor = { zoom_factor = new } })
+end
+
+local function zoom_reset()
+    hl.config({ cursor = { zoom_factor = 1 } })
+end
+
+-- SUPER + scroll wheel → zoom in / out
+hl.bind("SUPER + mouse_down", function() zoom(ZOOM_STEP) end)
+hl.bind("SUPER + mouse_up", function() zoom(-ZOOM_STEP) end)
+
+-- SUPER + middle click → reset zoom
+hl.bind("SUPER + mouse:274", zoom_reset)
