@@ -22,6 +22,7 @@ in {
 
   environment.systemPackages = [
     (pkgs.quartus-prime-lite.override {
+      withQuesta = false;
       supportedDevices = [
         "Cyclone IV"
         "MAX 10 FPGA"
