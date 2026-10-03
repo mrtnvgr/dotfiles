@@ -31,7 +31,6 @@
 
     daws.bitwig.enable = true;
     audio.plugins.native.enable = true;
-    paths.samples = "Samples";
 
     audio.plugins.wine.enable = true;
   };
