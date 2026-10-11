@@ -3,10 +3,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # My repo of custom packages and functions
-    mrtnvgr = {
-      url = "github:mrtnvgr/nurpkgs";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    mrtnvgr.url = "github:mrtnvgr/nurpkgs";
 
     # Supercharged dotfiles :)
     home-manager = {
