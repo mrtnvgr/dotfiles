@@ -2,7 +2,7 @@
   imports = [
     ./core
     ./web
-    ./misc
+    ./services
     ./telegram
   ];
 }

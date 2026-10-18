@@ -11,7 +11,7 @@
   modules.server = {
     enable = true;
 
-    misc.torrserver.enable = true;
+    services.torrserver.enable = true;
   };
 
   system.stateVersion = "24.05";

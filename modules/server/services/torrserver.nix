@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }:
 let
   inherit (lib) mkIf mkEnableOption mkOption types;
-  cfg = config.modules.server.misc.torrserver;
+  cfg = config.modules.server.services.torrserver;
 
   torrserver = pkgs.stdenv.mkDerivation (finalAttrs: {
     pname = "torrserver";
@@ -29,7 +29,7 @@ let
 
   flags = "--port ${toString cfg.port} --httpauth";
 in {
-  options.modules.server.misc.torrserver = {
+  options.modules.server.services.torrserver = {
     enable = mkEnableOption "torrserver";
 
     port = mkOption {

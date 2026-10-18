@@ -3,7 +3,7 @@
 
 { lib, config, ... }:
 let
-  cfg = config.modules.server.misc.wireguard;
+  cfg = config.modules.server.services.wireguard;
 
   keyOption = lib.mkOption { type = lib.types.singleLineStr; };
 
@@ -16,7 +16,7 @@ let
 
   wgPort = config.networking.wg-quick.interfaces.wg0.listenPort;
 in {
-  options.modules.server.misc.wireguard = {
+  options.modules.server.services.wireguard = {
     enable = lib.mkEnableOption "WireGuard";
 
     serverKeys = {
