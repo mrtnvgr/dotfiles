@@ -11,7 +11,7 @@
 
   cfg = config.modules.desktop;
 in {
-  programs.obs-studio = {
+  programs.obs-studio = lib.mkIf cfg.enable {
     enable = true;
 
     plugins = with pkgs.obs-studio-plugins; [
