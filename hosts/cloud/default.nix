@@ -1,7 +1,6 @@
 { ... }: {
   imports = [
     ./secrets/torrserver.nix
-    ./secrets/wg.nix
   ];
 
   modules.generic.services.sshd = {
@@ -11,31 +10,8 @@
 
   modules.server = {
     enable = true;
-    web.master = "martynovegorOF@yandex.ru";
 
-    web = {
-      enable = true;
-      domain = "unixis.fun";
-
-      eggs.enable = true;
-      cdn.enable = true;
-    };
-
-    misc = {
-      torrserver.enable = true;
-    };
-
-    telegram.api = {
-      enable = false;
-      api_id = import ./secrets/tg_api_id;
-      api_hash = import ./secrets/tg_api_hash;
-    };
-
-    telegram.yt = {
-      enable = false;
-      token = import ./secrets/tg_yt_token;
-      adminId = 793346819;
-    };
+    misc.torrserver.enable = true;
   };
 
   system.stateVersion = "24.05";
