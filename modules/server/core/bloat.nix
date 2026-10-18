@@ -15,11 +15,11 @@
     systemd.settings.Manager.RuntimeWatchdogSec = "20s";
     systemd.settings.Manager.RebootWatchdogSec = "30s";
 
-    # Disable sleep mode
-    systemd.sleep.extraConfig = ''
-      AllowSuspend=no
-      AllowHibernation=no
-    '';
+    # Disable sleep
+    systemd.sleep.settings.Sleep = {
+      AllowSuspend = "no";
+      AllowHibernation = "no";
+    };
 
     # use TCP BBR has significantly increased throughput and reduced latency for connections
     boot.kernel.sysctl = {
