@@ -55,7 +55,7 @@ in {
     systemd.services.torrserver = {
       enable = true;
 
-      path = [ pkgs.ffmpeg-full ];
+      path = [ pkgs.ffmpeg-headless ];
 
       after = [ "network.target" ];
       wants = [ "network-online.target" ];

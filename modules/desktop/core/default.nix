@@ -2,9 +2,11 @@
   imports = [
     ./boot
 
+    ./firmware.nix
     ./graphics.nix
     ./sound.nix
     ./multimedia.nix
+    ./physlock.nix
     ./fonts.nix
     ./gtk.nix
     ./qt.nix

@@ -10,6 +10,11 @@
     # No need for fonts on a server
     fonts.fontconfig.enable = false;
 
+    # No need for desktop data files on a server
+    xdg.sounds.enable = false;
+    xdg.icons.enable = false;
+    xdg.mime.enable = false;
+
     # Anti-freeze
     systemd.enableEmergencyMode = false;
     systemd.settings.Manager.RuntimeWatchdogSec = "20s";

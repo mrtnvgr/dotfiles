@@ -8,7 +8,6 @@
     ./bcache.nix
     ./home-manager.nix
     ./time-zone.nix
-    ./physlock.nix
     ./nice-build.nix
     ./users.nix
     ./network.nix
@@ -19,7 +18,6 @@
     ./shell.nix
     ./archiving.nix
     ./gpg.nix
-    ./firmware.nix
     ./kernel.nix
     ./gc-whitelist.nix
     ./logs.nix
