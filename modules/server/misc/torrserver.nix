@@ -5,11 +5,11 @@ let
 
   torrserver = pkgs.stdenv.mkDerivation (finalAttrs: {
     pname = "torrserver";
-    version = "134";
+    version = "147";
 
     src = pkgs.fetchurl {
       url = "https://github.com/YouROK/TorrServer/releases/download/MatriX.${finalAttrs.version}/TorrServer-linux-amd64";
-      hash = "sha256-WDygG9aGnD20nGxtG0t+T2KEwbJ+fZ0uRaCndirrsXI=";
+      hash = "sha256-LyD8sfysybYbfKS7bVt5M1R71/RHtcx3qEQG+qnmpOg=";
     };
 
     nativeBuildInputs = [ pkgs.autoPatchelfHook ];
