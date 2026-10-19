@@ -1,8 +1,7 @@
 { lib, config, user, ... }: let
   desk = config.modules.desktop;
-  enabled = desk.apps.neovim.enable && desk.dev.enable;
 in {
-  home-manager.users.${user}.programs.nixvim = lib.mkIf enabled {
+  home-manager.users.${user}.programs.nixvim = lib.mkIf desk.dev.enable {
     lsp.servers.nixd.enable = true;
   };
 }

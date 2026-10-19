@@ -1,5 +1,5 @@
-{ lib, config, user, ... }: {
-  home-manager.users.${user}.programs.nixvim = lib.mkIf config.modules.desktop.apps.neovim.enable {
+{ user, ... }: {
+  home-manager.users.${user}.programs.nixvim = {
     plugins.blink-cmp = {
       enable = true;
 

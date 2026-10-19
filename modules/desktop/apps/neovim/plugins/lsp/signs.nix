@@ -1,8 +1,7 @@
 { lib, config, user, ... }: let
   isDev = config.modules.desktop.dev.enable;
-  neovimEnabled = config.modules.desktop.apps.neovim.enable;
 in {
-  home-manager.users.${user}.programs.nixvim = lib.mkIf (neovimEnabled && isDev) {
+  home-manager.users.${user}.programs.nixvim = lib.mkIf isDev {
     diagnostic.settings = {
       severity_sort = true;
 
