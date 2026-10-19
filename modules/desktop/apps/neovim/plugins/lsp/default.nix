@@ -1,6 +1,6 @@
 { lib, config, user, ... }: let
   desk = config.modules.desktop;
-  enabled = desk.apps.neovim.enable && desk.dev.rust.enable;
+  enabled = desk.apps.neovim.enable && desk.dev.enable;
 in {
   home-manager.users.${user} = lib.mkIf enabled {
     programs.nixvim.plugins.lsp = {
