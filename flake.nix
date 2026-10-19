@@ -16,8 +16,10 @@
 
     # Nix-friendly neovim
     nixvim.url = "github:nix-community/nixvim";
+    nixvim.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-gaming.url = "github:fufexan/nix-gaming";
+    nix-gaming.inputs.nixpkgs.follows = "nixpkgs";
 
     # Automatic ISOs CI
     generators.url = "github:nix-community/nixos-generators";
@@ -29,6 +31,7 @@
     };
 
     bandithedoge-pkgs.url = "github:bandithedoge/nur-packages";
+    bandithedoge-pkgs.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { nixpkgs, ... } @ inputs:
