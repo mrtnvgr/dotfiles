@@ -2,7 +2,7 @@
   cfg = config.modules.laptop;
 in {
   config = lib.mkIf cfg.enable {
-    powerManagement.cpuFreqGovernor = "powersafe";
+    powerManagement.cpuFreqGovernor = "powersave";
 
     powerManagement.powertop.enable = true;
 
