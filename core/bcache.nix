@@ -1,5 +1,5 @@
 { ... }: {
-  # NOTE: please don't forget to add these caches to `./scripts/setup-livecd`
+  # Keep in sync with nixConfig in ../flake.nix
 
   nix.settings = {
     substituters = [

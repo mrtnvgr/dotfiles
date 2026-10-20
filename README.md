@@ -28,7 +28,7 @@ This repository contains declarative configurations of my machines.
 
 - Follow the official NixOS installation [guide](https://nixos.wiki/wiki/NixOS_Installation_Guide) **until `NixOS Installation` section**
 - Clone this repo: `git clone https://github.com/mrtnvgr/dotfiles`
-- Run `sudo ~/dotfiles/scripts/setup-livecd`
+- Run `sudo ~/dotfiles/scripts/enable-flakes`
 - Create your host (look in `flake.nix` and `hosts` for examples)
   - Copy `/mnt/etc/nixos/hardware-configuration.nix` to `hardware.nix`
 - Install: `nixos-install --root /mnt --flake .#<YOUR-HOST-NAME>`

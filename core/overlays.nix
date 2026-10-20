@@ -1,5 +1,5 @@
-{ inputs, ... }: {
+{ ... }: {
   nixpkgs.overlays = [
-    inputs.mrtnvgr.outputs.overlays.default
+    (final: prev: import ../pkgs { pkgs = final; lib = prev.lib; })
   ];
 }

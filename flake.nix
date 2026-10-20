@@ -2,9 +2,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # My repo of custom packages and functions
-    mrtnvgr.url = "github:mrtnvgr/nurpkgs";
-
     # Supercharged dotfiles :)
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -16,7 +13,6 @@
 
     # Nix-friendly neovim
     nixvim.url = "github:nix-community/nixvim";
-    nixvim.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-gaming.url = "github:fufexan/nix-gaming";
     nix-gaming.inputs.nixpkgs.follows = "nixpkgs";
@@ -32,6 +28,8 @@
 
     bandithedoge-pkgs.url = "github:bandithedoge/nur-packages";
     bandithedoge-pkgs.inputs.nixpkgs.follows = "nixpkgs";
+
+    # nix-flatpak.url = "github:gmodena/nix-flatpak";
   };
 
   outputs = { nixpkgs, ... } @ inputs:
@@ -51,6 +49,14 @@
         };
     in
     {
+      packages = nixpkgs.lib.genAttrs [ "x86_64-linux" ] (system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        nixpkgs.lib.filterAttrs
+          (_: value: nixpkgs.lib.isDerivation value)
+          (import ./pkgs { inherit pkgs; }));
+
       nixosConfigurations = {
         # <hostname> = mkSystem <username> <hostname>;
 
@@ -63,4 +69,20 @@
         cloud = mkSystem "user" "cloud";
       };
     };
+
+  nixConfig = {
+    extra-substituters = [
+      "https://mrtnvgr.cachix.org"
+      "https://nix-community.cachix.org"
+      "https://nix-gaming.cachix.org"
+      "https://bandithedoge.cachix.org"
+    ];
+
+    extra-trusted-public-keys = [
+      "mrtnvgr.cachix.org-1:zV5Vv57wyo/NNdiLZg0IMjQSLLL0pkEbfeltQ0F4kL8="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
+      "bandithedoge.cachix.org-1:ZtcHw1anyEa4t6H8m3o/ctYFrwYFPAwoENSvofamE6g="
+    ];
+  };
 }
