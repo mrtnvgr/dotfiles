@@ -52,7 +52,11 @@ stdenv.mkDerivation (finalAttrs: {
       curl -fsSL --user-agent 'Mozilla/5.0' https://crql.works/archive/anina/ \
         | grep -oE 'latestNew">NEW</span><span>[0-9.]+' \
         | head -n1 \
-        | grep -oE '[0-9.]+'
+        | grep -oE '[0-9.]+' \
+        || curl -fsSL --user-agent 'Mozilla/5.0' 'https://aur.archlinux.org/rpc/v5/info?arg[]=crql-anina' \
+          | grep -oE '"Version":"[0-9.]+' \
+          | head -n1 \
+          | grep -oE '[0-9.]+'
     '';
   };
 
