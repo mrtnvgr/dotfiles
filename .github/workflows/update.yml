@@ -12,7 +12,6 @@ concurrency:
 permissions:
   actions: write
   contents: write
-  pull-requests: write
 
 jobs:
   update:
@@ -80,37 +79,21 @@ jobs:
           git commit -m "flake.lock: update"
         fi
 
-    - name: Prepare pull request body
+    - name: Push changes
+      id: push
       run: |
-        {
-          echo "Automated package and flake input updates."
-          echo
-          git log --format='- %s' "origin/${GITHUB_REF_NAME}..HEAD"
-          if [ "${{ steps.update.outputs.failed }}" = "1" ]; then
-            echo
-            echo "> [!WARNING]"
-            echo "> Some package updates failed. See the workflow log."
-          fi
-        } > "$RUNNER_TEMP/pr-body.md"
-
-    - name: Create pull request
-      id: pr
-      uses: peter-evans/create-pull-request@v8
-      with:
-        branch: automated/update
-        delete-branch: false
-        title: "chore: update packages and flake inputs"
-        commit-message: "chore: update packages and flake inputs"
-        body-path: ${{ runner.temp }}/pr-body.md
-        add-paths: |
-          pkgs/**
-          flake.lock
+        if git diff --quiet origin/main..HEAD; then
+          echo "changed=false" >> "$GITHUB_OUTPUT"
+          exit 0
+        fi
+        git push origin HEAD:main
+        echo "changed=true" >> "$GITHUB_OUTPUT"
 
     - name: Trigger build
-      if: steps.pr.outputs.pull-request-operation != 'none'
+      if: steps.push.outputs.changed == 'true'
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: gh workflow run build.yml --ref automated/update
+      run: gh workflow run build.yml --ref main
 
     - name: Fail if any package update failed
       if: always() && steps.update.outputs.failed == '1'
