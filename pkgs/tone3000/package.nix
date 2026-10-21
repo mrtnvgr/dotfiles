@@ -85,14 +85,14 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "tone3000";
-  version = "0.0.11";
+  version = "0.0.12";
 
   src = fetchFromGitHub {
     owner = "tone-3000";
     repo = "tone3000-plugin";
     tag = "v${finalAttrs.version}";
     fetchSubmodules = true;
-    hash = "sha256-KkDFROBtHi1f1iHs7g5JtIqqRD+WqUeKoZz3h1oybfM=";
+    hash = "sha256-eqytMDN727rAUFCWkr1eSYpPwTdjtgPKpl1iusL/oWs=";
   };
 
   nativeBuildInputs = [
