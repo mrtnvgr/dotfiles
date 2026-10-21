@@ -71,14 +71,6 @@ jobs:
 
         echo "failed=$failed" >> "$GITHUB_OUTPUT"
 
-    - name: Update flake.lock
-      run: |
-        nix flake update
-        if ! git diff --quiet -- flake.lock; then
-          git add flake.lock
-          git commit -m "flake.lock: update"
-        fi
-
     - name: Push changes
       id: push
       run: |
