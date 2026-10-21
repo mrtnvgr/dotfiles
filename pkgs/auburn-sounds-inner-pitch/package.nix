@@ -5,6 +5,7 @@
   autoPatchelfHook,
   libX11,
   libgcc,
+  pkgs,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   name = "auburn-sounds-inner-pitch";
@@ -43,6 +44,15 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
       runHook postInstall
     '';
+
+  passthru.updateScript = import ../update-scripts.nix { inherit pkgs; } {
+    name = "auburn-sounds-inner-pitch";
+    versionCommand = ''
+      curl -fsSL --user-agent 'Mozilla/5.0' https://www.auburnsounds.com/products/InnerPitch.html \
+        | sed -n 's/.*"softwareVersion": "\([0-9.]*\)".*/\1/p' \
+        | head -n1
+    '';
+  };
 
   meta = {
     description = "Fun pitch-shifting plug-in with a very high-quality natural sound";

@@ -1,0 +1,119 @@
+name: "Update"
+
+on:
+  schedule:
+    - cron: "30 5 * * 0" # every Sunday at 5:30
+  workflow_dispatch:
+
+concurrency:
+  group: update
+  cancel-in-progress: false
+
+permissions:
+  actions: write
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v7
+      with:
+        fetch-depth: 0
+
+    - name: Install nix
+      uses: cachix/install-nix-action@v31
+      with:
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+    - name: Install nix-update
+      run: |
+        echo "$(nix build --no-link --print-out-paths nixpkgs#nix-update)/bin" >> "$GITHUB_PATH"
+
+    - name: Configure git
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+    - name: Update packages
+      id: update
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NIXPKGS_ALLOW_UNFREE: 1
+      run: |
+        failed=0
+
+        nix eval --raw --impure .#packages.x86_64-linux --apply '
+          pkgs: builtins.concatStringsSep "\n" (
+            builtins.filter
+              (name: (pkgs.${name}.passthru.updateScript or null) != null)
+              (builtins.attrNames pkgs)
+          )
+        ' > "$RUNNER_TEMP/packages.txt"
+
+        mapfile -t packages < "$RUNNER_TEMP/packages.txt"
+
+        if [ "${#packages[@]}" -eq 0 ]; then
+          echo "No updatable packages found" >&2
+          exit 1
+        fi
+
+        for pkg in "${packages[@]}"; do
+          [ -n "$pkg" ] || continue
+          echo "::group::nix-update $pkg"
+          nix-update --flake --use-update-script --commit "$pkg" || failed=1
+          echo "::endgroup::"
+        done
+
+        echo "failed=$failed" >> "$GITHUB_OUTPUT"
+
+    - name: Update flake.lock
+      run: |
+        nix flake update
+        if ! git diff --quiet -- flake.lock; then
+          git add flake.lock
+          git commit -m "flake.lock: update"
+        fi
+
+    - name: Prepare pull request body
+      run: |
+        {
+          echo "Automated package and flake input updates."
+          echo
+          git log --format='- %s' "origin/${GITHUB_REF_NAME}..HEAD"
+          if [ "${{ steps.update.outputs.failed }}" = "1" ]; then
+            echo
+            echo "> [!WARNING]"
+            echo "> Some package updates failed. See the workflow log."
+          fi
+        } > "$RUNNER_TEMP/pr-body.md"
+
+    - name: Create pull request
+      id: pr
+      uses: peter-evans/create-pull-request@v8
+      with:
+        branch: automated/update
+        delete-branch: false
+        title: "chore: update packages and flake inputs"
+        commit-message: "chore: update packages and flake inputs"
+        body-path: ${{ runner.temp }}/pr-body.md
+        add-paths: |
+          pkgs/**
+          flake.lock
+
+    - name: Trigger build
+      if: steps.pr.outputs.pull-request-operation != 'none'
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: gh workflow run build.yml --ref automated/update
+
+    - name: Fail if any package update failed
+      if: always() && steps.update.outputs.failed == '1'
+      run: |
+        echo "Some packages failed to update, see the log above." >&2
+        exit 1

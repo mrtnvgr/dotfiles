@@ -6,6 +6,7 @@
   alsa-lib,
   libx11,
   libxext,
+  pkgs,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "glitch2";
@@ -37,6 +38,16 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  passthru.updateScript = import ../update-scripts.nix { inherit pkgs; } {
+    name = "glitch2";
+    versionCommand = ''
+      curl -fsSL --user-agent 'Mozilla/5.0' https://illformed.com/glitch/ \
+        | grep -oE 'Glitch_[0-9_]+_Linux_Free\.zip' \
+        | head -n1 \
+        | sed -E 's/^Glitch_//; s/_Linux_Free\.zip$//; s/_/./g'
+    '';
+  };
 
   meta = {
     description = "Multi-effect glitch audio plugin with a layered sequencer and effects such as retrigger, stretcher, tape stop and more";

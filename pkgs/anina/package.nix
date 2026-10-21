@@ -6,6 +6,7 @@
   fontconfig,
   freetype,
   alsa-lib,
+  pkgs,
 
   installVST3 ? true,
   installCLAP ? true,
@@ -44,6 +45,16 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  passthru.updateScript = import ../update-scripts.nix { inherit pkgs; } {
+    name = "anina";
+    versionCommand = ''
+      curl -fsSL --user-agent 'Mozilla/5.0' https://crql.works/archive/anina/ \
+        | grep -oE 'latestNew">NEW</span><span>[0-9.]+' \
+        | head -n1 \
+        | grep -oE '[0-9.]+'
+    '';
+  };
 
   meta = {
     homepage = "https://crql.works/archive/anina/";

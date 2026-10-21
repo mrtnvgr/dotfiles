@@ -21,6 +21,7 @@
   copyDesktopItems,
   makeDesktopItem,
   patchelf,
+  nix-update-script,
 }:
 
 let
@@ -141,6 +142,10 @@ stdenv.mkDerivation (finalAttrs: {
       ];
     })
   ];
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--flake" ];
+  };
 
   meta = {
     description = "Lightweight pitch editor with neural pitch detection and vocoder resynthesis";

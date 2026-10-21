@@ -6,6 +6,7 @@
   libX11,
   libgcc,
   zlib,
+  pkgs,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   name = "auburn-sounds-couture";
@@ -45,6 +46,15 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
       runHook postInstall
     '';
+
+  passthru.updateScript = import ../update-scripts.nix { inherit pkgs; } {
+    name = "auburn-sounds-couture";
+    versionCommand = ''
+      curl -fsSL --user-agent 'Mozilla/5.0' https://www.auburnsounds.com/products/Couture.html \
+        | sed -n 's/.*"softwareVersion": "\([0-9.]*\)".*/\1/p' \
+        | head -n1
+    '';
+  };
 
   meta = {
     description = "Level-independent Dynamics Processor";

@@ -11,6 +11,7 @@
   libxi,
   copyDesktopItems,
   makeDesktopItem,
+  nix-update-script,
 }:
 
 buildDotnetModule rec {
@@ -56,6 +57,10 @@ buildDotnetModule rec {
   nugetDeps = ./deps.json;
 
   executables = [ "OpenUtau-Lunai" ];
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--flake" ];
+  };
 
   runtimeDeps = [
     dbus

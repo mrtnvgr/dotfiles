@@ -13,6 +13,7 @@
   openssl,
   webkitgtk_4_1,
   wrapGAppsHook4,
+  nix-update-script,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -54,6 +55,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     openssl
     webkitgtk_4_1
   ];
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--flake" ];
+  };
 
   meta = {
     description = "Custom frontend for the Splice sample library";

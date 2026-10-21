@@ -5,6 +5,7 @@
   autoPatchelfHook,
   libX11,
   libgcc,
+  pkgs,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   name = "auburn-sounds-graillon";
@@ -43,6 +44,15 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
       runHook postInstall
     '';
+
+  passthru.updateScript = import ../update-scripts.nix { inherit pkgs; } {
+    name = "auburn-sounds-graillon";
+    versionCommand = ''
+      curl -fsSL --user-agent 'Mozilla/5.0' https://www.auburnsounds.com/products/Graillon.html \
+        | sed -n 's/.*"softwareVersion": "\([0-9.]*\)".*/\1/p' \
+        | head -n1
+    '';
+  };
 
   meta = {
     description = "Enhanced pitch correction tool";

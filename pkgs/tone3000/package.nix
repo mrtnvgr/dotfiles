@@ -22,6 +22,7 @@
   libxi,
   fontconfig,
   curl,
+  nix-update-script,
 }:
 
 let
@@ -232,6 +233,10 @@ stdenv.mkDerivation (finalAttrs: {
       startupWMClass = "TONE3000";
     })
   ];
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--flake" ];
+  };
 
   meta = {
     description = "Audio plugin that loads Neural Amp Modeler captures and impulse responses from TONE3000";

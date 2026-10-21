@@ -2,6 +2,7 @@
   stdenv,
   fetchFromGitHub,
   libgig,
+  nix-update-script,
 }:
 stdenv.mkDerivation {
   pname = "convert-gig-file";
@@ -30,6 +31,13 @@ stdenv.mkDerivation {
 
     runHook postInstall
   '';
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--flake"
+      "--version=branch"
+    ];
+  };
 
   meta = {
     homepage = "https://github.com/stevefolta/gig2sfz";
