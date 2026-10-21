@@ -76,12 +76,29 @@ jobs:
     - name: Push changes
       id: push
       run: |
-        if git diff --quiet origin/main..HEAD; then
-          echo "changed=false" >> "$GITHUB_OUTPUT"
-          exit 0
-        fi
-        git push origin HEAD:main
-        echo "changed=true" >> "$GITHUB_OUTPUT"
+        for attempt in 1 2 3; do
+          git fetch origin main
+
+          if [ "$(git rev-list --count origin/main..HEAD)" -eq 0 ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git rebase origin/main
+
+          if [ "$(git rev-list --count origin/main..HEAD)" -eq 0 ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if git push origin HEAD:main; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+        done
+
+        echo "Failed to push changes after 3 attempts" >&2
+        exit 1
 
     - name: Trigger build
       if: steps.push.outputs.changed == 'true'
