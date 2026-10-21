@@ -13,7 +13,7 @@ jobs:
       uses: insightsengineering/disk-space-reclaimer@v1
 
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
 
     - name: Install nix
       uses: cachix/install-nix-action@v31

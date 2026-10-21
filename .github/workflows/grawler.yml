@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
     - run: wget https://github.com/mrtnvgr/grawler/releases/latest/download/grawler
     - run: chmod +x grawler; ./grawler check
       env:
