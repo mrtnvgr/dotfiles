@@ -3,9 +3,11 @@ name: "Build"
 on:
   push:
     branches: [main]
-  schedule:
-    - cron: "40 6 * * *" # everyday at 6:40
   workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
 
 jobs:
   build:
@@ -46,3 +48,8 @@ jobs:
           in
           pkgs.linkFarmFromDrvs "ci-build-all" (builtins.filter cachable (builtins.attrValues custom))
         '
+
+    - name: Trigger ISO build
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: gh workflow run build_iso.yml --ref main
