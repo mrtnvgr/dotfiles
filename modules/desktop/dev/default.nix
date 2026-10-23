@@ -6,10 +6,11 @@ in {
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       gcc
+      gdb
       gnumake
 
       pkg-config
-      cmake
+      cmake meson ninja
 
       android-tools
     ];
