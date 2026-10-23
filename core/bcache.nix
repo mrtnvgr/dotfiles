@@ -2,7 +2,7 @@
   # Keep in sync with nixConfig in ../flake.nix
 
   nix.settings = {
-    substituters = [
+    trusted-substituters = [
       "https://mrtnvgr.cachix.org"
       "https://nix-community.cachix.org"
       "https://nix-gaming.cachix.org"
