@@ -1,24 +1,27 @@
 { inputs, pkgs, config, lib, user, ... }: let
-  mrtnvgr-lib = inputs.mrtnvgr.lib { inherit pkgs; };
+  # bandit = inputs.bandithedoge-pkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 
-  bandit = inputs.bandithedoge-pkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
-
-  dsp56300 = bandit.dsp56300.override {
-    # enable88emu = true;
-
-    enableJE8086 = false;
-    enableNodalRed2x = false;
-    enableOsTIrus = false;
-    enableOsirus = false;
-    enableVavra = false;
-    enableXenia = false;
-  };
+  # dsp56300 = bandit.dsp56300.override {
+  #   # enable88emu = true;
+  #
+  #   enableJE8086 = false;
+  #   enableNodalRed2x = false;
+  #   enableOsTIrus = false;
+  #   enableOsirus = false;
+  #   enableVavra = false;
+  #   enableXenia = false;
+  # };
 
   plugins = with pkgs; [
     # auburn-sounds-inner-pitch
     # drumlabooh
     # dsp56300
     pitchnet
+    # bandit.prisma
+    tone3000
+    auburn-sounds-inner-pitch
+    auburn-sounds-graillon
+    vital
   ];
 
   # NOTE: rom location
@@ -26,6 +29,13 @@
 
   cfg = config.modules.desktop.audio.plugins.native;
   isAnyDawInstalled = config._internals.isAnyDawInstalled;
+
+  mkAudioPluginsPaths = format: (lib.concatStringsSep ":" [
+    "/home/${user}/.${format}"
+    "/etc/profiles/per-user/${user}/lib/${format}"
+    "/home/${user}/.nix-profile/lib/${format}"
+    "/run/current-system/sw/lib/${format}"
+  ]) + ":";
 in
 {
   imports = [
@@ -42,14 +52,12 @@ in
   config = lib.mkIf cfg.enable {
     environment.systemPackages = plugins;
 
-    environment.sessionVariables = let
-      make = format: mrtnvgr-lib.mkAudioPluginsPaths user format;
-    in {
-      VST3_PATH = make "vst3";
-      VST_PATH = make "vst";
-      CLAP_PATH = make "clap";
-      LV2_PATH = make "lv2";
-      LADSPA_PATH = make "ladspa";
+    environment.sessionVariables = {
+      VST3_PATH = mkAudioPluginsPaths "vst3";
+      VST_PATH = mkAudioPluginsPaths "vst";
+      CLAP_PATH = mkAudioPluginsPaths "clap";
+      LV2_PATH = mkAudioPluginsPaths "lv2";
+      LADSPA_PATH = mkAudioPluginsPaths "ladspa";
     };
   };
 }

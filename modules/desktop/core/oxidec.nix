@@ -68,7 +68,7 @@ in {
       teal   = "#89b482";
       orange = "#e78a4e";
 
-      accent = gray5;
+      accent = yellow;
     };
 
     oxidec.colorschemes.rose = rec {

@@ -176,7 +176,7 @@ hl.window_rule({
 })
 
 -- Magnifier zoom
-local ZOOM_STEP = 0.5
+local ZOOM_STEP = 0.25
 
 ---@param offset number
 ---@return nil
@@ -190,9 +190,6 @@ local function zoom_reset()
     hl.config({ cursor = { zoom_factor = 1 } })
 end
 
--- SUPER + scroll wheel → zoom in / out
-hl.bind("SUPER + mouse_down", function() zoom(ZOOM_STEP) end)
-hl.bind("SUPER + mouse_up", function() zoom(-ZOOM_STEP) end)
-
--- SUPER + middle click → reset zoom
-hl.bind("SUPER + mouse:274", zoom_reset)
+hl.bind("SUPER + 0", zoom_reset)
+hl.bind("SUPER + minus", function() zoom(-ZOOM_STEP) end)
+hl.bind("SUPER + equal", function() zoom(ZOOM_STEP) end)
