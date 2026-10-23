@@ -21,11 +21,6 @@
     generators.url = "github:nix-community/nixos-generators";
     generators.inputs.nixpkgs.follows = "nixpkgs";
 
-    amnezia-vpn = {
-      url = "github:terrentii/amnezia_vpn_nix/0492e6f345a66f444d005a2e573d49a8454f2569";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     bandithedoge-pkgs.url = "github:bandithedoge/nur-packages";
     bandithedoge-pkgs.inputs.nixpkgs.follows = "nixpkgs";
 

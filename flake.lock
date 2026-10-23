@@ -1,26 +1,5 @@
 {
   "nodes": {
-    "amnezia-vpn": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1787895060,
-        "narHash": "sha256-o7JOjcl4oOQCYcvd21iBRkqRS/z13/vmtw0+/UJ4AfI=",
-        "owner": "terrentii",
-        "repo": "amnezia_vpn_nix",
-        "rev": "0492e6f345a66f444d005a2e573d49a8454f2569",
-        "type": "github"
-      },
-      "original": {
-        "owner": "terrentii",
-        "repo": "amnezia_vpn_nix",
-        "rev": "0492e6f345a66f444d005a2e573d49a8454f2569",
-        "type": "github"
-      }
-    },
     "bandithedoge-pkgs": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -318,7 +297,6 @@
     },
     "root": {
       "inputs": {
-        "amnezia-vpn": "amnezia-vpn",
         "bandithedoge-pkgs": "bandithedoge-pkgs",
         "generators": "generators",
         "home-manager": "home-manager",

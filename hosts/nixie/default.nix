@@ -6,10 +6,9 @@
     ./secrets/bitwig.nix
 
     ./uni.nix
-
-    inputs.amnezia-vpn.nixosModules.default
-    { programs.amnezia-vpn.enable = true; }
   ];
+
+  programs.amnezia-vpn.enable = true;
 
   modules.laptop = {
     enable = true;
