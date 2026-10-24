@@ -7,9 +7,10 @@ hl.monitor({
     scale    = 1,
 })
 
-hl.on("hyprland.start", function()
-    hl.exec_cmd("waybar")
-end)
+-- Keep workspaces 1-8 alive even when empty
+for i = 1, 8 do
+    hl.workspace_rule({ workspace = tostring(i), persistent = true })
+end
 
 -- Use systemd-logind instead of seatd. Without this, Hyprland fails at startup
 -- with "[libseat] No backend was able to open a seat" on systems where the
@@ -101,27 +102,36 @@ hl.bind("SUPER + SHIFT + right", hl.dsp.window.move({ direction = "r" }))
 hl.bind("SUPER + SHIFT + up",    hl.dsp.window.move({ direction = "u" }))
 hl.bind("SUPER + SHIFT + down",  hl.dsp.window.move({ direction = "d" }))
 
--- Switch workspaces with mainMod + [0-5]
+-- Switch workspaces with mainMod + [1-8]
 hl.bind("SUPER + 1", hl.dsp.focus({ workspace = 1 }))
 hl.bind("SUPER + 2", hl.dsp.focus({ workspace = 2 }))
 hl.bind("SUPER + 3", hl.dsp.focus({ workspace = 3 }))
 hl.bind("SUPER + 4", hl.dsp.focus({ workspace = 4 }))
 hl.bind("SUPER + 5", hl.dsp.focus({ workspace = 5 }))
+hl.bind("SUPER + 6", hl.dsp.focus({ workspace = 6 }))
+hl.bind("SUPER + 7", hl.dsp.focus({ workspace = 7 }))
+hl.bind("SUPER + 8", hl.dsp.focus({ workspace = 8 }))
 
--- Move active window to a workspace with mainMod + SHIFT + [0-5]
+-- Move active window to a workspace with mainMod + SHIFT + [1-8]
 hl.bind("SUPER + SHIFT + 1", hl.dsp.window.move({ workspace = 1 }))
 hl.bind("SUPER + SHIFT + 2", hl.dsp.window.move({ workspace = 2 }))
 hl.bind("SUPER + SHIFT + 3", hl.dsp.window.move({ workspace = 3 }))
 hl.bind("SUPER + SHIFT + 4", hl.dsp.window.move({ workspace = 4 }))
 hl.bind("SUPER + SHIFT + 5", hl.dsp.window.move({ workspace = 5 }))
+hl.bind("SUPER + SHIFT + 6", hl.dsp.window.move({ workspace = 6 }))
+hl.bind("SUPER + SHIFT + 7", hl.dsp.window.move({ workspace = 7 }))
+hl.bind("SUPER + SHIFT + 8", hl.dsp.window.move({ workspace = 8 }))
 
 -- Move active window to a workspace without switching to it
--- with mainMod + CTRL + SHIFT + [0-5]
+-- with mainMod + CTRL + SHIFT + [1-8]
 hl.bind("SUPER + CTRL + SHIFT + 1", hl.dsp.window.move({ workspace = 1, follow = false }))
 hl.bind("SUPER + CTRL + SHIFT + 2", hl.dsp.window.move({ workspace = 2, follow = false }))
 hl.bind("SUPER + CTRL + SHIFT + 3", hl.dsp.window.move({ workspace = 3, follow = false }))
 hl.bind("SUPER + CTRL + SHIFT + 4", hl.dsp.window.move({ workspace = 4, follow = false }))
 hl.bind("SUPER + CTRL + SHIFT + 5", hl.dsp.window.move({ workspace = 5, follow = false }))
+hl.bind("SUPER + CTRL + SHIFT + 6", hl.dsp.window.move({ workspace = 6, follow = false }))
+hl.bind("SUPER + CTRL + SHIFT + 7", hl.dsp.window.move({ workspace = 7, follow = false }))
+hl.bind("SUPER + CTRL + SHIFT + 8", hl.dsp.window.move({ workspace = 8, follow = false }))
 
 -- Move/resize windows with mainMod + LMB/RMB and dragging
 hl.bind("SUPER + mouse:272", hl.dsp.window.drag(),   { mouse = true })

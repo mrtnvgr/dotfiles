@@ -45,28 +45,59 @@
     }
 
     #workspaces button:nth-child(2) {
-      color: {{ teal }};
+      color: {{ green }};
     }
     #workspaces button.active:nth-child(2) {
-      border-color: {{ teal }};
+      border-color: {{ green }};
     }
 
     #workspaces button:nth-child(3) {
-      color: {{ blue }};
+      color: {{ yellow }};
     }
     #workspaces button.active:nth-child(3) {
-      border-color: {{ blue }};
+      border-color: {{ yellow }};
     }
 
     #workspaces button:nth-child(4) {
-      color: {{ purple }};
+      color: {{ blue }};
     }
     #workspaces button.active:nth-child(4) {
+      border-color: {{ blue }};
+    }
+
+    #workspaces button:nth-child(5) {
+      color: {{ purple }};
+    }
+    #workspaces button.active:nth-child(5) {
       border-color: {{ purple }};
     }
 
+    #workspaces button:nth-child(6) {
+      color: {{ pink }};
+    }
+    #workspaces button.active:nth-child(6) {
+      border-color: {{ pink }};
+    }
+
+    #workspaces button:nth-child(7) {
+      color: {{ teal }};
+    }
+    #workspaces button.active:nth-child(7) {
+      border-color: {{ teal }};
+    }
+
+    #workspaces button:nth-child(8) {
+      color: {{ orange }};
+    }
+    #workspaces button.active:nth-child(8) {
+      border-color: {{ orange }};
+    }
+
     #workspaces button.empty {
-      color: {{ text }};
+      opacity: 0.5;
+    }
+    #workspaces button.active {
+      opacity: 1;
     }
 
     tooltip {
@@ -134,7 +165,7 @@
     modules-right = [ "tray" "wireplumber" "backlight" "battery" "clock" ];
 
     "hyprland/workspaces" = {
-      persistent-workspaces."*" = [ 1 2 3 4 ];
+      persistent-workspaces."*" = [ 1 2 3 4 5 6 7 8 ];
     };
 
     tray = {
@@ -176,6 +207,7 @@ in {
     home-manager.users.${user} = {
       programs.waybar = {
         enable = true;
+        systemd.enable = true;
         inherit settings;
       };
 
