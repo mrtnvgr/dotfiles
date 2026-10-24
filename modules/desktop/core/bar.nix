@@ -1,8 +1,6 @@
 { pkgs, lib, config, user, ... }: let
   cfg = config.modules.desktop;
 
-  # TODO: enable systemd integration, remove manual launch from hyprland
-
   style = ''
     * {
       border: none;
