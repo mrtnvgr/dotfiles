@@ -11,8 +11,9 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("waybar")
 end)
 
--- Fixes seatd error
--- TODO: what error?
+-- Use systemd-logind instead of seatd. Without this, Hyprland fails at startup
+-- with "[libseat] No backend was able to open a seat" on systems where the
+-- seatd service is not running.
 hl.env("LIBSEAT_BACKEND", "logind")
 
 hl.config({
@@ -114,6 +115,14 @@ hl.bind("SUPER + SHIFT + 3", hl.dsp.window.move({ workspace = 3 }))
 hl.bind("SUPER + SHIFT + 4", hl.dsp.window.move({ workspace = 4 }))
 hl.bind("SUPER + SHIFT + 5", hl.dsp.window.move({ workspace = 5 }))
 
+-- Move active window to a workspace without switching to it
+-- with mainMod + CTRL + SHIFT + [0-5]
+hl.bind("SUPER + CTRL + SHIFT + 1", hl.dsp.window.move({ workspace = 1, follow = false }))
+hl.bind("SUPER + CTRL + SHIFT + 2", hl.dsp.window.move({ workspace = 2, follow = false }))
+hl.bind("SUPER + CTRL + SHIFT + 3", hl.dsp.window.move({ workspace = 3, follow = false }))
+hl.bind("SUPER + CTRL + SHIFT + 4", hl.dsp.window.move({ workspace = 4, follow = false }))
+hl.bind("SUPER + CTRL + SHIFT + 5", hl.dsp.window.move({ workspace = 5, follow = false }))
+
 -- Move/resize windows with mainMod + LMB/RMB and dragging
 hl.bind("SUPER + mouse:272", hl.dsp.window.drag(),   { mouse = true })
 hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })
@@ -135,8 +144,6 @@ hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set +10%"), {})
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set -- -10%"), {})
 hl.bind("SHIFT + XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set 100%"))
 hl.bind("SHIFT + XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 0%"))
-
--- TODO: hold ctrl+shift+... to move window without switching current workspace
 
 hl.bind("SUPER + I", hl.plugin.darkwindow.dsp_shade({ shader = "invert" }))
 
