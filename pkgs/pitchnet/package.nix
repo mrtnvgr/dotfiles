@@ -107,7 +107,6 @@ stdenv.mkDerivation (finalAttrs: {
 
     cp -r ../Resources $out/Resources
 
-    # TODO: looks veeeeeeeryyyy hacky
     for res in fonts images lang models; do
       ln -s ../../../../../Resources/$res $out/lib/vst3/PitchNet.vst3/Contents/Resources/$res
     done

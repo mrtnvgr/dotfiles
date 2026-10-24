@@ -16,8 +16,6 @@ in {
     security.pam.services.waylock = {};
 
     # Disable automatic physlock runs
-    # TODO: move to desktop/core
-    # TODO: create automatic runs of waylock
     services.physlock.lockOn = {
       suspend = false;
       hibernate = false;
