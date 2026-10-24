@@ -6,17 +6,17 @@ in {
   ];
 
   config = lib.mkIf cfg.enable {
-    environment.loginShellInit = /* bash */ ''
-      # Launch WM/DE on TTY1, return to TTY when exiting
-      [ "$(tty)" = "/dev/tty1" ] && start-hyprland >/dev/null
-    '';
-
     xdg.portal = {
       extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
       configPackages = [ pkgs.hyprland ];
     };
 
     home-manager.users.${user} = { config, ... }: {
+      programs.bash.profileExtra = /* bash */ ''
+        # Launch WM/DE on TTY1, return to TTY when exiting
+        [ "$(tty)" = "/dev/tty1" ] && start-hyprland >/dev/null
+      '';
+
       wayland.windowManager.hyprland = {
         enable = true;
         systemd.enableXdgAutostart = true;
