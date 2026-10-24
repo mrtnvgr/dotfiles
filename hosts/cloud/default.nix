@@ -12,6 +12,11 @@
     enable = true;
 
     services.torrserver.enable = true;
+
+    services.twitch-recorder = {
+      enable = true;
+      channels = [ "msx2plus" ];
+    };
   };
 
   system.stateVersion = "24.05";
