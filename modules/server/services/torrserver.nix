@@ -3,25 +3,6 @@ let
   inherit (lib) mkIf mkEnableOption mkOption types;
   cfg = config.modules.server.services.torrserver;
 
-  torrserver = pkgs.stdenv.mkDerivation (finalAttrs: {
-    pname = "torrserver";
-    version = "147";
-
-    src = pkgs.fetchurl {
-      url = "https://github.com/YouROK/TorrServer/releases/download/MatriX.${finalAttrs.version}/TorrServer-linux-amd64";
-      hash = "sha256-LyD8sfysybYbfKS7bVt5M1R71/RHtcx3qEQG+qnmpOg=";
-    };
-
-    nativeBuildInputs = [ pkgs.autoPatchelfHook ];
-
-    phases = "installPhase";
-    installPhase = ''
-      runHook preInstall
-      install -Dm755 $src $out/bin/torrserver
-      runHook postInstall
-    '';
-  });
-
   webIsSupported = config.modules.server.web.enable;
   domain = config.modules.server.web.domain;
 
@@ -66,7 +47,7 @@ in {
         Type = "simple";
         NonBlocking = true;
         WorkingDirectory = "/etc/torrserver";
-        ExecStart = "${torrserver}/bin/torrserver ${flags}";
+        ExecStart = "${lib.getExe pkgs.torrserver} ${flags}";
         ExecReload = "/bin/sh kill -HUP \${MAINPID}";
         ExecStop = "/bin/sh kill -INT \${MAINPID}";
         TimeoutSec = 30;
@@ -91,8 +72,8 @@ in {
       text = builtins.toJSON cfg.users;
     };
 
-    networking.firewall.allowedTCPPorts = [ cfg.port ];
-    networking.firewall.allowedUDPPorts = [ cfg.port ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.exposePort [ cfg.port ];
+    networking.firewall.allowedUDPPorts = mkIf cfg.exposePort [ cfg.port ];
 
     services.nginx.virtualHosts."ts.${domain}" = mkIf (webIsSupported && cfg.exposeWeb) {
       locations = {
