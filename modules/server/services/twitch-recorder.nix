@@ -61,8 +61,6 @@ let
       script = ''
         exec ${pkgs.streamlink}/bin/streamlink \
           --no-config \
-          --twitch-disable-reruns \
-          --twitch-disable-hosting \
           --twitch-supported-codecs h264 \
           --hls-live-restart \
           --retry-streams ${toString cfg.pollInterval} \
