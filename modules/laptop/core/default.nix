@@ -6,7 +6,6 @@
   };
 
   imports = [
-    # TODO: think about using ondemand, but keeping sys76 scheduler and all other nice things
     ./powersave.nix
     ./kanshi.nix # monitor manager
   ];
