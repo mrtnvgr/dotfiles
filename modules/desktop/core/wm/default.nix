@@ -19,6 +19,7 @@ in {
     home-manager.users.${user} = { config, ... }: {
       wayland.windowManager.hyprland = {
         enable = true;
+        systemd.enableXdgAutostart = true;
 
         # home.stateVersion <= 26.05
         configType = "lua";

@@ -1,13 +1,11 @@
-{ lib, config, ... }:
-let
-  inherit (lib) mkIf mkEnableOption;
+{ lib, config, ... }: let
   cfg = config.modules.desktop.services.bluetooth;
 in {
-  options.modules.desktop.services.bluetooth.enable = mkEnableOption "bluetooth support";
-  config = mkIf cfg.enable {
+  options.modules.desktop.services.bluetooth.enable = lib.mkEnableOption "bluetooth support";
+
+  config = lib.mkIf cfg.enable {
     hardware.bluetooth.enable = true;
-    hardware.bluetooth.powerOnBoot = true;
+    hardware.bluetooth.powerOnBoot = false;
     services.blueman.enable = true;
-    # TODO: applet
   };
 }
