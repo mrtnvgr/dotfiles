@@ -1,15 +1,13 @@
-{ lib, config, ... }:
-let
-  inherit (lib) mkIf mkOption mkEnableOption types;
+{ lib, config, ... }: let
   cfg = config.modules.server.web;
 in {
   options.modules.server.web = {
-    enable = mkEnableOption "web services";
-    domain = mkOption { type = types.str; };
-    master = mkOption { type = types.str; };
+    enable = lib.mkEnableOption "web services";
+    domain = lib.mkOption { type = lib.types.singleLineStr; };
+    master = lib.mkOption { type = lib.types.singleLineStr; };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [ 80 443 ];
 
     security.acme = {
@@ -27,29 +25,53 @@ in {
       recommendedTlsSettings = true;
     };
 
-	services.fail2ban.jails.nginx-bruteforce.settings = {
-	  enabled = true;
+    services.fail2ban.jails = {
+      nginx-bad-request.settings = {
+        backend = "auto";
+        logpath = "/var/log/nginx/access.log";
+        findtime = "10m";
+        maxretry = 5;
+        bantime = "1h";
+      };
 
-      logpath = "/var/log/nginx/access.log";
-	  backend = "auto";
-	};
+      nginx-botsearch.settings = {
+        backend = "auto";
+        logpath = "/var/log/nginx/access.log";
+        findtime = "1h";
+        maxretry = 3;
+        bantime = "1d";
+      };
 
-	environment.etc."fail2ban/filter.d/nginx-bruteforce.local".text = ''
-	  [Definition]
-      failregex = ^<HOST>.*GET.*(matrix/server|\.php|admin|wp\-|\.env|\.git).* HTTP/\d.\d\" 404.*$
-    '';
+      nginx-probe = {
+        settings = {
+          backend = "auto";
+          logpath = "/var/log/nginx/access.log";
+          findtime = "1h";
+          maxretry = 3;
+          bantime = "1d";
+        };
 
-	services.fail2ban.jails.nginx-ddos.settings = {
-	  enabled = true;
+        filter.Definition.failregex = ''
+          ^<HOST> - \S+ \[\] "(?:GET|POST|HEAD|PUT|PATCH|DELETE) [^"]*(?:matrix/server|\.php|admin|wp-|\.env|\.git)[^"]*" (?:403|404)
+        '';
+      };
 
-      logpath = "/var/log/nginx/access.log";
-	  backend = "auto";
-	};
+      nginx-ddos = {
+        settings = {
+          backend = "auto";
+          logpath = "/var/log/nginx/access.log";
+          findtime = "10m";
+          maxretry = 10;
+          bantime = "1d";
+        };
 
-    environment.etc."fail2ban/filter.d/nginx-ddos.local".text = ''
-      [Definition]
-      failregex = ^<HOST> -.*"(GET|HEAD).*HTTP.*" (429|503)
-    '';
+        # 429 is what limit_req returns when limit_req_status is set;
+        # 503 is the nginx default when it has not been changed.
+        filter.Definition.failregex = ''
+          ^<HOST> - \S+ \[\] "[^"]*" (?:429|503)
+        '';
+      };
+    };
   };
 
   imports = [

@@ -23,16 +23,5 @@ in {
       mkdir -p ${cfg.cdnPath}
       chmod 755 ${cfg.cdnPath}
     '';
-
-	services.fail2ban.jails.cdn-bruteforce.settings = {
-	  enabled = true;
-    logpath = "/var/log/nginx/access.log";
-	  backend = "auto";
-	};
-
-	environment.etc."fail2ban/filter.d/cdn-bruteforce.local".text = ''
-	  [Definition]
-      failregex = No such file or directory.* client: <HOST>,
-	'';
   };
 }
