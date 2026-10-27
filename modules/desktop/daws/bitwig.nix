@@ -2,20 +2,6 @@
   cfg = config.modules.desktop.daws.bitwig;
   samples = config.modules.desktop.paths.samples;
 
-  drivenbymoss = pkgs.stdenvNoCC.mkDerivation (finalAttrs: {
-    pname = "drivenbymoss";
-    version = "26.6.5";
-
-    src = pkgs.fetchzip {
-      url = "https://www.mossgrabers.de/Software/Bitwig/DrivenByMoss-${finalAttrs.version}-Bitwig.zip";
-      hash = "sha256-DIFJBY9SX4QklKeSaazG/DJ+0psKKO+hfsO51+OQQC4=";
-      stripRoot = false;
-    };
-
-    installPhase = ''
-      cp DrivenByMoss.bwextension $out
-    '';
-  });
   dbmPath = "Bitwig Studio/Extensions/DrivenByMoss.bwextension";
 in {
   options.modules.desktop.daws.bitwig = {
@@ -33,7 +19,7 @@ in {
       environment.systemPackages = [ cfg.package ];
 
       home-manager.users.${user} = {
-        home.file.${dbmPath}.source = drivenbymoss;
+        home.file.${dbmPath}.source = pkgs.drivenbymoss;
       };
     })
 
