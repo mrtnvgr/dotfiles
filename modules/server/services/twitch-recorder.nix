@@ -74,7 +74,7 @@ let
           --webbrowser-headless=yes \
           --webbrowser-executable ${pkgs.chromium}/bin/chromium \
           --ffmpeg-ffmpeg ${pkgs.ffmpeg-headless}/bin/ffmpeg \
-          --output "${cfg.outputDir}/{author}/{author}-{time:%Y-%m-%d_%H-%M-%S}.ts" \
+          --output "${cfg.outputDir}/{author}/{author}-{time:%Y-%m-%d_%H-%M-%S}-{title}.ts" \
           "https://www.twitch.tv/${channel}" "${cfg.quality}"
       '';
     };
