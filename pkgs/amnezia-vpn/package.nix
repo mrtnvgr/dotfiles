@@ -53,11 +53,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "amnezia-vpn";
-  version = "5.0.1.5";
+  version = "5.0.3.0";
 
   src = fetchurl {
     url = "https://github.com/amnezia-vpn/amnezia-client/releases/download/${finalAttrs.version}/AmneziaVPN_${finalAttrs.version}_linux_x64.run";
-    hash = "sha256-3bRx774UkjKqmMdVNPmNQhFLFf3Hl2gC+P6uujILx5E=";
+    hash = "sha256-AzXyZD9YxNdJS+TG1HWCV0+n5aRjRQ6aR7DFwu2nl8I=";
   };
 
   offsetScanner = ./find-7z-offsets.py;
