@@ -15,8 +15,6 @@ in {
       ignorecase = true;
       smartcase = true;
 
-      smartindent = true;
-
       # Temporary files
       backup = false;
       undofile = true;
@@ -25,11 +23,10 @@ in {
 
       mouse = "a";
       guicursor = "";
-      clipboard = "unnamedplus";
 
       termguicolors = true;
-      updatetime = 100;
-      timeoutlen = 500;
+      updatetime = 250;
+      timeoutlen = 300;
 
       # Paddings
       signcolumn = "yes";
