@@ -4,6 +4,7 @@
 
     programs.nixvim = {
       enable = true;
+      defaultEditor = true;
 
       performance.byteCompileLua = {
         enable = true;
@@ -14,20 +15,7 @@
       };
     };
 
-    # replaces nvim with v
-    # HACK: find a better way to do this with `nixvim.defaultEditor` etc.
-    home.sessionVariables = rec {
-      EDITOR = "/home/${user}/.nix-profile/bin/nvim";
-      VISUAL = "${EDITOR}";
-    };
-
-    programs.bash = {
-      shellAliases.v = "$EDITOR";
-
-      bashrcExtra = ''
-        nvim() { :; }
-      '';
-    };
+    programs.bash.shellAliases.v = "nvim";
   };
 
   imports = [
