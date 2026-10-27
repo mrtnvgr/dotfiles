@@ -17,6 +17,12 @@
       tricks = mkListOption (types.listOf types.str);
       plugins = mkListOption (types.listOf types.path);
 
+      sync = lib.mkOption {
+        type = types.enum [ "system" "esync" "fsync" ];
+        default = "system";
+        description = "Wine synchronisation primitive for this prefix.";
+      };
+
       data = mkListOption (types.listOf (types.submodule ({ config, ... }: {
         options = {
           src = lib.mkOption { type = types.path; };
@@ -74,24 +80,27 @@
   '') data;
 
   # TODO: use actual symlinking after https://github.com/robbert-vdh/yabridge/issues/454 is resolved
-  mkPluginScript = plugins: lib.concatLines ([
+  mkPluginScript = plugins: lib.optionalString (plugins != []) (lib.concatLines ([
     ''rm -rf "$WINEPREFIX/drive_c/${pluginsDir}"''
     ''mkdir -p "$WINEPREFIX/drive_c/${pluginsDir}"''
   ] ++ map (plugin: ''
     cp -r "${plugin}" "$WINEPREFIX/drive_c/${pluginsDir}"
-  '') plugins);
+  '') plugins));
 
   mkRegScript = regFiles:
     lib.concatMapStringsSep "\n" (x: ''wine regedit "${x}"'') regFiles;
 
   mkEnv = name: bottle: let
-    envName = "audio-plugins_${name}";
+    envName = name;
 
     env = pkgs.mkWineEnv {
       name = envName;
       wine = cfg.package;
 
       inherit (bottle) tricks;
+
+      fsync = bottle.sync == "fsync";
+      esync = bottle.sync == "esync";
 
       postScript = lib.concatLines [
         (mkDataScript bottle.data)
