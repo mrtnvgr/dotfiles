@@ -12,7 +12,6 @@
     ./autopairs.nix
     ./lastplace.nix
     ./oil.nix
-    ./todo.nix
     ./colorizer.nix
     ./arrow.nix
     ./langmapper.nix

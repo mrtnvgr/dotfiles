@@ -3,6 +3,7 @@
 in {
   imports = [
     ./overrides.nix
+    ./diagnostics.nix
   ];
 
   home-manager.users.${user}.programs.nixvim = lib.mkIf cfg.enable {

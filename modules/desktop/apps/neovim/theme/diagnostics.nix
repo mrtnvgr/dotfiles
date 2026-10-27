@@ -1,5 +1,7 @@
-{ user, ... }: {
-  home-manager.users.${user}.programs.nixvim = {
+{ config, lib, user, ... }: let
+  cfg = config.modules.desktop.apps.neovim;
+in {
+  home-manager.users.${user}.programs.nixvim = lib.mkIf cfg.enable {
     colorschemes.catppuccin.settings.custom_highlights = /* lua */ ''
       function(colors)
         return {
