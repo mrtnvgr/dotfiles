@@ -29,6 +29,13 @@ hl.config({
     },
 })
 
+-- Swipe between workspaces with three fingers
+hl.gesture({
+    fingers = 3,
+    direction = "horizontal",
+    action = "workspace",
+})
+
 hl.config({
     general = {
         gaps_in = 5,
