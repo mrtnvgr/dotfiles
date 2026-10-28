@@ -22,6 +22,8 @@
     auburn-sounds-inner-pitch
     auburn-sounds-graillon
     vital
+    dragonfly-reverb
+    sq8l
   ];
 
   # NOTE: rom location
@@ -39,7 +41,7 @@
 in
 {
   imports = [
-    ./plugdata.nix
+    # ./plugdata.nix
   ];
 
   options.modules.desktop.audio.plugins.native = {
