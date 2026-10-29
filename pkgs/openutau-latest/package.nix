@@ -3,6 +3,7 @@
   appimageTools,
   fetchurl,
   makeDesktopItem,
+  nix-update-script,
 }:
 
 let
@@ -14,10 +15,10 @@ let
     hash = "sha256-Yxq6soO30AP6QyxFFWWAM6EXYHSAztz9vrVvxcprwxk=";
   };
 
-  icon = fetchurl {
-    url = "https://raw.githubusercontent.com/openutau/OpenUtau/${version}/OpenUtau/Assets/OpenUtau.png";
-    hash = "sha256-J/bs/msQt/JTmT20wjqojHTatcoCbq0y/mmZld+9NQs=";
-  };
+  # This is the same extraction wrapType2 builds internally, so it costs no
+  # extra store space. Taking the icon from it keeps the package to a single
+  # hash that `nix-update` can bump on its own.
+  appimageContents = appimageTools.extract { inherit pname version src; };
 
   desktopItem = makeDesktopItem {
     name = pname;
@@ -42,9 +43,13 @@ appimageTools.wrapType2 {
   extraPkgs = pkgs: [ pkgs.icu ];
 
   extraInstallCommands = ''
-    install -Dm644 ${icon} $out/share/icons/hicolor/512x512/apps/${pname}.png
+    install -Dm644 ${appimageContents}/OpenUtau.png $out/share/icons/hicolor/512x512/apps/${pname}.png
     install -Dm644 ${desktopItem}/share/applications/${pname}.desktop $out/share/applications/${pname}.desktop
   '';
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--flake" ];
+  };
 
   meta = {
     description = "Upstream OpenUtau (official release build)";
