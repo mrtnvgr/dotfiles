@@ -13,10 +13,7 @@
   # };
 
   plugins = with pkgs; [
-    # auburn-sounds-inner-pitch
-    # drumlabooh
-    # dsp56300
-    pitchnet
+    pitchnet # TODO: not a plugin
     # bandit.prisma
     tone3000
     auburn-sounds-inner-pitch
@@ -24,6 +21,7 @@
     vital
     dragonfly-reverb
     sq8l
+    glitch2
   ];
 
   # NOTE: rom location

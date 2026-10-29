@@ -59,6 +59,8 @@
     qbittorrent
     libreoffice
     splicedd
+    krita
+    opencode
   ];
 
   swapDevices = [{
@@ -74,6 +76,8 @@
 
   # TODO: migrate to btrfs, check out vimjoyer auto partition video
 
+  networking.hosts."46.39.6.229" = ["cloud"];
+
   modules.generic.services.syncthing = {
     enable = true;
     devices."Phone" = "FQIYKVL-IKAEVWC-CXKPOBI-WD2LEJO-6WISFMJ-M6ONNIB-YOS6KN7-6VEQQAP";
@@ -84,4 +88,8 @@
       devices = [ "Phone" ];
     };
   };
+
+  # services.flatpak = {
+  #   enable = true;
+  # };
 }

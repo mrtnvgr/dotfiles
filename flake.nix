@@ -23,8 +23,6 @@
 
     bandithedoge-pkgs.url = "github:bandithedoge/nur-packages";
     bandithedoge-pkgs.inputs.nixpkgs.follows = "nixpkgs";
-
-    # nix-flatpak.url = "github:gmodena/nix-flatpak";
   };
 
   outputs = { nixpkgs, ... } @ inputs:

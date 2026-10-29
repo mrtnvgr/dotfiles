@@ -1,5 +1,6 @@
 { config, lib, ... }: let
   cfg = config.modules.laptop;
+  # TODO: NOT UNIVERSAL, MOVE TO NIXIE
 in {
   config = lib.mkIf cfg.enable {
     # Keeps the foreground app prioritized and lowers CFS latency.
