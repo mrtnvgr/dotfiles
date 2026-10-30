@@ -22,6 +22,7 @@
   libxi,
   fontconfig,
   curl,
+  cacert,
   nix-update-script,
 }:
 
@@ -154,6 +155,18 @@ stdenv.mkDerivation (finalAttrs: {
   preConfigure = ''
     cp -r ${juce} libs/juce
     chmod -R u+w libs/juce
+
+    # JUCE does not pass a CA bundle to libcurl. Its Linux transport loads
+    # libcurl dynamically, so inside a DAW bundle that prepends LD_LIBRARY_PATH
+    # it can pick up a libcurl without trust anchors (for example an NSS build
+    # that cannot find libnssckbi.so on NixOS), and every HTTPS request then
+    # fails certificate verification. Pin a PEM bundle explicitly.
+    substituteInPlace libs/juce/modules/juce_core/native/juce_Network_curl.cpp \
+      --replace-fail \
+        'if (symbols->curl_easy_setopt (curl, CURLOPT_URL, address.toRawUTF8()) == CURLE_OK' \
+        'if (symbols->curl_easy_setopt (curl, CURLOPT_CAINFO, "${cacert}/etc/ssl/certs/ca-bundle.crt") == CURLE_OK
+            && symbols->curl_easy_setopt (curl, CURLOPT_URL, address.toRawUTF8()) == CURLE_OK'
+
     cmakeFlagsArray+=("-DFETCHCONTENT_SOURCE_DIR_JUCE=$PWD/libs/juce")
   '';
 
