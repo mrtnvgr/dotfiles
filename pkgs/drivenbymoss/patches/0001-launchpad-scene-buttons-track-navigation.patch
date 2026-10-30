@@ -1,0 +1,446 @@
+From 80cea41d09168c2cd832c5d6cce4c36f33192d50 Mon Sep 17 00:00:00 2001
+From: mrtnvgr <martynovegorOF@yandex.ru>
+Date: Sat, 31 Oct 2026 00:07:54 +0300
+Subject: [PATCH 1/2] Launchpad: add Scene 1/2 track navigation option
+
+Add a Launchpad configuration setting for the Scene 1/2 buttons. They can either keep the previous scale-layout behavior or select the previous/next track; track navigation is enabled by default. When active, the button LEDs use the color of the track that would be selected.
+---
+ .../framework/daw/data/CursorTrackImpl.java   | 20 +++++
+ .../daw/data/bank/AbstractTrackBankImpl.java  | 15 ++++
+ .../daw/data/bank/EffectTrackBankImpl.java    | 17 +++++
+ .../launchpad/LaunchpadConfiguration.java     | 27 +++++++
+ .../novation/launchpad/view/ChordsView.java   | 62 +++++++++++++++
+ .../novation/launchpad/view/PianoView.java    |  7 ++
+ .../novation/launchpad/view/PlayView.java     | 75 +++++++++++++++++++
+ .../framework/daw/data/bank/ITrackBank.java   |  9 +++
+ 8 files changed, 232 insertions(+)
+
+diff --git a/src/main/java/de/mossgrabers/bitwig/framework/daw/data/CursorTrackImpl.java b/src/main/java/de/mossgrabers/bitwig/framework/daw/data/CursorTrackImpl.java
+index 17691d82..4c31d0ae 100644
+--- a/src/main/java/de/mossgrabers/bitwig/framework/daw/data/CursorTrackImpl.java
++++ b/src/main/java/de/mossgrabers/bitwig/framework/daw/data/CursorTrackImpl.java
+@@ -8,6 +8,7 @@ import de.mossgrabers.bitwig.framework.daw.ApplicationImpl;
+ import de.mossgrabers.bitwig.framework.daw.HostImpl;
+ import de.mossgrabers.bitwig.framework.daw.ModelImpl;
+ import de.mossgrabers.bitwig.framework.daw.data.bank.ParameterBankImpl;
++import de.mossgrabers.framework.controller.color.ColorEx;
+ import de.mossgrabers.framework.controller.valuechanger.IValueChanger;
+ import de.mossgrabers.framework.daw.IHost;
+ import de.mossgrabers.framework.daw.data.ICursorTrack;
+@@ -18,6 +19,7 @@ import com.bitwig.extension.controller.api.CursorRemoteControlsPage;
+ import com.bitwig.extension.controller.api.CursorTrack;
+ import com.bitwig.extension.controller.api.SceneBank;
+ import com.bitwig.extension.controller.api.SettableBooleanValue;
++import com.bitwig.extension.controller.api.SettableColorValue;
+ import com.bitwig.extension.controller.api.Track;
+ import com.bitwig.extension.controller.api.TrackBank;
+ 
+@@ -127,6 +129,24 @@ public class CursorTrackImpl extends TrackImpl implements ICursorTrack
+     }
+ 
+ 
++    /**
++     * Get the color of the track at the given absolute position.
++     *
++     * @param position The absolute position of the track
++     * @return The color of the track, black if no track exists at the position
++     */
++    public ColorEx getColorOfTrack (final int position)
++    {
++        if (position < 0 || position >= NUM_TRACKS_LARGE_BANK)
++            return ColorEx.BLACK;
++
++        final Track track = this.largeTrackBank.getItemAt (position);
++        final SettableColorValue color = track.color ();
++        color.markInterested ();
++        return new ColorEx (color.red (), color.green (), color.blue ());
++    }
++
++
+     /** {@inheritDoc} */
+     @Override
+     public void swapWithPrevious ()
+diff --git a/src/main/java/de/mossgrabers/bitwig/framework/daw/data/bank/AbstractTrackBankImpl.java b/src/main/java/de/mossgrabers/bitwig/framework/daw/data/bank/AbstractTrackBankImpl.java
+index eb0593ac..b9d7dc45 100644
+--- a/src/main/java/de/mossgrabers/bitwig/framework/daw/data/bank/AbstractTrackBankImpl.java
++++ b/src/main/java/de/mossgrabers/bitwig/framework/daw/data/bank/AbstractTrackBankImpl.java
+@@ -120,6 +120,21 @@ public abstract class AbstractTrackBankImpl extends AbstractChannelBankImpl<Trac
+     }
+ 
+ 
++    /** {@inheritDoc} */
++    @Override
++    public ColorEx getColorOfTrack (final int position)
++    {
++        final int index = position - this.getScrollPosition ();
++        if (index >= 0 && index < this.getPageSize ())
++        {
++            final ITrack track = this.getItem (index);
++            return track.doesExist () ? track.getColor () : ColorEx.BLACK;
++        }
++
++        return this.cursorTrack.getColorOfTrack (position);
++    }
++
++
+     /** {@inheritDoc} */
+     @Override
+     public boolean isClipRecording ()
+diff --git a/src/main/java/de/mossgrabers/bitwig/framework/daw/data/bank/EffectTrackBankImpl.java b/src/main/java/de/mossgrabers/bitwig/framework/daw/data/bank/EffectTrackBankImpl.java
+index 870b612a..4e5b54c8 100755
+--- a/src/main/java/de/mossgrabers/bitwig/framework/daw/data/bank/EffectTrackBankImpl.java
++++ b/src/main/java/de/mossgrabers/bitwig/framework/daw/data/bank/EffectTrackBankImpl.java
+@@ -6,8 +6,10 @@ package de.mossgrabers.bitwig.framework.daw.data.bank;
+ 
+ import de.mossgrabers.bitwig.framework.daw.ApplicationImpl;
+ import de.mossgrabers.bitwig.framework.daw.data.CursorTrackImpl;
++import de.mossgrabers.framework.controller.color.ColorEx;
+ import de.mossgrabers.framework.controller.valuechanger.IValueChanger;
+ import de.mossgrabers.framework.daw.IHost;
++import de.mossgrabers.framework.daw.data.ITrack;
+ import de.mossgrabers.framework.daw.data.bank.ITrackBank;
+ import de.mossgrabers.framework.observer.INoteObserver;
+ 
+@@ -61,6 +63,21 @@ public class EffectTrackBankImpl extends AbstractTrackBankImpl
+     }
+ 
+ 
++    /** {@inheritDoc} */
++    @Override
++    public ColorEx getColorOfTrack (final int position)
++    {
++        final int index = position - this.getScrollPosition ();
++        if (index >= 0 && index < this.getPageSize ())
++        {
++            final ITrack track = this.getItem (index);
++            return track.doesExist () ? track.getColor () : ColorEx.BLACK;
++        }
++
++        return ColorEx.BLACK;
++    }
++
++
+     /** {@inheritDoc} */
+     @Override
+     public void selectParent ()
+diff --git a/src/main/java/de/mossgrabers/controller/novation/launchpad/LaunchpadConfiguration.java b/src/main/java/de/mossgrabers/controller/novation/launchpad/LaunchpadConfiguration.java
+index 7d2dfe62..7e658dc7 100755
+--- a/src/main/java/de/mossgrabers/controller/novation/launchpad/LaunchpadConfiguration.java
++++ b/src/main/java/de/mossgrabers/controller/novation/launchpad/LaunchpadConfiguration.java
+@@ -47,8 +47,15 @@ public class LaunchpadConfiguration extends AbstractConfiguration
+             PAD_BRIGHTNESS_VALUES[i] = Integer.toString (i);
+     }
+ 
++    private static final String [] SCENE_BUTTON_OPTIONS   =
++    {
++        "Scale Layout",
++        "Previous/Next Track"
++    };
++
+     private final ILaunchpadControllerDefinition definition;
+     private int                                  padBrightness;
++    private boolean                              sceneButtonsAsTrackNavigation             = true;
+ 
+ 
+     /**
+@@ -95,6 +102,7 @@ public class LaunchpadConfiguration extends AbstractConfiguration
+         this.activateStartWithSessionViewSetting (globalSettings);
+         this.activateTurnOffScalePadsSetting (globalSettings);
+         this.activateShowPlayedChordsSetting (globalSettings);
++        this.activateSceneButtonsSetting (globalSettings);
+ 
+         // ----------------------------------------------------------------
+         // Transport
+@@ -144,6 +152,13 @@ public class LaunchpadConfiguration extends AbstractConfiguration
+     }
+ 
+ 
++    protected void activateSceneButtonsSetting (final ISettingsUI settingsUI)
++    {
++        final IEnumSetting sceneButtonsSetting = settingsUI.getEnumSetting ("Scene 1/2 buttons", CATEGORY_PLAY_AND_SEQUENCE, SCENE_BUTTON_OPTIONS, SCENE_BUTTON_OPTIONS[1]);
++        sceneButtonsSetting.addValueObserver (value -> this.sceneButtonsAsTrackNavigation = SCENE_BUTTON_OPTIONS[1].equals (value));
++    }
++
++
+     /**
+      * Get the pad brightness.
+      *
+@@ -153,4 +168,16 @@ public class LaunchpadConfiguration extends AbstractConfiguration
+     {
+         return this.padBrightness;
+     }
++
++
++    /**
++     * Are the first two scene buttons used to select the previous/next track instead of changing the
++     * scale layout?
++     *
++     * @return True if used for track navigation
++     */
++    public boolean isSceneButtonsAsTrackNavigation ()
++    {
++        return this.sceneButtonsAsTrackNavigation;
++    }
+ }
+diff --git a/src/main/java/de/mossgrabers/controller/novation/launchpad/view/ChordsView.java b/src/main/java/de/mossgrabers/controller/novation/launchpad/view/ChordsView.java
+index 4093170d..e89d6375 100644
+--- a/src/main/java/de/mossgrabers/controller/novation/launchpad/view/ChordsView.java
++++ b/src/main/java/de/mossgrabers/controller/novation/launchpad/view/ChordsView.java
+@@ -4,6 +4,8 @@
+ 
+ package de.mossgrabers.controller.novation.launchpad.view;
+ 
++import java.util.Optional;
++
+ import de.mossgrabers.controller.novation.launchpad.LaunchpadConfiguration;
+ import de.mossgrabers.controller.novation.launchpad.controller.LaunchpadColorManager;
+ import de.mossgrabers.controller.novation.launchpad.controller.LaunchpadControlSurface;
+@@ -12,7 +14,10 @@ import de.mossgrabers.framework.configuration.Configuration;
+ import de.mossgrabers.framework.controller.ButtonID;
+ import de.mossgrabers.framework.controller.display.ITextDisplay;
+ import de.mossgrabers.framework.controller.grid.IPadGrid;
++import de.mossgrabers.framework.daw.DAWColor;
+ import de.mossgrabers.framework.daw.IModel;
++import de.mossgrabers.framework.daw.data.ITrack;
++import de.mossgrabers.framework.daw.data.bank.ITrackBank;
+ import de.mossgrabers.framework.daw.midi.IMidiInput;
+ import de.mossgrabers.framework.daw.midi.MidiConstants;
+ import de.mossgrabers.framework.featuregroup.IScrollableView;
+@@ -80,6 +85,10 @@ public class ChordsView extends AbstractChordView<LaunchpadControlSurface, Launc
+     @Override
+     public int getButtonColor (final ButtonID buttonID)
+     {
++        final int trackNavigationColor = this.getTrackNavigationColor (buttonID);
++        if (trackNavigationColor >= 0)
++            return trackNavigationColor;
++
+         if (this.model.canSelectedTrackHoldNotes ())
+         {
+             if (buttonID == ButtonID.SCENE1 || buttonID == ButtonID.SCENE2 || buttonID == ButtonID.SCENE7 || buttonID == ButtonID.SCENE8)
+@@ -100,6 +109,9 @@ public class ChordsView extends AbstractChordView<LaunchpadControlSurface, Launc
+     @Override
+     public void onButton (final ButtonID buttonID, final ButtonEvent event, final int velocity)
+     {
++        if (this.handleTrackNavigation (buttonID, event))
++            return;
++
+         if (!ButtonID.isSceneButton (buttonID) || event != ButtonEvent.DOWN || !this.model.canSelectedTrackHoldNotes ())
+             return;
+ 
+@@ -155,6 +167,56 @@ public class ChordsView extends AbstractChordView<LaunchpadControlSurface, Launc
+     }
+ 
+ 
++    private boolean handleTrackNavigation (final ButtonID buttonID, final ButtonEvent event)
++    {
++        if (event != ButtonEvent.DOWN || !this.surface.getConfiguration ().isSceneButtonsAsTrackNavigation ())
++            return false;
++
++        switch (buttonID)
++        {
++            case SCENE1:
++                this.model.getCurrentTrackBank ().selectPreviousItem ();
++                break;
++            case SCENE2:
++                this.model.getCurrentTrackBank ().selectNextItem ();
++                break;
++            default:
++                return false;
++        }
++
++        this.mvHelper.notifySelectedTrack ();
++        return true;
++    }
++
++
++    private int getTrackNavigationColor (final ButtonID buttonID)
++    {
++        if (!this.surface.getConfiguration ().isSceneButtonsAsTrackNavigation ())
++            return -1;
++
++        final boolean isPrevious;
++        switch (buttonID)
++        {
++            case SCENE1:
++                isPrevious = true;
++                break;
++            case SCENE2:
++                isPrevious = false;
++                break;
++            default:
++                return -1;
++        }
++
++        final ITrackBank trackBank = this.model.getCurrentTrackBank ();
++        final Optional<ITrack> selectedTrack = trackBank.getSelectedItem ();
++        if (selectedTrack.isEmpty () || (isPrevious ? !trackBank.canScrollBackwards () : !trackBank.canScrollForwards ()))
++            return LaunchpadColorManager.LAUNCHPAD_COLOR_BLACK;
++
++        final int targetPosition = selectedTrack.get ().getPosition () + (isPrevious ? -1 : 1);
++        return this.colorManager.getColorIndex (DAWColor.getColorID (trackBank.getColorOfTrack (targetPosition)));
++    }
++
++
+     /** {@inheritDoc} */
+     @Override
+     public void drawGrid ()
+diff --git a/src/main/java/de/mossgrabers/controller/novation/launchpad/view/PianoView.java b/src/main/java/de/mossgrabers/controller/novation/launchpad/view/PianoView.java
+index 6a00da17..ca3e0cf4 100644
+--- a/src/main/java/de/mossgrabers/controller/novation/launchpad/view/PianoView.java
++++ b/src/main/java/de/mossgrabers/controller/novation/launchpad/view/PianoView.java
+@@ -102,6 +102,9 @@ public class PianoView extends PlayView
+     @Override
+     public void onButton (final ButtonID buttonID, final ButtonEvent event, final int velocity)
+     {
++        if (this.handleTrackNavigation (buttonID, event))
++            return;
++
+         if (!ButtonID.isSceneButton (buttonID) || event != ButtonEvent.DOWN || !this.model.canSelectedTrackHoldNotes ())
+             return;
+ 
+@@ -118,6 +121,10 @@ public class PianoView extends PlayView
+     @Override
+     public int getButtonColor (final ButtonID buttonID)
+     {
++        final int trackNavigationColor = this.getTrackNavigationColor (buttonID);
++        if (trackNavigationColor >= 0)
++            return trackNavigationColor;
++
+         return buttonID == ButtonID.SCENE4 ? this.playControls.getToggleButtonColor () : LaunchpadColorManager.LAUNCHPAD_COLOR_BLACK;
+     }
+ 
+diff --git a/src/main/java/de/mossgrabers/controller/novation/launchpad/view/PlayView.java b/src/main/java/de/mossgrabers/controller/novation/launchpad/view/PlayView.java
+index 313b7ac5..6c4d547f 100755
+--- a/src/main/java/de/mossgrabers/controller/novation/launchpad/view/PlayView.java
++++ b/src/main/java/de/mossgrabers/controller/novation/launchpad/view/PlayView.java
+@@ -4,6 +4,8 @@
+ 
+ package de.mossgrabers.controller.novation.launchpad.view;
+ 
++import java.util.Optional;
++
+ import de.mossgrabers.controller.novation.launchpad.LaunchpadConfiguration;
+ import de.mossgrabers.controller.novation.launchpad.controller.LaunchpadColorManager;
+ import de.mossgrabers.controller.novation.launchpad.controller.LaunchpadControlSurface;
+@@ -11,7 +13,10 @@ import de.mossgrabers.framework.configuration.AbstractConfiguration;
+ import de.mossgrabers.framework.configuration.Configuration;
+ import de.mossgrabers.framework.controller.ButtonID;
+ import de.mossgrabers.framework.controller.display.ITextDisplay;
++import de.mossgrabers.framework.daw.DAWColor;
+ import de.mossgrabers.framework.daw.IModel;
++import de.mossgrabers.framework.daw.data.ITrack;
++import de.mossgrabers.framework.daw.data.bank.ITrackBank;
+ import de.mossgrabers.framework.featuregroup.IScrollableView;
+ import de.mossgrabers.framework.scale.Scale;
+ import de.mossgrabers.framework.scale.Scales;
+@@ -66,6 +71,10 @@ public class PlayView extends AbstractPlayView<LaunchpadControlSurface, Launchpa
+     @Override
+     public int getButtonColor (final ButtonID buttonID)
+     {
++        final int trackNavigationColor = this.getTrackNavigationColor (buttonID);
++        if (trackNavigationColor >= 0)
++            return trackNavigationColor;
++
+         if (!this.model.canSelectedTrackHoldNotes ())
+             return LaunchpadColorManager.LAUNCHPAD_COLOR_BLACK;
+ 
+@@ -93,6 +102,9 @@ public class PlayView extends AbstractPlayView<LaunchpadControlSurface, Launchpa
+     @Override
+     public void onButton (final ButtonID buttonID, final ButtonEvent event, final int velocity)
+     {
++        if (this.handleTrackNavigation (buttonID, event))
++            return;
++
+         if (!ButtonID.isSceneButton (buttonID) || event != ButtonEvent.DOWN || !this.model.canSelectedTrackHoldNotes ())
+             return;
+ 
+@@ -148,6 +160,69 @@ public class PlayView extends AbstractPlayView<LaunchpadControlSurface, Launchpa
+     }
+ 
+ 
++    /**
++     * Handle the first two scene buttons as previous/next track selectors if enabled.
++     *
++     * @param buttonID The ID of the pressed button
++     * @param event The button event
++     * @return True if the button event was handled
++     */
++    protected boolean handleTrackNavigation (final ButtonID buttonID, final ButtonEvent event)
++    {
++        if (event != ButtonEvent.DOWN || !this.surface.getConfiguration ().isSceneButtonsAsTrackNavigation ())
++            return false;
++
++        switch (buttonID)
++        {
++            case SCENE1:
++                this.model.getCurrentTrackBank ().selectPreviousItem ();
++                break;
++            case SCENE2:
++                this.model.getCurrentTrackBank ().selectNextItem ();
++                break;
++            default:
++                return false;
++        }
++
++        this.mvHelper.notifySelectedTrack ();
++        return true;
++    }
++
++
++    /**
++     * Get the color for the track navigation function of the first two scene buttons.
++     *
++     * @param buttonID The ID of the button
++     * @return The color index or -1 if the button is not used for track navigation
++     */
++    protected int getTrackNavigationColor (final ButtonID buttonID)
++    {
++        if (!this.surface.getConfiguration ().isSceneButtonsAsTrackNavigation ())
++            return -1;
++
++        final boolean isPrevious;
++        switch (buttonID)
++        {
++            case SCENE1:
++                isPrevious = true;
++                break;
++            case SCENE2:
++                isPrevious = false;
++                break;
++            default:
++                return -1;
++        }
++
++        final ITrackBank trackBank = this.model.getCurrentTrackBank ();
++        final Optional<ITrack> selectedTrack = trackBank.getSelectedItem ();
++        if (selectedTrack.isEmpty () || (isPrevious ? !trackBank.canScrollBackwards () : !trackBank.canScrollForwards ()))
++            return LaunchpadColorManager.LAUNCHPAD_COLOR_BLACK;
++
++        final int targetPosition = selectedTrack.get ().getPosition () + (isPrevious ? -1 : 1);
++        return this.colorManager.getColorIndex (DAWColor.getColorID (trackBank.getColorOfTrack (targetPosition)));
++    }
++
++
+     /** {@inheritDoc} */
+     @Override
+     public void drawGrid ()
+diff --git a/src/main/java/de/mossgrabers/framework/daw/data/bank/ITrackBank.java b/src/main/java/de/mossgrabers/framework/daw/data/bank/ITrackBank.java
+index 2ca21e1f..a9bb0e31 100755
+--- a/src/main/java/de/mossgrabers/framework/daw/data/bank/ITrackBank.java
++++ b/src/main/java/de/mossgrabers/framework/daw/data/bank/ITrackBank.java
+@@ -58,6 +58,15 @@ public interface ITrackBank extends IChannelBank<ITrack>
+     boolean isClipRecording ();
+ 
+ 
++    /**
++     * Get the color of the track at the given absolute position.
++     *
++     * @param position The absolute position of the track
++     * @return The color of the track, black if no track exists at the position
++     */
++    ColorEx getColorOfTrack (int position);
++
++
+     /**
+      * Add an observer for the items name.
+      *

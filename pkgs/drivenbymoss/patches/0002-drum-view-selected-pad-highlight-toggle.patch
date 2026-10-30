@@ -1,0 +1,208 @@
+From aeee7860677170d8654402c086f0ca049c2a89c4 Mon Sep 17 00:00:00 2001
+From: mrtnvgr <martynovegorOF@yandex.ru>
+Date: Tue, 27 Oct 2026 22:31:18 +0300
+Subject: [PATCH 2/2] DrumView: make selected pad highlight optional
+
+Add a "Highlight selected drum pad" setting. It is disabled by default, so drum views keep the pad's normal state color unless highlighting is explicitly enabled.
+---
+ .../ableton/push/PushConfiguration.java       |  1 +
+ .../controller/akai/apc/APCConfiguration.java |  3 ++
+ .../akai/fire/FireConfiguration.java          |  3 ++
+ .../jam/MaschineJamConfiguration.java         |  3 ++
+ .../launchpad/LaunchpadConfiguration.java     |  1 +
+ .../oxi/one/OxiOneConfiguration.java          |  3 ++
+ .../configuration/AbstractConfiguration.java  | 28 +++++++++++++++++++
+ .../configuration/Configuration.java          |  8 ++++++
+ .../framework/view/AbstractDrum64View.java    |  2 +-
+ .../view/sequencer/AbstractDrumView.java      |  2 +-
+ 10 files changed, 52 insertions(+), 2 deletions(-)
+
+diff --git a/src/main/java/de/mossgrabers/controller/ableton/push/PushConfiguration.java b/src/main/java/de/mossgrabers/controller/ableton/push/PushConfiguration.java
+index c969c413..9ab77227 100755
+--- a/src/main/java/de/mossgrabers/controller/ableton/push/PushConfiguration.java
++++ b/src/main/java/de/mossgrabers/controller/ableton/push/PushConfiguration.java
+@@ -544,6 +544,7 @@ public class PushConfiguration extends AbstractConfiguration implements IGraphic
+         {
+             this.activateAutoSelectDrumSetting (globalSettings);
+             this.activateTurnOffEmptyDrumPadsSetting (globalSettings);
++            this.activateShowSelectedDrumPadSetting (globalSettings);
+         }
+ 
+         // ----------------------------------------------------------------
+diff --git a/src/main/java/de/mossgrabers/controller/akai/apc/APCConfiguration.java b/src/main/java/de/mossgrabers/controller/akai/apc/APCConfiguration.java
+index d06b1eab..79229739 100755
+--- a/src/main/java/de/mossgrabers/controller/akai/apc/APCConfiguration.java
++++ b/src/main/java/de/mossgrabers/controller/akai/apc/APCConfiguration.java
+@@ -94,7 +94,10 @@ public class APCConfiguration extends AbstractConfiguration
+         // Drum Sequencer
+ 
+         if (this.host.supports (Capability.HAS_DRUM_DEVICE))
++        {
+             this.activateTurnOffEmptyDrumPadsSetting (globalSettings);
++            this.activateShowSelectedDrumPadSetting (globalSettings);
++        }
+ 
+         // ----------------------------------------------------------------
+         // Workflow
+diff --git a/src/main/java/de/mossgrabers/controller/akai/fire/FireConfiguration.java b/src/main/java/de/mossgrabers/controller/akai/fire/FireConfiguration.java
+index 21afe897..8d9a6769 100644
+--- a/src/main/java/de/mossgrabers/controller/akai/fire/FireConfiguration.java
++++ b/src/main/java/de/mossgrabers/controller/akai/fire/FireConfiguration.java
+@@ -112,7 +112,10 @@ public class FireConfiguration extends AbstractConfiguration
+         // Drum Sequencer
+ 
+         if (this.host.supports (Capability.HAS_DRUM_DEVICE))
++        {
+             this.activateTurnOffEmptyDrumPadsSetting (globalSettings);
++            this.activateShowSelectedDrumPadSetting (globalSettings);
++        }
+         this.activateUseCombinationButtonToSoundSetting (globalSettings);
+ 
+         // ----------------------------------------------------------------
+diff --git a/src/main/java/de/mossgrabers/controller/ni/maschine/jam/MaschineJamConfiguration.java b/src/main/java/de/mossgrabers/controller/ni/maschine/jam/MaschineJamConfiguration.java
+index 7fa8e8bb..365c903f 100644
+--- a/src/main/java/de/mossgrabers/controller/ni/maschine/jam/MaschineJamConfiguration.java
++++ b/src/main/java/de/mossgrabers/controller/ni/maschine/jam/MaschineJamConfiguration.java
+@@ -111,7 +111,10 @@ public class MaschineJamConfiguration extends AbstractConfiguration
+         // Drum Sequencer
+ 
+         if (this.host.supports (Capability.HAS_DRUM_DEVICE))
++        {
+             this.activateTurnOffEmptyDrumPadsSetting (globalSettings);
++            this.activateShowSelectedDrumPadSetting (globalSettings);
++        }
+ 
+         // ----------------------------------------------------------------
+         // Session
+diff --git a/src/main/java/de/mossgrabers/controller/novation/launchpad/LaunchpadConfiguration.java b/src/main/java/de/mossgrabers/controller/novation/launchpad/LaunchpadConfiguration.java
+index 7e658dc7..f57878ea 100755
+--- a/src/main/java/de/mossgrabers/controller/novation/launchpad/LaunchpadConfiguration.java
++++ b/src/main/java/de/mossgrabers/controller/novation/launchpad/LaunchpadConfiguration.java
+@@ -123,6 +123,7 @@ public class LaunchpadConfiguration extends AbstractConfiguration
+ 
+         this.activateAutoSelectDrumSetting (globalSettings);
+         this.activateTurnOffEmptyDrumPadsSetting (globalSettings);
++        this.activateShowSelectedDrumPadSetting (globalSettings);
+ 
+         // ----------------------------------------------------------------
+         // Workflow
+diff --git a/src/main/java/de/mossgrabers/controller/oxi/one/OxiOneConfiguration.java b/src/main/java/de/mossgrabers/controller/oxi/one/OxiOneConfiguration.java
+index a0e81629..1b6ee113 100644
+--- a/src/main/java/de/mossgrabers/controller/oxi/one/OxiOneConfiguration.java
++++ b/src/main/java/de/mossgrabers/controller/oxi/one/OxiOneConfiguration.java
+@@ -142,7 +142,10 @@ public class OxiOneConfiguration extends AbstractConfiguration
+         // Drum Sequencer
+ 
+         if (this.host.supports (Capability.HAS_DRUM_DEVICE))
++        {
+             this.activateTurnOffEmptyDrumPadsSetting (globalSettings);
++            this.activateShowSelectedDrumPadSetting (globalSettings);
++        }
+ 
+         // ----------------------------------------------------------------
+         // Workflow
+diff --git a/src/main/java/de/mossgrabers/framework/configuration/AbstractConfiguration.java b/src/main/java/de/mossgrabers/framework/configuration/AbstractConfiguration.java
+index c32e1e49..e0b0e4e6 100755
+--- a/src/main/java/de/mossgrabers/framework/configuration/AbstractConfiguration.java
++++ b/src/main/java/de/mossgrabers/framework/configuration/AbstractConfiguration.java
+@@ -147,6 +147,8 @@ public abstract class AbstractConfiguration implements Configuration
+     public static final Integer      COLOR_TRACK_STATES              = Integer.valueOf (51);
+     /** The speed of the encoder knob can be slowed down. */
+     public static final Integer      ENCODER_KNOB_SLOW_DOWN          = Integer.valueOf (52);
++    /** Setting for highlighting the selected drum pad. */
++    public static final Integer      SHOW_SELECTED_DRUM_PAD          = Integer.valueOf (53);
+ 
+     // Implementation IDs start at 100
+     protected static final int       NEXT_SETTING_ID                 = 100;
+@@ -430,6 +432,7 @@ public abstract class AbstractConfiguration implements Configuration
+     private boolean                                   autoSelectDrum                      = false;
+     private int                                       actionForRecArmedPad                = 0;
+     private boolean                                   turnOffEmptyDrumPads                = false;
++    private boolean                                   showSelectedDrumPad                 = false;
+     private boolean                                   turnOffScalePads;
+     private final int []                              footswitch                          = new int [NUMBER_OF_FOOTSWITCHES];
+     private int                                       knobSpeedDefault                    = 0;
+@@ -788,6 +791,14 @@ public abstract class AbstractConfiguration implements Configuration
+     }
+ 
+ 
++    /** {@inheritDoc} */
++    @Override
++    public boolean isShowSelectedDrumPad ()
++    {
++        return this.showSelectedDrumPad;
++    }
++
++
+     /** {@inheritDoc} */
+     @Override
+     public boolean isTurnOffScalePads ()
+@@ -1386,6 +1397,23 @@ public abstract class AbstractConfiguration implements Configuration
+     }
+ 
+ 
++    /**
++     * Activate the show selected drum pad setting.
++     *
++     * @param settingsUI The settings
++     */
++    protected void activateShowSelectedDrumPadSetting (final ISettingsUI settingsUI)
++    {
++        final IEnumSetting showSelectedDrumPadSetting = settingsUI.getEnumSetting ("Highlight selected drum pad", CATEGORY_DRUMS, ON_OFF_OPTIONS, ON_OFF_OPTIONS[0]);
++        showSelectedDrumPadSetting.addValueObserver (value -> {
++            this.showSelectedDrumPad = "On".equals (value);
++            this.notifyObservers (SHOW_SELECTED_DRUM_PAD);
++        });
++
++        this.isSettingActive.add (SHOW_SELECTED_DRUM_PAD);
++    }
++
++
+     /**
+      * Activate the turn scale pads setting.
+      *
+diff --git a/src/main/java/de/mossgrabers/framework/configuration/Configuration.java b/src/main/java/de/mossgrabers/framework/configuration/Configuration.java
+index 1ed5a4b1..4e11ba33 100755
+--- a/src/main/java/de/mossgrabers/framework/configuration/Configuration.java
++++ b/src/main/java/de/mossgrabers/framework/configuration/Configuration.java
+@@ -261,6 +261,14 @@ public interface Configuration
+     boolean isTurnOffEmptyDrumPads ();
+ 
+ 
++    /**
++     * Highlight the selected drum pad?
++     *
++     * @return True if the selected drum pad should be highlighted
++     */
++    boolean isShowSelectedDrumPad ();
++
++
+     /**
+      * Turn off the LEDs of pads which represent notes in the scale?
+      *
+diff --git a/src/main/java/de/mossgrabers/framework/view/AbstractDrum64View.java b/src/main/java/de/mossgrabers/framework/view/AbstractDrum64View.java
+index ce8154ab..b77c1e76 100755
+--- a/src/main/java/de/mossgrabers/framework/view/AbstractDrum64View.java
++++ b/src/main/java/de/mossgrabers/framework/view/AbstractDrum64View.java
+@@ -188,7 +188,7 @@ public abstract class AbstractDrum64View<S extends IControlSurface<C>, C extends
+         if (this.pressedKeys[this.offsetY + index] > 0)
+             return isRecording ? AbstractDrumView.COLOR_PAD_RECORD : AbstractDrumView.COLOR_PAD_PLAY;
+         // Selected?
+-        if (this.selectedPad == index)
++        if (this.selectedPad == index && this.surface.getConfiguration ().isShowSelectedDrumPad ())
+             return AbstractDrumView.COLOR_PAD_SELECTED;
+ 
+         // Exists and active?
+diff --git a/src/main/java/de/mossgrabers/framework/view/sequencer/AbstractDrumView.java b/src/main/java/de/mossgrabers/framework/view/sequencer/AbstractDrumView.java
+index e92ff206..1fd9596c 100755
+--- a/src/main/java/de/mossgrabers/framework/view/sequencer/AbstractDrumView.java
++++ b/src/main/java/de/mossgrabers/framework/view/sequencer/AbstractDrumView.java
+@@ -498,7 +498,7 @@ public abstract class AbstractDrumView<S extends IControlSurface<C>, C extends C
+             return isRecording ? AbstractDrumView.COLOR_PAD_RECORD : AbstractDrumView.COLOR_PAD_PLAY;
+ 
+         // Selected?
+-        if (this.selectedPad == index)
++        if (this.selectedPad == index && this.surface.getConfiguration ().isShowSelectedDrumPad ())
+             return AbstractDrumView.COLOR_PAD_SELECTED;
+ 
+         // Exists and active?
