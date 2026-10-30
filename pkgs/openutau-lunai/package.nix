@@ -16,13 +16,15 @@
 
 buildDotnetModule rec {
   pname = "openutau-lunai";
-  version = "0.2.1.0";
+  version = "0.2.1.0-unstable-${builtins.substring 0 8 src.rev}";
 
+  # Latest master snapshot. Upstream's newest release tag is 0.2.1.0, but
+  # master has moved to .NET 10 and contains a substantial rewrite since then.
   src = fetchFromGitHub {
     owner = "keirokeer";
     repo = "OpenUtau-lunai";
-    tag = version;
-    hash = "sha256-D7mCyiVs3BpLfd9avUeyagXQEz/Sp7ST5peubzxCC68=";
+    rev = "01be2980269b01fb2d3f90e311d1132e91588768";
+    hash = "sha256-f4GSZacMsX6l0CjYl63d9iEB5ngotgVxWSMuDlq4+34=";
   };
 
   nativeBuildInputs = [ copyDesktopItems ];
@@ -44,8 +46,8 @@ buildDotnetModule rec {
     })
   ];
 
-  dotnet-sdk = dotnetCorePackages.sdk_8_0;
-  dotnet-runtime = dotnetCorePackages.runtime_8_0;
+  dotnet-sdk = dotnetCorePackages.sdk_10_0;
+  dotnet-runtime = dotnetCorePackages.runtime_10_0;
 
   # The "GenerateDepsFile" task fails when multiple projects are built in parallel.
   enableParallelBuilding = false;
@@ -59,7 +61,10 @@ buildDotnetModule rec {
   executables = [ "OpenUtau-Lunai" ];
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--flake" ];
+    extraArgs = [
+      "--flake"
+      "--version=branch"
+    ];
   };
 
   runtimeDeps = [
