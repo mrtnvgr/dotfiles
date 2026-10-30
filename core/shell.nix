@@ -21,8 +21,6 @@ in {
         # TODO: remove all together after some time
         perm = "echo Use 'stat' instead. #";
 
-        rsync = "rsync --verbose --human-readable --progress";
-
         g = "git";
       };
     };
