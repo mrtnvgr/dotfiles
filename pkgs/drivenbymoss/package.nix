@@ -26,7 +26,7 @@ maven.buildMavenPackage rec {
   mvnJdk = jdk21;
   doCheck = false;
 
-  mvnHash = "sha256-azOYleBzlK5nTpWQKmfULHbpjYf/tb9o3I7Cl6qi6eE=";
+  mvnHash = "sha256-C9Xuk4TXWxLiDh+1+TyeQSeehKDQMdAZaAEdiialcJo=";
 
   installPhase = ''
     runHook preInstall
