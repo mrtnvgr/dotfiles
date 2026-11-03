@@ -11,6 +11,7 @@
   fontconfig,
   libGL,
   libx11,
+  libxi,
   libxcursor,
   libxcomposite,
   libxext,
@@ -38,6 +39,7 @@ let
   runtimeDependencies = [
     libGL
     libx11
+    libxi
     libxcursor
     libxcomposite
     libxext
@@ -76,6 +78,7 @@ stdenv.mkDerivation (finalAttrs: {
     freetype
     fontconfig
     libx11
+    libxi
     libxcursor
     libxcomposite
     libxext
