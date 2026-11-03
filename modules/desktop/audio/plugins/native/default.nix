@@ -39,7 +39,7 @@
 in
 {
   imports = [
-    # ./plugdata.nix
+    ./plugdata.nix
   ];
 
   options.modules.desktop.audio.plugins.native = {

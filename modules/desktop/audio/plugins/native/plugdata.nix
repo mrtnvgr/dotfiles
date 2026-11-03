@@ -53,7 +53,7 @@
   '';
 in {
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.plugdata ];
+    environment.systemPackages = [ pkgs.plugdata-unstable ];
 
     home-manager.users.${user} = {
       # TODO: make modules.desktop.paths.documents option
