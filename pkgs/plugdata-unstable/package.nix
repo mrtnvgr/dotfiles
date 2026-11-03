@@ -20,6 +20,16 @@ pkgs.plugdata.overrideAttrs (prev: {
   # plugdata's develop branch already carries it, so the patch no longer applies.
   patches = [ ];
 
+  # plugdata loads fonts/documentation from a packed resource file next to the
+  # loaded module. VST3/LV2 bundles already contain it, but the standalone
+  # executable and the CLAP plugins do not, which makes plugdata abort at
+  # startup (and makes Bitwig's plugin host crash when it loads the CLAP).
+  postInstall = (prev.postInstall or "") + ''
+    resource=$(find Plugins -name plugdata-resources.bin | head -n 1)
+    install -Dm644 "$resource" $out/bin/plugdata-resources.bin
+    install -Dm644 "$resource" $out/lib/clap/plugdata-resources.bin
+  '';
+
   passthru = (prev.passthru or { }) // {
     updateScript = pkgs.nix-update-script {
       extraArgs = [
