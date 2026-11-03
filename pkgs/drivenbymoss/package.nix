@@ -19,8 +19,8 @@ maven.buildMavenPackage rec {
   # Local changes from github.com/mrtnvgr/drivenbymoss, rebased onto the
   # upstream release tag. See ./patches/README.md for details.
   patches = [
-    ./patches/0001-launchpad-scene-buttons-track-navigation.patch
-    ./patches/0002-drum-view-selected-pad-highlight-toggle.patch
+    ./patches/0001-drum-view-selected-pad-highlight-toggle.patch
+    ./patches/0002-launchpad-note-mode-white-pressed-notes.patch
   ];
 
   mvnJdk = jdk21;

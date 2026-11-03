@@ -1,7 +1,7 @@
 From aeee7860677170d8654402c086f0ca049c2a89c4 Mon Sep 17 00:00:00 2001
 From: mrtnvgr <martynovegorOF@yandex.ru>
 Date: Tue, 27 Oct 2026 22:31:18 +0300
-Subject: [PATCH 2/2] DrumView: make selected pad highlight optional
+Subject: [PATCH 1/2] DrumView: make selected pad highlight optional
 
 Add a "Highlight selected drum pad" setting. It is disabled by default, so drum views keep the pad's normal state color unless highlighting is explicitly enabled.
 ---

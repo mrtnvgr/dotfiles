@@ -1,0 +1,26 @@
+From e7f7198b5414cb0bd6d55e822a27263be5feb3de Mon Sep 17 00:00:00 2001
+From: martyn <martynovegorOF@yandex.ru>
+Date: Tue, 3 Nov 2026 13:06:30 +0300
+Subject: [PATCH 2/2] Launchpad: use white for pressed notes in note mode
+
+Change the color of pressed notes in note mode from green to white.
+---
+ .../novation/launchpad/controller/LaunchpadColorManager.java    | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/main/java/de/mossgrabers/controller/novation/launchpad/controller/LaunchpadColorManager.java b/src/main/java/de/mossgrabers/controller/novation/launchpad/controller/LaunchpadColorManager.java
+index cc1ecec..9a434e2 100644
+--- a/src/main/java/de/mossgrabers/controller/novation/launchpad/controller/LaunchpadColorManager.java
++++ b/src/main/java/de/mossgrabers/controller/novation/launchpad/controller/LaunchpadColorManager.java
+@@ -163,7 +163,7 @@ public class LaunchpadColorManager extends ColorManager
+         this.registerColorIndex (AbstractDrumExView.COLOR_EX_TOGGLE_ON, LAUNCHPAD_COLOR_RED_HI);
+         this.registerColorIndex (AbstractDrumExView.COLOR_EX_TOGGLE_OFF, LAUNCHPAD_COLOR_RED_LO);
+ 
+-        this.registerColorIndex (AbstractPlayView.COLOR_PLAY, LAUNCHPAD_COLOR_GREEN_HI);
++        this.registerColorIndex (AbstractPlayView.COLOR_PLAY, LAUNCHPAD_COLOR_WHITE);
+         this.registerColorIndex (AbstractPlayView.COLOR_RECORD, LAUNCHPAD_COLOR_RED_HI);
+         this.registerColorIndex (AbstractPlayView.COLOR_OFF, LAUNCHPAD_COLOR_BLACK);
+ 
+-- 
+2.56.0
+
