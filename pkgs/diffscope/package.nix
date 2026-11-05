@@ -46,7 +46,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "diffscope";
-  version = "0.2.0-nightly.20261101.1";
+  version = "0.2.0-nightly.20261105.1";
 
   # Upstream publishes only nightly releases. The release tag uses dots and
   # hyphens, while the asset name replaces them with underscores.
@@ -55,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url = "https://github.com/diffscope/diffscope-project/releases/download/${finalAttrs.releaseTag}/DiffScope_nightly_${finalAttrs.assetVersion}_Linux_amd64_portable.tar.xz";
-    hash = "sha256-3J7zOwejr2mNnvRdy9gxPcaBmxOGvnhby9Y/BgpzHW4=";
+    hash = "sha256-1DNxSj9bBqtaJVejX94V507vV+wJGx/E/16g5YV1N4w=";
   };
 
   nativeBuildInputs = [
