@@ -7,11 +7,6 @@ hl.monitor({
     scale    = 1,
 })
 
--- Keep workspaces 1-8 alive even when empty
-for i = 1, 8 do
-    hl.workspace_rule({ workspace = tostring(i), persistent = true })
-end
-
 -- Use systemd-logind instead of seatd. Without this, Hyprland fails at startup
 -- with "[libseat] No backend was able to open a seat" on systems where the
 -- seatd service is not running.
