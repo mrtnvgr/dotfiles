@@ -6,13 +6,13 @@
 # "unstable"/nightly packages from. The base derivation is still taken from
 # nixpkgs, so packaging fixes and runtime dependencies are inherited.
 pkgs.plugdata.overrideAttrs (prev: {
-  version = "unstable-2026-11-02";
+  version = "0.9.3-2-unstable-2026-11-03";
 
   src = pkgs.fetchFromGitHub {
     owner = "plugdata-team";
     repo = "plugdata";
-    rev = "29915444d6ad39b4cafec7a26067cd4837cbcd07";
-    hash = "sha256-EXHxEA33fjQ2IM/B4QnyMaTXAQOP9ZFY0CBDnjW2L/0=";
+    rev = "9ec3ae04669246879c487a9472962c48314a8138";
+    hash = "sha256-QrGcRY7+IZpg8ZsYhFKQtuaMB4SyNE1g97VDCuu9rsA=";
     fetchSubmodules = true;
   };
 
