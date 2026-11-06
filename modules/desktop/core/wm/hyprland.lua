@@ -168,6 +168,15 @@ hl.window_rule({
     no_anim = true,
 })
 
+-- xdg-desktop-portal-termfilechooser file picker
+hl.window_rule({
+    match = { class = "^termfilechooser$", },
+    float = true,
+    center = true,
+    stay_focused = true,
+    dim_around = true,
+})
+
 -- Fix some dragging issues with XWayland
 hl.window_rule({
     match = {
