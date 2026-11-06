@@ -15,7 +15,6 @@
     ./kvm.nix
     ./xdg.nix
     ./cursors.nix
-    ./torsocks.nix
     ./delta.nix
 
     ./oxidec.nix
