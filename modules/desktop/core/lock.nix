@@ -14,11 +14,5 @@ in {
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [ lock ];
     security.pam.services.waylock = {};
-
-    # Disable automatic physlock runs
-    services.physlock.lockOn = {
-      suspend = false;
-      hibernate = false;
-    };
   };
 }
