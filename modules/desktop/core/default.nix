@@ -8,7 +8,6 @@
     ./multimedia.nix
     ./fonts.nix
     ./gtk.nix
-    ./qt.nix
     ./packages.nix
     ./network.nix
     ./kvm.nix
