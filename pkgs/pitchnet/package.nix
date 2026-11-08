@@ -50,14 +50,14 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "pitchnet";
-  version = "0.7.4";
+  version = "0.7.5";
 
   src = fetchFromGitHub {
     owner = "SessionLoops";
     repo = "PitchNet";
     tag = "v${finalAttrs.version}";
     fetchSubmodules = true;
-    hash = "sha256-KUpXTIVf9vB4pZy5Lqa32H8xPgEO6bU0I5YTiAX/ajY=";
+    hash = "sha256-5OPos5ERiV1VPfT6kR+S6crHUIxRzQ2TQ7oatPmU5lk=";
   };
 
   # Upstream only treats AI Resynthesis (the neural vocoder) as available on
