@@ -12,6 +12,7 @@
     ./network.nix
     ./kvm.nix
     ./xdg.nix
+    ./explorer.nix
     ./cursors.nix
     ./delta.nix
 
