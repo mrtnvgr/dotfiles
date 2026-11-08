@@ -6,11 +6,11 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "torrserver";
-  version = "148";
+  version = "150";
 
   src = fetchurl {
     url = "https://github.com/YouROK/TorrServer/releases/download/MatriX.${finalAttrs.version}/TorrServer-linux-amd64";
-    hash = "sha256-BQ+km5D7R6emDbu67pbebgcnAbmWsfI+s+PcZ9cj+sE=";
+    hash = "sha256-IyZVnlBH/gy+qP02Fo08naEkNGZkD47lUFFkCxVHiK4=";
   };
 
   # The release asset is a statically linked Go binary.
