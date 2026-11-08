@@ -48,6 +48,7 @@ jobs:
         NIXPKGS_ALLOW_UNFREE: 1
       run: |
         failed=0
+        failed_packages=()
 
         nix eval --raw --impure .#packages.x86_64-linux --apply '
           pkgs: builtins.concatStringsSep "\n" (
@@ -67,9 +68,35 @@ jobs:
         for pkg in "${packages[@]}"; do
           [ -n "$pkg" ] || continue
           echo "::group::nix-update $pkg"
-          nix-update --flake --use-update-script --commit "$pkg" || failed=1
+
+          # Upstream APIs and GitHub occasionally time out or reset
+          # connections. Retry a few times instead of failing the whole run.
+          updated=0
+          for attempt in 1 2 3; do
+            if nix-update --flake --use-update-script --commit "$pkg"; then
+              updated=1
+              break
+            fi
+
+            echo "::warning::nix-update $pkg failed (attempt $attempt/3)"
+            # Discard partially written changes before trying again.
+            git reset --hard --quiet HEAD
+            git clean -fdq
+            sleep $((attempt * 15))
+          done
+
+          if [ "$updated" -eq 0 ]; then
+            failed=1
+            failed_packages+=("$pkg")
+            echo "::error::nix-update failed for $pkg after 3 attempts"
+          fi
+
           echo "::endgroup::"
         done
+
+        if [ "${#failed_packages[@]}" -ne 0 ]; then
+          printf 'Failed packages: %s\n' "${failed_packages[*]}" >&2
+        fi
 
         echo "failed=$failed" >> "$GITHUB_OUTPUT"
 

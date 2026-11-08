@@ -14,7 +14,17 @@
       nix-update
     ];
     text = ''
-      version="$(${versionCommand})" || version=""
+      version=""
+      for attempt in 1 2 3; do
+        version="$(${versionCommand})" || version=""
+        if [ -n "$version" ]; then
+          break
+        fi
+
+        echo "Could not determine the latest version for ${name} (attempt $attempt/3)" >&2
+        sleep $((attempt * 10))
+      done
+
       if [ -z "$version" ]; then
         echo "Could not determine the latest version for ${name}" >&2
         exit 1
