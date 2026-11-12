@@ -28,6 +28,7 @@ in {
         "MAX 10 FPGA"
       ];
     })
+    pkgs.jdk25
   ];
 
   services.udev.extraRules = ''
