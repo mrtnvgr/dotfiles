@@ -42,6 +42,35 @@ in {
       accent = blue;
     };
 
+    # catppuccin mocha, green-tinted
+    oxidec.colorschemes.c3-green = rec {
+      background = "#1e2922";
+      shadow = "#151e18";
+      void = "#0e1511";
+
+      gray  = "#2e3d33";
+      gray2 = "#3a4b3f";
+      gray3 = "#46594c";
+      gray4 = "#54695b";
+      gray5 = "#647d6c";
+      gray6 = "#769380";
+      gray7 = "#8ea997";
+      gray8 = "#a6bfae";
+
+      text = "#cfe8d5";
+
+      red    = "#f38ba8";
+      green  = "#8fe0a2";
+      yellow = "#f9e2af";
+      blue   = "#89b4fa";
+      purple = "#cba6f7";
+      pink   = "#f5c2e7";
+      teal   = "#94e2d5";
+      orange = "#fab387";
+
+      accent = green;
+    };
+
     # gruvbox material hard
     oxidec.colorschemes.gruv = rec {
       background = "#1d2021";
