@@ -7,7 +7,7 @@
 
   explorer-focused = pkgs.writeShellScriptBin "explorer-focused" /* sh */ ''
     exec ${lib.getExe pkgs.foot} \
-      --app-id=explorer-focused  \
+      --app-id=termfilechooser   \
       --window-size-pixels=1600x900 \
       ${lib.getExe pkgs.yazi} "$@"
   '';
@@ -32,7 +32,7 @@
       set -- --chooser-file="$out" "$path"
     fi
 
-    ${explorer}/bin/explorer-focused "$@"
+    ${explorer-focused}/bin/explorer-focused "$@"
 
     if [ "$directory" = 1 ]; then
       if [ ! -s "$out" ] && [ -s "$out.1" ]; then
@@ -73,7 +73,7 @@ in {
 
         -- Explorer (file manager and xdg-desktop-portal-termfilechooser picker)
         hl.window_rule({
-            match = { class = "^explorer-focused$", },
+            match = { class = "^termfilechooser$", },
             float = true,
             center = true,
             stay_focused = true,
