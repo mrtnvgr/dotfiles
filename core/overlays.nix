@@ -1,6 +1,6 @@
-{ ... }: {
+_: {
   nixpkgs.overlays = [
-    (final: prev: import ../pkgs { pkgs = final; lib = prev.lib; })
+    (final: prev: import ../pkgs { pkgs = final; inherit (prev) lib; })
 
     # yabridge 5.1.1 lets Wine hand JUCE popup menus (created as `WS_POPUP |
     # WS_SYSMENU` windows) to the window manager, which makes dropdowns in

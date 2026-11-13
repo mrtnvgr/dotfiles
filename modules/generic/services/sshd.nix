@@ -11,7 +11,7 @@ in {
 
   config = mkIf cfg.enable {
     services.openssh = {
-      enable = cfg.enable;
+      inherit (cfg) enable;
       settings = {
         PasswordAuthentication = cfg.enablePasswordAuthImReallySure;
         PermitRootLogin = "no";

@@ -1,5 +1,4 @@
-{ config, lib, ... }: let
-in {
+{ config, lib, ... }: {
   options.home.link = lib.mkOption {
     type = with lib.types; attrsOf singleLineStr;
     default = {};

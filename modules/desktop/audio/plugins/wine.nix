@@ -1,7 +1,7 @@
 { inputs, config, pkgs, lib, user, ... }: let
   cfg = config.modules.desktop.audio.plugins.wine;
 
-  types = lib.types;
+  inherit (lib) types;
 
   mkListOption = type: lib.mkOption {
     inherit type;

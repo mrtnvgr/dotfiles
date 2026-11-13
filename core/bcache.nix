@@ -1,4 +1,4 @@
-{ ... }: {
+_: {
   # Keep in sync with nixConfig in ../flake.nix
 
   nix.settings = {
