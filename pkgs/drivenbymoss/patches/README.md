@@ -8,4 +8,5 @@ explicitly enabled.
 
 ## 0002-launchpad-note-mode-white-pressed-notes.patch
 
-Changes the color of pressed notes in Launchpad note mode from green to white.
+Changes the color of pressed notes in Launchpad note mode and drum machine
+note mode from green to white.
