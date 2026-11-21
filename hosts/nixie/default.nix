@@ -27,7 +27,11 @@
 
     audio.rt.enable = true;
 
-    daws.bitwig.enable = true;
+    daws.bitwig = {
+      enable = true;
+      themer.enable = false; # half-broken :/
+    };
+
     audio.plugins.native.enable = true;
 
     audio.plugins.wine.enable = true;
